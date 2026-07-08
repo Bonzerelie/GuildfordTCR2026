@@ -1,0 +1,2783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guildford Town Centre Races 2026 — Commentary Dashboard</title>
+<style>
+:root{
+  --primary:#0b1f3a; --primary-light:#16315c; --secondary:#1f7a4d;
+  --highlight:#e8b13c; --danger:#c0392b; --bg:#f4f6f9; --card-bg:#ffffff;
+  --border:#d9dee5; --text:#1b232f; --text-muted:#5b6675; --muted:#5b6675;
+  --radius:10px;
+  --shadow:0 1px 3px rgba(11,31,58,0.08), 0 1px 2px rgba(11,31,58,0.06);
+}
+*{box-sizing:border-box;}
+html, body{ height:100%; margin:0; }
+body{ display:flex; flex-direction:column; height:100vh; overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); }
+header.top{ flex:0 0 auto; background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%); color:#fff; padding:10px 24px; }
+header.top h1{ margin:0 0 3px 0; font-size:1.25rem; letter-spacing:.2px; }
+header.top .sub{ font-size:.84rem; opacity:.85; }
+header.top .badges{ margin-top:7px; display:flex; gap:10px; flex-wrap:wrap; }
+.badge{ background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:3px 11px; font-size:.75rem; font-weight:600; }
+.badge.highlight{ background:var(--highlight); color:#3a2c06; border-color:var(--highlight); }
+nav.tabs{ flex:0 0 auto; display:flex; align-items:stretch; gap:2px; background:var(--primary); padding:0 20px; overflow-x:auto; }
+.tab-btn{ background:transparent; border:none; color:rgba(255,255,255,0.65); padding:10px 15px; font-size:.88rem; font-weight:600; cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; }
+.tab-btn:hover{ color:#fff; }
+.tab-btn.active{ color:#fff; border-bottom:3px solid var(--highlight); }
+.race-selector{ display:flex; align-items:center; flex-shrink:0; padding:7px 14px 7px 0; margin-right:8px; border-right:1px solid rgba(255,255,255,.18); }
+.race-select{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#fff; padding:6px 10px; font-size:.72rem; font-weight:700; cursor:pointer; border-radius:5px; letter-spacing:.03em; text-transform:uppercase; white-space:nowrap; transition:background .15s,color .15s; }
+.race-select:hover{ background:rgba(255,255,255,.2); }
+.race-select:focus{ outline:2px solid var(--highlight); outline-offset:1px; }
+.race-select option{ background:var(--primary); color:#fff; text-transform:none; font-weight:600; }
+main{ flex:1 1 auto; min-height:0; overflow:hidden; padding:14px 24px; width:100%; display:flex; flex-direction:column; }
+.tab-content{ display:none; }
+.tab-content.active{ display:flex; flex-direction:column; flex:1 1 auto; min-height:0; overflow-y:auto; }
+#tab-dashboard.active, #tab-riders.active, #tab-teams.active, #tab-series.active, #tab-startlist.active{ overflow:hidden; }
+.section-title{ font-size:1.02rem; font-weight:700; margin:20px 0 12px; color:var(--primary); display:flex; align-items:center; gap:8px; }
+.section-title:first-child{ margin-top:0; }
+.card{ background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+.muted{ color:var(--text-muted); }
+.two-col{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media (max-width:800px){ .two-col{ grid-template-columns:1fr; } }
+
+/* Dashboard */
+.dash-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; flex:1 1 auto; min-height:0; margin-top:0; }
+@media (max-width:900px){ .dash-cols{ grid-template-columns:1fr; } }
+.dash-panel{ background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+.dash-panel-head{ flex:0 0 auto; padding:10px 16px; font-weight:700; font-size:.92rem; color:var(--primary); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+.dash-panel-body{ flex:1 1 auto; min-height:0; overflow-y:auto; padding:12px 16px; }
+.dash-col{display:flex;flex-direction:column;min-height:0;overflow:hidden;gap:0;}
+.dash-col>.dash-panel{flex:1 1 0;min-height:36px;}
+.dash-col>.dash-panel.collapsed>.dash-panel-body{display:none;}
+.dash-col>.dash-panel.collapsed{flex:0 0 auto !important;}
+.panel-collapse-btn{background:none;border:none;cursor:pointer;font-size:.95rem;padding:0 4px;color:inherit;line-height:1;flex-shrink:0;transition:transform .15s;}
+.panel-collapse-btn.collapsed{transform:rotate(-90deg);}
+.dash-vresize{flex:0 0 5px;background:var(--border);cursor:ns-resize;z-index:2;transition:background .12s;}
+.dash-vresize:hover,.dash-vresize.dragging{background:var(--primary);}
+.stnds-tog{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;}
+.stnds-tog button{padding:2px 10px;border:1px solid var(--border);border-radius:4px;background:none;cursor:pointer;font-size:.76rem;color:var(--muted);}
+.stnds-tog button.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.dash-tab-toggle{display:flex;gap:16px;align-items:baseline;min-width:0;overflow:hidden;}
+.dash-tab-toggle button{background:none;border:none;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--muted);padding:0;white-space:nowrap;font-family:inherit;}
+.dash-tab-toggle button.active{color:var(--primary);}
+.dash-tab-toggle button .sub{font-weight:400;font-size:.7rem;color:var(--muted);margin-left:4px;}
+.intro-area{width:100%;resize:none;border:1px solid var(--border);border-radius:4px;padding:8px;background:var(--card-bg);color:var(--text);font-family:inherit;box-sizing:border-box;flex:1 1 auto;min-height:50px;}
+.timetable-list{ list-style:none; padding:0; margin:0; }
+.timetable-list li{ display:flex; gap:14px; padding:7px 0; border-bottom:1px solid var(--border); font-size:.86rem; }
+.timetable-list li .t{ font-weight:700; color:var(--primary); width:52px; flex-shrink:0; }
+.timetable-list li.feature{ background:#fff8e6; }
+
+/* Bib pill (rider is in tonight's startlist) */
+.stnds-dot{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:16px;border-radius:8px;padding:0 4px;background:#22a849;color:#fff;font-size:.62rem;font-weight:700;margin-left:5px;vertical-align:middle;line-height:1;}
+.stnds-dot.alt{background:#7c8aa0;}
+
+/* Medal pills */
+.medal-pill{display:inline-block;min-width:34px;text-align:center;padding:1px 7px;border-radius:10px;font-size:.72rem;font-weight:700;}
+.medal-pill.gold{background:linear-gradient(135deg,#f3d27a,#d4af37);color:#4a3a00;}
+.medal-pill.silver{background:linear-gradient(135deg,#e8e8e8,#b9b9b9);color:#3d3d3d;}
+.medal-pill.bronze{background:linear-gradient(135deg,#e0a370,#b5651d);color:#fff;}
+.nat-medal-dot{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;margin-left:3px;}
+.nat-medal-dot.gold{background:#d4af37;}
+.nat-medal-dot.silver{background:#b9b9b9;}
+.nat-medal-dot.bronze{background:#b5651d;}
+.hist-entry-pill{display:inline-block;margin-left:5px;padding:1px 7px;border-radius:10px;font-size:.64rem;font-weight:700;color:#fff;vertical-align:middle;white-space:nowrap;}
+
+/* Startlist editor */
+.sl-wrap{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;}
+.sl-tools{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
+.sl-tools .btn{padding:6px 12px;border:1px solid var(--border);border-radius:6px;background:var(--card-bg);cursor:pointer;font-size:.8rem;font-weight:600;}
+.sl-tools .btn:hover{background:#eef1f5;}
+.sl-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
+table.sl{width:100%;border-collapse:collapse;font-size:.88rem;}
+table.sl th{position:sticky;top:0;background:var(--card-bg);z-index:2;text-align:left;padding:9px 12px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-bottom:2px solid var(--border);}
+table.sl td{padding:5px 12px;border-bottom:1px solid var(--border);}
+table.sl tr:hover td{background:#f7f9fb;}
+table.sl input{padding:5px 8px;border:1px solid transparent;border-radius:5px;font-size:.86rem;background:transparent;width:100%;}
+table.sl input:hover{border-color:var(--border);}
+table.sl input:focus{border-color:var(--primary);background:#fff;outline:none;}
+table.sl input.sl-bib{width:64px;text-align:center;font-weight:700;}
+.sl-rm{border:none;background:none;color:var(--danger);cursor:pointer;font-size:1rem;line-height:1;opacity:.35;}
+tr:hover .sl-rm{opacity:1;}
+.sl-tag{display:inline-block;font-size:.64rem;font-weight:700;border-radius:8px;padding:1px 7px;margin-left:6px;vertical-align:middle;letter-spacing:.03em;}
+.sl-tag.reserve{background:#fff3d6;color:#8a6200;}
+.sl-tag.withdrawn{background:#fdecea;color:var(--danger);}
+.sl-tag.added{background:#e2efe8;color:#155a38;}
+.sl-newrow td{background:#fbfcf3;}
+.sug-box{position:fixed;z-index:10000;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 6px 18px rgba(11,31,58,.18);max-height:260px;overflow-y:auto;min-width:280px;display:none;}
+.sug-item{padding:7px 12px;font-size:.85rem;cursor:pointer;display:flex;justify-content:space-between;gap:10px;}
+.sug-item:hover,.sug-item.hl{background:#eef3f9;}
+.sug-item .sug-team{color:var(--muted);font-size:.76rem;}
+
+/* Riders selection layout (elite) */
+.layout{ display:flex; align-items:stretch; gap:0; flex:1 1 auto; min-height:0; }
+.selection-panel{ flex:0 0 auto; width:320px; min-width:160px; max-width:560px; display:flex; flex-direction:column; min-height:0; }
+.panel-resizer-h{ flex:0 0 10px; cursor:col-resize; display:flex; align-items:center; justify-content:center; position:relative; z-index:2; }
+.panel-resizer-h::before{ content:""; width:4px; height:48px; border-radius:2px; background:var(--border); pointer-events:none; }
+.panel-resizer-h:hover::before,.panel-resizer-h.dragging::before{ background:var(--text-muted); }
+.selection-top{ flex:0 0 auto; display:flex; gap:8px; margin-bottom:8px; }
+.selection-top input[type="text"]{ flex:1 1 auto; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-size:.88rem; }
+.clear-btn{ flex:0 0 auto; font-size:.76rem; padding:5px 12px; border:1px solid var(--border); background:#f7f9fb; border-radius:6px; cursor:pointer; white-space:nowrap; }
+.clear-btn:hover{ background:#eef1f5; }
+.col-toggle-btn{ flex:0 0 auto; width:32px; display:flex; align-items:center; justify-content:center; border:1px solid var(--border); background:#f7f9fb; border-radius:6px; cursor:pointer; padding:0; color:var(--text-muted); }
+.col-toggle-btn:hover{ background:#eef1f5; }
+.table-toggle-btn{ flex:0 0 auto; width:32px; display:flex; align-items:center; justify-content:center; border:1px solid var(--border); background:#f7f9fb; border-radius:6px; cursor:pointer; padding:0; color:var(--text-muted); }
+.table-toggle-btn:hover{ background:#eef1f5; }
+.table-toggle-btn.active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+.sel-panel-toggle{ flex:0 0 20px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--card-bg); border:1px solid var(--border); border-radius:8px; margin:0 6px; color:var(--muted); font-size:.8rem; user-select:none; align-self:center; height:36px; }
+.sel-panel-toggle:hover{ background:#eef1f5; color:var(--primary); }
+.elite-grid-tile{ min-height:0; }
+.elite-grid-inner{ display:flex; flex-direction:column; flex:1 1 auto; min-height:0; padding:14px; overflow-y:auto; }
+.elite-grid-head{ flex:0 0 auto; display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.elite-grid-body{ flex:1 1 auto; min-height:0; }
+.selection-half{ display:flex; flex-direction:column; min-height:60px; flex:1 1 50%; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.selection-half-head{ flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 5px; border-bottom:1px solid var(--border); }
+.subheading-left{ text-align:left; font-size:.88rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--primary); margin:0; }
+.selection-half-head select{ font-size:.74rem; padding:3px 6px; border:1px solid var(--border); border-radius:5px; background:#fff; color:var(--text); }
+.selection-half-body{ flex:1 1 auto; min-height:0; overflow-y:auto; padding:8px 5px; }
+.resizer{ flex:0 0 auto; height:9px; cursor:row-resize; display:flex; align-items:center; justify-content:center; }
+.resizer:before{ content:""; width:36px; height:4px; border-radius:2px; background:var(--border); }
+.resizer:hover:before{ background:var(--text-muted); }
+.checkbox-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px 8px; }
+.checkbox-item{ display:flex; align-items:flex-start; max-width:380px; width:100%; gap:5px; padding:3px 4px; font-size:.86rem; line-height:1.25; border-radius:5px; cursor:pointer; }
+.checkbox-item:hover{ background:#f0f3f7; }
+.checkbox-item input{ margin-top:2px; cursor:pointer; flex-shrink:0; }
+.checkbox-item.otw{ background:rgba(31,122,77,0.13); border-radius:4px; }
+.checkbox-item.otw:hover{ background:rgba(31,122,77,0.22); }
+.rider-name-mc{ cursor:default; }
+.results-panel{ flex:1 1 auto; min-width:0; overflow-y:auto; min-height:200px; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px; box-shadow:var(--shadow); }
+#selection-cards.cols-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-content:start; }
+#selection-cards.cols-3 .rider-card,#selection-cards.cols-3 .team-card{ margin-bottom:0; display:flex; flex-direction:column; overflow:hidden; }
+.team-card-inner{ flex:1 1 auto; overflow-y:auto; min-height:0; padding:16px; }
+@media (max-width:1100px){ #selection-cards.cols-3{ grid-template-columns:repeat(2,1fr); } }
+.empty-state{ text-align:center; padding:60px 20px; color:var(--text-muted); }
+.empty-state .icon{ font-size:2.4rem; margin-bottom:8px; }
+
+/* Rider/team cards (elite) */
+.rider-card{ background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:0; margin-bottom:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden; position:relative; }
+.team-card{ position:relative; }
+.tile-close{ position:absolute; top:6px; right:6px; z-index:5; width:20px;height:20px; display:flex;align-items:center;justify-content:center; border:1px solid var(--border); border-radius:50%; background:var(--card-bg); color:var(--muted); font-size:.9rem;line-height:1; cursor:pointer; padding:0; transition:background .12s,color .12s; }
+.tile-close:hover{ background:var(--danger); color:#fff; border-color:var(--danger); }
+.rider-card-inner{ display:flex; gap:16px; padding:18px; flex:1 1 auto; min-height:0; overflow-y:auto; }
+.rider-kit-thumb{ width:180px; height:auto; object-fit:contain; flex-shrink:0; align-self:flex-start; border-radius:6px; }
+.card-resize-handle{ flex:0 0 6px; background:var(--border); cursor:ns-resize; border-radius:0 0 var(--radius) var(--radius); transition:background .12s; flex-shrink:0; }
+.card-resize-handle:hover,.card-resize-handle.dragging{background:var(--primary);}
+.team-card .card-resize-handle{ display:block; height:6px; width:100%; background:var(--border); cursor:ns-resize; border-radius:0 0 var(--radius) var(--radius); transition:background .12s; margin-top:4px; }
+.team-entrants-grid .entrant-photo-cell{display:none;padding:4px 0;}
+.team-entrants-grid.photos-open .entrant-photo-cell{display:block;}
+.entrant-rider-img{width:100%;height:auto;max-height:220px;object-fit:contain;display:block;border-radius:4px;}
+@media (max-width:600px){ .rider-card{ flex-direction:column; } }
+.rider-photo{ width:180px;height:auto;border-radius:10px; object-fit:contain; background:#eef1f5; flex-shrink:0; align-self:flex-start; }
+.rider-info{ flex:1 1 auto; min-width:0; }
+.rider-head{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; }
+.rider-name{ font-size:1.08rem; font-weight:700; color:var(--primary); }
+.rider-bib{ font-weight:600; color:var(--text-muted); font-size:.92rem; }
+.rider-tags{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.tag{ font-size:.7rem; font-weight:700; text-transform:uppercase; padding:3px 8px; border-radius:12px; letter-spacing:.03em; }
+.tag.otw{ background:var(--highlight); color:#3a2c06; }
+.tag.review{ background:#fdecea; color:var(--danger); }
+.team-tag-wrap{ display:inline-block; margin-top:4px; }
+.team-tag{ display:inline-block; font-size:.82rem; font-weight:600; padding:2px 9px; border-radius:10px; color:#fff; cursor:pointer; }
+#global-team-popup{ position:fixed; display:none; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:var(--shadow); padding:8px 10px; font-size:.78rem; white-space:nowrap; z-index:9999; overflow-y:auto; }
+.ttp-title{ font-weight:700; margin-bottom:6px; color:var(--primary); }
+.ttp-row{ padding:2px 0 2px 10px; color:var(--text); font-size:.82rem; }
+.ttp-details summary.ttp-row{ cursor:pointer; list-style:none; display:flex; align-items:center; gap:4px; user-select:none; }
+.ttp-details summary.ttp-row::-webkit-details-marker{ display:none; }
+.ttp-details summary.ttp-row::before{ content:"▶"; font-size:.55rem; color:var(--text-muted); transition:transform .12s; flex-shrink:0; width:8px; }
+.ttp-details[open] summary.ttp-row::before{ transform:rotate(90deg); }
+.ttp-rider-results{ padding:2px 0 5px 18px; }
+.ttp-year{ font-size:.69rem; font-weight:700; color:var(--text-muted); margin:3px 0 1px; letter-spacing:.04em; }
+.ttp-results{ margin:0; padding-left:10px; }
+.ttp-results li{ font-size:.75rem; color:var(--text-muted); line-height:1.5; }
+.ttp-no-results{ font-size:.74rem; color:var(--text-muted); font-style:italic; padding-left:18px; }
+.results-list{ margin:6px 0 0; padding-left:18px; font-size:.88rem; line-height:1.5; }
+.results-list li{ margin-bottom:3px; }
+.results-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:6px 14px; margin-top:8px; align-items:start; }
+.results-col-head{ font-size:.69rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--primary); border-bottom:1px solid var(--border); padding-bottom:3px; margin-bottom:4px; }
+.results-cols .results-year-label{ margin-top:6px; }
+.results-cols .results-year-label:first-child{ margin-top:0; }
+.results-cols .results-list{ font-size:.8rem; padding-left:14px; }
+.results-year-label{ font-size:.74rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--text-muted); margin-top:8px; }
+.results-year-details{ margin-top:4px; }
+.results-year-details summary{ cursor:pointer; font-size:.74rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--text-muted); outline:none; }
+.results-year-details .results-list{ margin-top:4px; }
+.result-li{ position:relative; }
+.result-li .medal-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+.result-li.medal-gold{ color:#8a6a00; font-weight:700; }
+.result-li.medal-silver{ color:#5b5b5b; font-weight:700; }
+.result-li.medal-bronze{ color:#8a4a1d; font-weight:700; }
+.result-li.medal-gold .medal-dot{ background:#d4af37; }
+.result-li.medal-silver .medal-dot{ background:#aeaeae; }
+.result-li.medal-bronze .medal-dot{ background:#b5651d; }
+.result-li.has-info{ cursor:pointer; text-decoration:underline dotted; text-decoration-color:var(--border); }
+.result-li.has-info:hover{ text-decoration-color:var(--primary); }
+.result-popup{ display:none; position:absolute; top:100%; left:0; margin-top:4px; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:var(--shadow); padding:10px 13px; font-size:.96rem; line-height:1.5; white-space:pre-line; width:min(360px, 85vw); z-index:30; max-height:280px; overflow-y:auto; font-weight:400; color:var(--text); cursor:default; text-decoration:none; }
+.result-li.open .result-popup{ display:block; }
+.result-popup .popup-medal-gold{ color:#8a6a00; font-weight:700; }
+.result-popup .popup-medal-silver{ color:#5b5b5b; font-weight:700; }
+.result-popup .popup-medal-bronze{ color:#8a4a1d; font-weight:700; }
+.rider-extra{ margin-top:8px; font-size:.82rem; color:var(--text-muted); display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:4px 14px; }
+.rider-extra b{ color:var(--text); }
+.team-card{ background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; margin-bottom:16px; box-shadow:var(--shadow); }
+.team-card-head{ display:flex; align-items:flex-start; gap:12px; margin-bottom:0; }
+.team-head-info{ flex:1; min-width:0; }
+.team-card h3{ margin:0 0 3px; font-size:1rem; color:var(--primary); }
+.team-head-meta{ font-size:.78rem; color:var(--text-muted); margin-top:2px; }
+.team-head-sm{ font-size:.76rem; color:var(--text-muted); margin-top:2px; }
+.team-head-targets{ font-size:.76rem; color:var(--text-muted); margin-top:4px; line-height:1.4; }
+.team-head-ds{ font-size:.76rem; color:var(--text-muted); margin-top:4px; line-height:1.5; }
+.ds-head-label{ font-weight:700; color:var(--text); font-size:.73rem; text-transform:uppercase; letter-spacing:.04em; }
+.ex-pro-tag{ display:inline-block; font-size:.7rem; background:#fff8e0; color:#7a5500; border:1px solid #e8c870; border-radius:20px; padding:1px 7px; font-weight:700; margin-left:6px; vertical-align:middle; }
+.team-entrants{ margin:8px 0 10px; border-top:1px solid var(--border); padding-top:8px; }
+.team-entrants-header{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.team-entrants-label{ font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
+.entrants-toggle-btn{ font-size:.72rem; padding:2px 8px; border:1px solid var(--border); border-radius:4px; background:#f7f9fb; cursor:pointer; color:var(--text-muted); white-space:nowrap; }
+.entrants-toggle-btn:hover{ background:#eef1f5; color:var(--text); }
+.team-entrants-grid{ display:grid; gap:4px 8px; align-items:start; overflow-x:auto; }
+.team-entrants-grid .entrant-results-body{ display:none; }
+.team-entrants-grid.results-open .entrant-results-body{ display:block; }
+.entrant-cell-name{ display:block; font-size:.78rem; font-weight:600; padding:2px 8px; border-radius:10px; background:var(--secondary); color:#fff; cursor:pointer; white-space:nowrap; }
+.team-detail-roster{ display:flex; flex-wrap:wrap; gap:4px 6px; margin:6px 0 12px; }
+.entrant-cell-name:hover{ background:#155a38; }
+.entrant-cell-name.otw{ background:#155a38; outline:2px solid var(--highlight); outline-offset:1px; }
+.entrant-results-body{ padding:3px 0 5px 0; }
+.entrant-year-label{ font-size:.7rem; font-weight:700; color:var(--text-muted); margin:3px 0 1px; letter-spacing:.04em; }
+.entrant-results-list{ margin:0; padding:0 0 0 10px; }
+.entrant-results-list li{ font-size:.75rem; color:var(--text-muted); line-height:1.45; white-space:normal; }
+.entrant-no-results{ font-size:.74rem; color:var(--text-muted); font-style:italic; }
+.team-results-label{ font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); margin:8px 0 4px; }
+.team-results-list{ list-style:none; margin:4px 0 0; padding:0; }
+.team-results-list li{ padding:5px 0; border-bottom:1px solid var(--border); font-size:.86rem; }
+.team-results-list li:last-child{ border-bottom:none; }
+.team-db-targets{ font-size:.82rem; color:var(--text-muted); margin-top:6px; line-height:1.5; }
+
+/* Teams tab */
+.team-list-item{ padding:8px 11px; border-radius:7px; cursor:pointer; font-size:.85rem; border:1px solid var(--border); background:var(--card-bg); transition:background .1s; }
+.team-list-item:hover{ background:#f0f3f7; }
+.team-list-item.active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+.team-list-item .tli-name{ font-weight:600; }
+.team-list-item .tli-status{ font-size:.74rem; color:var(--text-muted); margin-top:2px; }
+.team-list-item.active .tli-status{ color:rgba(255,255,255,.7); }
+.status-filter-btn{ font-size:.76rem; padding:4px 10px; border-radius:14px; border:1px solid var(--border); background:var(--card-bg); cursor:pointer; font-weight:600; color:var(--text-muted); }
+.status-filter-btn.active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+.team-detail-card{ position:relative; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 24px; margin-bottom:14px; }
+.teams-kit-grid-body{ display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; }
+.team-kit-cell{ border:1px solid var(--border); border-radius:8px; padding:8px; text-align:center; cursor:pointer; background:var(--card-bg); transition:background .12s,border-color .12s; }
+.team-kit-cell:hover{ background:#f0f3f7; }
+.team-kit-cell.active{ border-color:var(--primary); background:rgba(11,31,58,.07); }
+.team-kit-imgwrap{ height:70px; display:flex; align-items:center; justify-content:center; margin-bottom:6px; }
+.team-kit-imgwrap img{ max-width:100%; max-height:100%; object-fit:contain; }
+.team-kit-title{ font-size:.76rem; font-weight:600; line-height:1.25; }
+.team-detail-card h2{ margin:0 0 4px; font-size:1.1rem; color:var(--primary); }
+.team-detail-card .team-meta{ font-size:.82rem; color:var(--text-muted); margin-bottom:16px; }
+.team-section-label{ font-size:.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin:14px 0 6px; }
+.team-detail-cols{ display:grid; grid-template-columns:repeat(4,1fr); gap:0 16px; align-items:start; }
+.team-detail-cols .team-section-label{ margin-top:0; }
+.team-detail-cols .team-col-body{ font-size:.86rem; }
+@media (max-width:900px){ .team-detail-cols{ grid-template-columns:repeat(2,1fr); gap:10px 16px; } }
+.ds-entry{ display:flex; gap:8px; align-items:flex-start; padding:8px 10px; background:#f7f9fb; border-radius:7px; margin-bottom:6px; font-size:.88rem; }
+.ds-entry .ds-name{ font-weight:700; }
+.ds-entry .ds-bio{ color:var(--text-muted); font-size:.82rem; margin-top:2px; line-height:1.45; }
+.sm-entry{ display:inline-flex; align-items:center; gap:4px; background:#f0f3f7; border-radius:14px; padding:3px 10px; font-size:.82rem; margin-right:6px; margin-bottom:4px; }
+.sm-platform{ color:var(--text-muted); font-size:.74rem; }
+.pn-entry{ padding:4px 0; font-size:.86rem; color:var(--text-muted); border-bottom:1px solid var(--border); }
+.pn-entry:last-child{ border-bottom:none; }
+.pn-name{ font-weight:600; color:var(--text); }
+.team-empty{ text-align:center; color:var(--text-muted); font-size:.88rem; padding:40px 20px; }
+
+/* Youth pages */
+.youth-layout{ display:flex; gap:0; flex:1 1 auto; min-height:0; align-items:stretch; }
+.youth-side{ flex:0 0 250px; display:flex; flex-direction:column; min-height:0; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:flex-basis .18s ease, opacity .15s; margin-right:12px; }
+.youth-side.hidden{ flex-basis:0; min-width:0; opacity:0; margin-right:0; border-width:0; }
+.youth-side-head{ padding:9px 12px; font-weight:700; font-size:.85rem; color:var(--primary); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:6px; }
+.youth-side-viewtoggle{ flex:0 0 auto; padding:9px 10px; border-bottom:1px solid var(--border); }
+.youth-side-body{ flex:1 1 auto; min-height:0; overflow-y:auto; padding:8px 10px; }
+.youth-side-toggle{ flex:0 0 22px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--card-bg); border:1px solid var(--border); border-radius:8px; margin-right:12px; color:var(--muted); font-size:.85rem; user-select:none; }
+.youth-side-toggle:hover{ background:#eef1f5; color:var(--primary); }
+.youth-main{ flex:1 1 auto; min-width:0; min-height:0; overflow-y:auto; padding-bottom:14px; }
+table.yt{ width:100%; border-collapse:collapse; font-size:.78rem; background:var(--card-bg); }
+table.yt th{ text-align:left; padding:6px 6px; font-size:.64rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); border-bottom:2px solid var(--border); white-space:nowrap; position:sticky; top:0; background:var(--card-bg); z-index:1;}
+table.yt td{ padding:4px 6px; border-bottom:1px solid var(--border); vertical-align:top; }
+table.yt th.yt-col-bib, table.yt td.yt-col-bib{ width:44px; min-width:44px; max-width:44px; white-space:nowrap; }
+table.yt tr.data-row:nth-child(even) td{ background:#f7f9fb; }
+table.yt tr.data-row:hover td{ background:#eef1f5; }
+.yt-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+.yt-grid .yt-card{ margin-bottom:0; }
+@media (max-width:800px){ .yt-grid{ grid-template-columns:1fr; } }
+.yt-card-capped .yt-table-wrap{ max-height:46vh; overflow-y:auto; }
+.yt-card-capped.expanded .yt-table-wrap{ max-height:none; }
+.yt-expand-btn{ border:1px solid var(--border); background:var(--card-bg); cursor:pointer; font-size:.68rem; padding:2px 8px; border-radius:4px; color:var(--muted); flex-shrink:0; }
+.yt-expand-btn:hover{ background:#eef1f5; color:var(--primary); }
+.yt-group-select{ font-size:.78rem; padding:4px 8px; border:1px solid var(--border); border-radius:5px; background:#fff; color:var(--text); font-weight:700; }
+.yt-cat-tag{ display:inline-block; font-size:.62rem; font-weight:700; letter-spacing:.03em; color:var(--primary); background:rgba(11,31,58,.08); border-radius:4px; padding:1px 5px; margin-left:5px; vertical-align:middle; }
+.yt-card{ background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:16px; overflow:hidden; }
+.yt-card-head{ padding:10px 14px; font-weight:700; font-size:.95rem; color:var(--primary); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+.yt-card-head .cnt{ font-size:.76rem; color:var(--muted); font-weight:400; }
+.yt-name{ font-weight:600; cursor:default; }
+.yt-name:hover{ color:var(--primary); text-decoration:underline dotted; }
+.yt-team{ font-weight:600; color:var(--muted); }
+.yt-exp-btn{ border:none; background:none; cursor:pointer; font-size:.72rem; color:var(--muted); padding:0 5px; transition:transform .12s; display:inline-block; }
+.yt-exp-btn.open{ transform:rotate(90deg); }
+tr.yt-detail-row td{ background:#fbfcfe; padding:10px 14px 14px; }
+.yt-detail{ font-size:.83rem; line-height:1.55; }
+.yt-detail .lbl{ font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:8px 0 2px; }
+.yt-detail .lbl:first-child{ margin-top:0; }
+.yt-detail .results-list,.yt-detail .results-year-details summary,.yt-detail .results-year-label{ font-size:.83rem; }
+.yt-detail .results-year-label{ font-weight:700; }
+.yt-detail .results-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px 18px; align-items:start; }
+.yt-detail .results-grid .results-year-label{ margin-top:0; }
+#youth-tt{ position:fixed; z-index:9999; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 8px 22px rgba(11,31,58,.2); padding:12px 14px; font-size:.8rem; pointer-events:auto; display:none; max-width:430px; max-height:480px; overflow-y:auto; line-height:1.45; }
+#youth-tt .ytt-name{ font-weight:700; color:var(--primary); font-size:.88rem; margin-bottom:2px; }
+#youth-tt .ytt-teamline{ color:var(--muted); font-size:.75rem; margin-bottom:6px; }
+#youth-tt .ytt-yr{ font-weight:700; font-size:.72rem; letter-spacing:.04em; color:var(--primary); margin:7px 0 2px; text-transform:uppercase; }
+#youth-tt .ytt-row{ display:flex; gap:7px; padding:1px 0; }
+#youth-tt .ytt-row .p{ min-width:26px; font-weight:700; color:var(--muted); }
+#youth-tt .ytt-row.me{ background:rgba(31,122,77,.13); border-radius:4px; font-weight:700; }
+#youth-tt img.ytt-kit{ max-width:130px; max-height:90px; object-fit:contain; border-radius:5px; display:block; margin-top:8px; }
+#rider-tt{position:fixed;z-index:9999;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px;pointer-events:auto;display:none;align-items:flex-start;gap:8px;max-width:504px;}
+#rider-tt img.rtt-photo{max-width:160px;max-height:190px;object-fit:contain;border-radius:4px;display:block;flex-shrink:0;}
+#rider-tt .rtt-results{max-width:252px;max-height:460px;overflow-y:auto;font-size:.75rem;line-height:1.4;order:-1;}
+#rider-tt .rtt-name{font-weight:700;color:var(--primary);font-size:.82rem;margin-bottom:3px;}
+#rider-tt .rtt-year{font-size:.68rem;font-weight:700;color:var(--text-muted);letter-spacing:.04em;margin:4px 0 1px;}
+#rider-tt .rtt-results ul{margin:0;padding-left:12px;}
+#rider-tt .rtt-results li{color:var(--text-muted);}
+#rider-tt .rtt-none{color:var(--text-muted);font-style:italic;}
+#team-tt{position:fixed;z-index:9999;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:10px 12px;pointer-events:none;display:none;max-width:270px;font-size:.78rem;line-height:1.4;}
+#team-tt .tmtt-name{font-weight:700;color:var(--primary);font-size:.86rem;margin-bottom:4px;}
+#team-tt img.tmtt-kit{max-width:150px;max-height:90px;object-fit:contain;border-radius:4px;display:block;margin:2px 0 8px;}
+#team-tt .tmtt-lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:6px 0 2px;}
+#team-tt .tmtt-row{display:flex;gap:7px;padding:1px 0;}
+#team-tt .tmtt-row .b{min-width:22px;font-weight:700;color:var(--muted);}
+#team-tt .tmtt-none{color:var(--text-muted);font-style:italic;}
+#series-tt{position:fixed;z-index:9999;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:10px 14px;font-size:.8rem;pointer-events:none;max-width:290px;display:none;line-height:1.45;}
+
+/* Series overview */
+.series-layout{ display:flex; gap:14px; flex:1 1 auto; min-height:0; }
+.series-left{ flex:0 0 34%; min-width:290px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; padding-bottom:12px; }
+.series-right{ flex:1 1 0; min-width:0; overflow-y:auto; padding-bottom:12px; }
+.round-details{ border:1px solid var(--border); border-radius:var(--radius); margin-bottom:10px; background:var(--card-bg); box-shadow:var(--shadow); }
+.round-details > summary{ padding:10px 14px; cursor:pointer; font-size:.9rem; font-weight:700; color:var(--primary); list-style:none; display:flex; justify-content:space-between; gap:8px; align-items:baseline; }
+.round-details > summary::-webkit-details-marker{ display:none; }
+.round-details > summary .rd-meta{ font-weight:400; color:var(--muted); font-size:.78rem; white-space:nowrap; }
+.round-body{ padding:0 14px 14px; }
+.rtab-btns{ display:flex; gap:4px; margin-bottom:8px; flex-wrap:wrap; }
+.rtab-btns button{ padding:3px 11px; border:1px solid var(--border); border-radius:5px; background:none; cursor:pointer; font-size:.76rem; color:var(--muted); font-weight:600; }
+.rtab-btns button.active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+table.res{ width:100%; border-collapse:collapse; font-size:.83rem; }
+table.res th{ text-align:left; padding:3px 8px 5px 0; font-size:.71rem; color:var(--muted); text-transform:uppercase; letter-spacing:.03em; border-bottom:1px solid var(--border); }
+table.res td{ padding:4px 8px 4px 0; border-bottom:1px solid #eef1f5; vertical-align:top; }
+table.res td.pos{ font-weight:700; color:var(--primary); width:30px; }
+table.res td.time{ text-align:right; white-space:nowrap; color:var(--muted); font-size:.78rem; }
+table.res tr:hover td{ background:#f7f9fb; }
+.gap-note{ font-size:.72rem; color:var(--muted); margin:6px 0 0; }
+
+/* Sponsors */
+.sponsors-layout{ display:flex; gap:20px; align-items:flex-start; }
+.sponsors-col{ flex:0 1 860px; min-width:320px; }
+.charlotteville-col{ flex:1 1 0; min-width:320px; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 18px; position:sticky; top:0; align-self:flex-start; }
+.cvcc-title{ font-size:1.02rem; font-weight:700; color:var(--primary); }
+.cvcc-sub{ font-size:.76rem; color:var(--muted); margin-bottom:10px; }
+.cvcc-h{ font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--primary); margin:14px 0 4px; }
+.cvcc-h:first-of-type{ margin-top:14px; }
+.charlotteville-col p{ font-size:.85rem; line-height:1.55; margin:0 0 8px; }
+.charlotteville-col ul{ margin:0 0 8px; padding-left:18px; font-size:.85rem; line-height:1.5; }
+.charlotteville-col li{ margin-bottom:5px; }
+@media (max-width:1000px){ .sponsors-layout{ flex-direction:column; } .charlotteville-col{ position:static; max-width:none; width:100%; flex-basis:auto; } }
+.sponsor-details{ border:1px solid var(--border); border-radius:var(--radius); margin-bottom:10px; background:var(--card-bg); box-shadow:var(--shadow); }
+.sponsor-details > summary{ padding:11px 15px; cursor:pointer; font-size:.92rem; font-weight:700; color:var(--primary); list-style:none; display:flex; justify-content:space-between; gap:8px; align-items:baseline; flex-wrap:wrap; }
+.sponsor-details > summary::-webkit-details-marker{ display:none; }
+.sponsor-details .sp-role{ font-weight:600; color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.04em; }
+.sponsor-details .sp-body{ padding:0 15px 13px; font-size:.86rem; line-height:1.55; }
+
+table.winners{ width:100%; border-collapse:collapse; font-size:.88rem; }
+table.winners th, table.winners td{ text-align:left; padding:6px 10px; border-bottom:1px solid var(--border); }
+table.winners th{ color:var(--text-muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.03em; }
+table.winners tr:hover td{ background:#f7f9fb; }
+.course-features{ list-style:none; padding:0; margin:0; }
+.course-features li{ padding:10px 0 10px 28px; border-bottom:1px solid var(--border); font-size:.9rem; line-height:1.5; position:relative; }
+.course-features li:before{ content:"●"; color:var(--highlight); position:absolute; left:6px; top:9px; font-size:.7rem; }
+.course-features li:last-child{ border-bottom:none; }
+footer.app-footer{ flex:0 0 auto; text-align:center; padding:5px 18px; font-size:.7rem; color:var(--text-muted); }
+#load-error{ display:none; margin:20px auto; max-width:640px; background:#fdecea; border:1px solid var(--danger); color:var(--danger); border-radius:10px; padding:16px 20px; font-size:.9rem; line-height:1.5; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1 id="header-title">The CANYON Guildford Town Centre Races 2026</h1>
+  <div class="sub" id="header-sub"></div>
+  <div class="badges">
+    <span class="badge highlight" id="badge-start"></span>
+    <span class="badge" id="badge-distance"></span>
+    <span class="badge" id="badge-riders"></span>
+    <span class="badge">Commentary tool</span>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="race-selector" id="race-selector"></div>
+  <div id="tab-btns" style="display:flex;gap:2px;align-items:stretch;"></div>
+</nav>
+
+<main>
+  <div id="load-error"></div>
+  <section id="tab-startlist" class="tab-content"><div class="sl-wrap" id="startlist-wrap"></div></section>
+  <section id="tab-dashboard" class="tab-content active">
+    <div class="dash-cols">
+      <div class="dash-col">
+        <div class="dash-panel" id="panel-raceinfo">
+          <div class="dash-panel-head"><span>Race Information</span><button class="panel-collapse-btn" onclick="togglePanel('panel-raceinfo',this)">&#9660;</button></div>
+          <div class="dash-panel-body" id="dashboard-raceinfo"></div>
+        </div>
+      </div>
+      <div class="dash-col">
+        <div class="dash-panel" id="panel-intro" style="flex:0 0 165px;">
+          <div class="dash-panel-head"><span>Commentator Intro / Notes</span><button class="panel-collapse-btn" onclick="togglePanel('panel-intro',this)">&#9660;</button></div>
+          <div class="dash-panel-body" id="dashboard-intro" style="display:flex;flex-direction:column;gap:6px;padding:10px 12px;"></div>
+        </div>
+        <div class="dash-vresize" id="vr-intro-timetable" data-top="panel-intro" data-bot="panel-timetable"></div>
+        <div class="dash-panel" id="panel-timetable">
+          <div class="dash-panel-head"><span>Race-day timetable</span><button class="panel-collapse-btn" onclick="togglePanel('panel-timetable',this)">&#9660;</button></div>
+          <div class="dash-panel-body"><ul class="timetable-list" id="dashboard-timetable"></ul></div>
+        </div>
+      </div>
+      <div class="dash-col">
+        <div class="dash-panel" id="panel-standings">
+          <div class="dash-panel-head"><span id="dash-col3-head-content" style="flex:1 1 auto;min-width:0;"></span><button class="panel-collapse-btn" onclick="togglePanel('panel-standings',this)">&#9660;</button></div>
+          <div class="dash-panel-body" id="dashboard-standings"></div>
+        </div>
+        <div class="dash-vresize" id="vr-heroes-riders" data-top="panel-standings" data-bot="panel-heroes-riders" style="display:none;"></div>
+        <div class="dash-panel" id="panel-heroes-riders" style="display:none;">
+          <div class="dash-panel-head"><span>Riders</span><button class="panel-collapse-btn" onclick="togglePanel('panel-heroes-riders',this)">&#9660;</button></div>
+          <div class="dash-panel-body" id="dashboard-heroes-riders"></div>
+        </div>
+        <div class="dash-vresize" id="vr-youth-riders" data-top="panel-standings" data-bot="panel-youth-riders" style="display:none;"></div>
+        <div class="dash-panel" id="panel-youth-riders" style="display:none;">
+          <div class="dash-panel-head"><span>Riders</span><button class="panel-collapse-btn" onclick="togglePanel('panel-youth-riders',this)">&#9660;</button></div>
+          <div class="dash-panel-body" id="dashboard-youth-riders"></div>
+        </div>
+        <div class="dash-vresize" id="vr-spotlight" data-top="panel-standings" data-bot="panel-spotlight"></div>
+        <div class="dash-panel" id="panel-spotlight">
+          <div class="dash-panel-head"><span>Rider Spotlight</span><button class="panel-collapse-btn" onclick="togglePanel('panel-spotlight',this)">&#9660;</button></div>
+          <div class="dash-panel-body" id="dashboard-spotlight"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-riders" class="tab-content">
+    <div class="layout" id="riders-elite-layout">
+      <div class="selection-panel">
+        <div class="selection-top">
+          <input type="text" id="sel-search" placeholder="Search teams or riders…" oninput="renderSelectionPanel()">
+          <button class="table-toggle-btn active" id="elite-table-toggle-btn" onclick="toggleEliteGridTile()" title="Toggle startlist table"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="3" y="3" width="10" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <button class="col-toggle-btn" id="col-toggle-btn" onclick="toggleResultsColumns()" title="Toggle 1 / 3 column results layout"></button>
+          <button class="clear-btn" onclick="clearSelection()">Clear all</button>
+        </div>
+        <div class="selection-half" id="teams-half">
+          <div class="selection-half-head">
+            <div class="subheading-left">Teams</div>
+            <select onchange="changeTeamSort(this.value)"><option value="alpha">Sort: A–Z</option><option value="entrants">Sort: Entrants</option></select>
+            <select onchange="changeTeamIconSize(this.value)" title="Kit image size"><option value="small">Icons: Small</option><option value="medium">Icons: Medium</option><option value="large">Icons: Large</option></select>
+          </div>
+          <div class="selection-half-body"><div class="checkbox-grid" id="teams-grid"></div></div>
+        </div>
+        <div class="resizer" id="selection-resizer"></div>
+        <div class="selection-half" id="riders-half">
+          <div class="selection-half-head"><div class="subheading-left">Riders</div></div>
+          <div class="selection-half-body"><div class="checkbox-grid" id="riders-grid"></div></div>
+        </div>
+      </div>
+      <div class="sel-panel-toggle" id="sel-panel-toggle" onclick="toggleSelectionPanel()" title="Show/hide selection panel">◀</div>
+      <div class="panel-resizer-h" id="panel-resizer-h"></div>
+      <div class="results-panel" id="selection-results">
+        <div class="rider-card elite-grid-tile" id="elite-grid-tile" style="max-height:600px;">
+          <div class="elite-grid-inner">
+            <div class="elite-grid-head"><span style="font-weight:700;color:var(--primary);">Startlist</span><span class="muted" id="elite-grid-count" style="font-size:.76rem;"></span></div>
+            <div class="elite-grid-body" id="elite-grid-body"></div>
+          </div>
+          <div class="card-resize-handle" title="Drag to resize · double-click to reset"></div>
+        </div>
+        <div id="selection-cards">
+          <div class="empty-state"><div class="icon">🚴</div><div>Tick teams or riders on the left to view profiles.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="youth-layout" id="riders-youth-layout" style="display:none;">
+      <div class="youth-side" id="youth-team-side">
+        <div class="youth-side-head"><span>Teams / Clubs</span><button class="panel-collapse-btn" onclick="toggleYouthSide()" title="Hide panel" style="transform:rotate(90deg);">&#9660;</button></div>
+        <div class="youth-side-viewtoggle" id="youth-view-toggle"></div>
+        <div class="youth-side-body" id="youth-team-list"></div>
+      </div>
+      <div class="youth-side-toggle" id="youth-side-toggle" onclick="toggleYouthSide()" title="Show/hide team panel" style="display:none;">▶</div>
+      <div class="youth-main" id="youth-tables"></div>
+    </div>
+  </section>
+
+  <section id="tab-teams" class="tab-content">
+    <div class="section-title" id="teams-title">Teams</div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+      <input type="text" id="teams-search" placeholder="Search teams…" style="padding:7px 11px;border:1px solid var(--border);border-radius:6px;font-size:.88rem;flex:1;min-width:160px;max-width:320px;">
+      <button class="table-toggle-btn active" id="teams-kitgrid-toggle-btn" onclick="toggleTeamsKitGrid()" title="Toggle kit grid"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="2.5" y="2.5" width="5" height="5" rx="1" fill="currentColor"/><rect x="8.5" y="2.5" width="5" height="5" rx="1" fill="currentColor"/><rect x="2.5" y="8.5" width="5" height="5" rx="1" fill="currentColor"/><rect x="8.5" y="8.5" width="5" height="5" rx="1" fill="currentColor"/></svg></button>
+      <div id="teams-status-filter" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+    </div>
+    <div style="display:flex;gap:14px;min-height:0;flex:1 1 auto;overflow:hidden;">
+      <div id="teams-list" style="flex:0 0 260px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;"></div>
+      <div id="teams-detail" style="flex:1 1 auto;overflow-y:auto;">
+        <div class="rider-card teams-kit-tile" id="teams-kit-grid-tile" style="max-height:600px;">
+          <div class="elite-grid-inner">
+            <div class="elite-grid-head"><span style="font-weight:700;color:var(--primary);">Team Kits</span><span class="muted" id="teams-kit-grid-count" style="font-size:.76rem;"></span></div>
+            <div class="teams-kit-grid-body" id="teams-kit-grid-body"></div>
+          </div>
+          <div class="card-resize-handle" title="Drag to resize · double-click to reset"></div>
+        </div>
+        <div id="teams-detail-cards"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-course" class="tab-content">
+    <div class="section-title" id="course-title">The circuit</div>
+    <div class="card" style="text-align:center;">
+      <img id="course-img" src="" alt="Circuit map" style="width:70%;max-width:100%;border-radius:8px;margin:0 auto 16px;display:block;" onerror="this.style.display='none'">
+      <div id="course-text" style="text-align:left;font-size:.92rem;line-height:1.65;"></div>
+    </div>
+  </section>
+
+  <section id="tab-history" class="tab-content"><div id="history-host"></div></section>
+
+  <section id="tab-series" class="tab-content">
+    <div class="series-layout">
+      <div class="series-left" id="series-left"></div>
+      <div class="series-right" id="series-right"></div>
+    </div>
+  </section>
+
+  <section id="tab-sponsors" class="tab-content">
+    <div class="sponsors-layout">
+      <div id="sponsors-host" class="sponsors-col"></div>
+      <aside class="charlotteville-col">
+        <div class="cvcc-title">Charlotteville Cycling Club</div>
+        <div class="cvcc-sub">Founded 27 March 1903 · Guildford, Surrey</div>
+        <p>The Charlotteville Cycling Club is a historic and active cycling club based in Guildford, Surrey. Catering to riders of all ages and skills, the club has a vibrant culture that spans from casual group rides to high-level national racing.</p>
+
+        <div class="cvcc-h">History &amp; Foundations</div>
+        <p>The club was officially founded on 27 March 1903 at the Charlotteville Institute on Addison Road in Guildford. It was initially established to provide a dedicated cycling club for "working-class cyclists" in the area, differentiating itself from other local contemporary clubs which had become increasingly middle-class or focused on the burgeoning automobile movement. While other early local clubs eventually disbanded, Charlotteville endured to become Guildford's primary historical cycling institution. Over the decades, the club has produced top-tier talent, including riders who competed in World Championship trials and set national time trial records.</p>
+
+        <div class="cvcc-h">Club Rides &amp; Disciplines</div>
+        <p>The club runs an active year-round schedule, supporting road riding, time trials, track, cyclo-cross, and mountain biking.</p>
+        <ul>
+          <li><b>Sunday Club Runs</b> — the club's signature event is the weekly Sunday morning ride, a great entry point for riders wanting to experience group cycling. Departs from the Old Guildfordians Clubhouse in Stoke Park at 08:30 during summer months and 09:00 in winter.</li>
+          <li><b>Time Trials (TT)</b> — Charlotteville has a deep-rooted time-trialling tradition. They organise an annual series of club time trials, primarily in the Normandy/Pirbright area, and participate alongside neighbouring clubs in a local inter-club time trial league.</li>
+          <li><b>Other events</b> — mid-week rides, track sessions, and off-road excursions fluctuate throughout the calendar depending on the time of year.</li>
+        </ul>
+
+        <div class="cvcc-h">Winter Turbo Sessions</div>
+        <ul>
+          <li>Weekly indoor cycling at Guildford Spectrum — Tuesdays, 8–9pm (60 min)</li>
+          <li>£5 pay-as-you-go, or £50 for a 12-session block</li>
+          <li>Contact Jonathan Dobson or Julian White; sign up via the Spond app</li>
+        </ul>
+
+        <div class="cvcc-h">Saturday Rides</div>
+        <ul>
+          <li><b>Speed</b> — non-stop, ~39mi (63km), year-round (alt. winter route); departs Stoke Park Pavilion 07:30; drop ride for confident intermediate/advanced riders — try a Sunday Club Run first</li>
+          <li><b>Medio</b> — no-drop, ~47mi (76km), departs 08:30, coffee stop in Tilford</li>
+          <li><b>Social</b> — occasional, gentler pace over the ~39mi Speed route, departs 08:30, coffee stop in Shalford</li>
+          <li>Routes, GPX files and sign-ups posted on Spond</li>
+        </ul>
+
+        <div class="cvcc-h">Evening Hills Ride</div>
+        <ul>
+          <li>Tuesdays through summer 2026 (7 Apr – 29 Sep)</li>
+          <li>Meets at the Horse &amp; Groom, Epsom Road, Merrow — 6:15pm start</li>
+          <li>Local hill reps, finished off with a drink; check Spond for weekly details</li>
+        </ul>
+
+        <div class="cvcc-h">Women's Rides</div>
+        <ul>
+          <li>Tuesday evenings, summer months — 6pm from the Old Guildfordians Clubhouse, Stoke Park (London Road)</li>
+          <li>1–1.5 hours, 20–30km, quiet lanes where possible, paced for the group</li>
+          <li>Open to all abilities, ages 18+</li>
+          <li>Bring: road bike, helmet (mandatory), front/rear lights, basic tool kit (spare tube, levers, pump/CO2, multitool), emergency contact details</li>
+        </ul>
+
+        <div class="cvcc-h">Coaching &amp; Youth (Charlotteville Rascals)</div>
+        <p>For younger riders, Charlotteville operates a highly regarded junior Go-Ride section known as the "Charlotteville Rascals."</p>
+        <ul>
+          <li><b>Under-16s focus</b> — designed for children and teenagers between the ages of 6 and 16.</li>
+          <li><b>Skills development</b> — weekly coached sessions cover fundamental bike handling, safety, and group riding confidence, bridging the gap into youth competitive racing for those interested.</li>
+        </ul>
+        <p style="margin-top:8px;"><b>Rascal Racing / Go-Ride races</b></p>
+        <ul>
+          <li>Four races a year: Rabbit Run (Mar/Apr), Maillot Jaunt (Jun/Jul), Rainbow Splash (Sep/Oct), Reindeer Dash (Dec) — dates on the Rascals Calendar</li>
+          <li>Open to ages 6–16 (Guildford &amp; Woking Rascals plus other Go-Ride clubs), split by BC youth categories: Youth E/U8, D/U10, C/U12, B/U14, A/U16</li>
+          <li>Venue: Goldsworth Park Recreation Area, Woking (road tyres not suitable)</li>
+          <li>Registration 9:00–9:20am, no late entry; small entry fee; parental consent form required</li>
+          <li>Format: Individual Time Trial, Skills Test, Just 4 Fun, Handicap Race — done by ~12:00 with presentations</li>
+          <li>Bring warm layers and snacks; parents welcome to stay and cheer</li>
+          <li>Keen on regular coaching sessions afterwards? Get in touch with the club</li>
+        </ul>
+
+        <div class="cvcc-h">Membership &amp; Club Culture</div>
+        <p>The club maintains a robust and welcoming membership of well over 200 riders.</p>
+        <ul>
+          <li><b>All abilities welcomed</b> — membership spans leisure cyclists, youth riders, and veteran time-trialists.</li>
+          <li><b>Club kit</b> — members can represent the club in custom Pactimo kit, distributed via a member-only shop open a few times a year. A relaxed "Continental" fit is offered for endurance comfort, and a snug "Ascent" fit for racing.</li>
+        </ul>
+
+        <div class="cvcc-h">Connection to the Guildford Town Centre Races</div>
+        <p>One of Charlotteville Cycling Club's greatest contributions to the wider British cycling community is its exclusive promotion of the Guildford Town Centre Races.</p>
+        <ul>
+          <li><b>The blueprint</b> — first organised in 1984 by club members Les Smith, Mike Willimott, and Stuart Campbell, the event was created to celebrate the club's 80th anniversary in tandem with the Guildford Festival.</li>
+          <li><b>The circuit</b> — it has evolved into one of the most prestigious, fast-paced criteriums in the British circuit racing calendar: a gruelling, 1-kilometre loop featuring a punishing, technical climb up the historic, cobbled High Street alongside North Street and Market Street.</li>
+          <li><b>National recognition</b> — the event sits as a marquee fixture of British Cycling's National Circuit Series, drawing thousands of spectators and elite professional domestic teams to the town centre every summer.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section id="tab-rapha" class="tab-content"><div id="rapha-sl" style="flex:1 1 auto;min-width:0;overflow-y:auto;padding-bottom:12px;"></div></section>
+</main>
+
+<footer class="app-footer">
+  Guildford TCR 2026 commentary tool. Happy cycling!
+</footer>
+<div id="global-team-popup" onmouseenter="cancelHideTeamPopup()" onmouseleave="scheduleHideTeamPopup()"></div>
+
+<script src="../Riders:Teams Database/riders.js"></script>
+<script src="../Riders:Teams Database/teams.js"></script>
+<script src="../Riders:Teams Database/results-archive.js"></script>
+<script src="race-data.js"></script>
+<script>
+/* ============================================================
+   CORE — data wiring, category switching, startlist overlay
+   ============================================================ */
+const IMG_BASE = '../Riders:Teams Database/';
+const RIDERS  = window.GLOBAL_RIDERS || [];
+const TEAMS   = window.GLOBAL_TEAMS || [];
+const ARCHIVE = window.RESULTS_ARCHIVE || [];
+const RD      = window.RACE_DATA || null;
+
+if(!RD || !RIDERS.length){
+  const el = document.getElementById('load-error');
+  el.style.display = 'block';
+  el.innerHTML = '<b>Could not load the databases.</b><br>This tool needs to sit in a folder next to the “Riders/Teams Database” folder (it loads ../Riders:Teams Database/riders.js, teams.js, results-archive.js and its own race-data.js).<br>Check the folders haven\'t been moved or renamed, then refresh.';
+}
+
+const CATS = RD ? RD.categories : {};
+const CAT_ORDER = ['open','women','u8','u1012','u1416','heroes'];
+const ELITE_TABS = [['startlist','Rider Startlist'],['dashboard','Dashboard'],['riders','Riders'],['teams','Teams'],['course','Course'],['history','History'],['series','Series Overview'],['sponsors','Sponsors'],['rapha','Rapha Super League']];
+const SUPPORT_TABS = [['startlist','Rider Startlist'],['dashboard','Dashboard'],['riders','Riders'],['teams','Teams'],['course','Course'],['history','History'],['sponsors','Sponsors']];
+
+let activeCat = 'open';
+let currentTab = 'dashboard';
+
+// ---------- helpers ----------
+function escAttr(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function escHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function normName(s){
+  return String(s||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+}
+function ordinal(n){ n=Number(n); const s=(10<=n%100&&n%100<=20)?'th':({1:'st',2:'nd',3:'rd'}[n%10]||'th'); return n+s; }
+function teamColor(team){
+  let hash = 0;
+  for(let i=0;i<team.length;i++){ hash = (hash*31 + team.charCodeAt(i)) >>> 0; }
+  return `hsl(${hash % 360}, 48%, 36%)`;
+}
+const RIDER_BY_ID = {}; RIDERS.forEach(r => RIDER_BY_ID[r.id] = r);
+const RIDER_BY_NORM = {}; RIDERS.forEach(r => { const k = normName(r.name); if(!RIDER_BY_NORM[k]) RIDER_BY_NORM[k] = r; });
+function riderByName(name){ return RIDER_BY_NORM[normName(name)] || null; }
+function riderIdFromName(name){
+  const r = riderByName(name);
+  return r ? r.id : normName(name).replace(/ /g,'-');
+}
+function teamRecord(teamName){
+  if(!teamName) return null;
+  const n = normName(teamName);
+  return TEAMS.find(t => normName(t.name)===n
+    || t.name.split(/\s*\/\s*/).some(p => normName(p)===n)
+    || (t.previous_names||[]).some(p => normName(typeof p==='string'?p:(p.name||''))===n)) || null;
+}
+function kitSlugFor(teamName){
+  const t = teamRecord(teamName);
+  const canonical = t ? t.name : teamName;
+  return (canonical||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+function kitSrcFor(teamName){
+  const t = teamRecord(teamName);
+  if(t && t.kit_image) return IMG_BASE + t.kit_image;
+  const slug = kitSlugFor(teamName);
+  return slug ? IMG_BASE + 'images/kits/' + slug + '.png' : '';
+}
+function kitImgTag(teamName, h){
+  const t = teamRecord(teamName);
+  const slug = kitSlugFor(teamName);
+  if(!slug) return '';
+  const png = t && t.kit_image ? IMG_BASE + t.kit_image : IMG_BASE + 'images/kits/' + slug + '.png';
+  const jpg = IMG_BASE + 'images/kits/' + slug + '.jpg';
+  return `<img src="${png}" loading="lazy" style="height:${h||36}px;width:auto;border-radius:4px;object-fit:contain;flex-shrink:0;" onerror="this.src='${jpg}';this.onerror=function(){this.remove()};">`;
+}
+function riderImgSrc(r){ return r && r.image_rider ? IMG_BASE + r.image_rider : ''; }
+
+// ---------- startlist overlay (localStorage) ----------
+const SL_KEY = 'gtcr2026_startlists_v1';
+function loadStartlists(){
+  const base = JSON.parse(JSON.stringify(RD ? RD.startlists : {}));
+  try{
+    const saved = JSON.parse(localStorage.getItem(SL_KEY) || 'null');
+    if(saved){
+      Object.keys(saved).forEach(k => { if(base[k]) base[k].entries = saved[k]; });
+    }
+  }catch(e){}
+  return base;
+}
+let STARTLISTS = loadStartlists();
+function saveStartlists(){
+  const out = {};
+  Object.keys(STARTLISTS).forEach(k => out[k] = STARTLISTS[k].entries);
+  try{ localStorage.setItem(SL_KEY, JSON.stringify(out)); }catch(e){}
+}
+function resetStartlist(cat){
+  if(!confirm('Reset the ' + (CATS[cat]?CATS[cat].label:cat) + ' startlist to the imported version? Your added/edited rows will be lost.')) return;
+  STARTLISTS[cat].entries = JSON.parse(JSON.stringify(RD.startlists[cat].entries));
+  saveStartlists(); rebuildField(); renderAll();
+}
+
+// FIELD = active category entrants joined to the global rider DB
+function buildFieldFor(cat){
+  const sl = STARTLISTS[cat];
+  if(!sl) return [];
+  return sl.entries.filter(e => !e.withdrawn).map(e => {
+    const r = RIDER_BY_ID[e.id] || (e.name ? riderByName(e.name) : null);
+    const base = r ? Object.assign({}, r) : { id: e.id || ('adhoc-'+e.bib), name: e.name || ('Rider #'+e.bib), team: e.team || null, results: [], adhoc: true };
+    if(e.team) base.team = e.team;   // startlist team overrides DB (rider may have moved)
+    return Object.assign(base, { bib: e.bib, reserve: !!e.reserve, slCat: e.cat || null, slGender: e.gender || null, added: !!e.added });
+  });
+}
+let FIELD = [];
+let ALL_TEAMS = [];
+function rebuildField(){
+  FIELD = buildFieldFor(activeCat);
+  ALL_TEAMS = [...new Set(FIELD.map(r=>r.team).filter(Boolean))].sort();
+}
+function fieldEntry(name){
+  const k = normName(name);
+  return FIELD.find(x => normName(x.name) === k) || null;
+}
+function bibPill(name){
+  const e = fieldEntry(name);
+  return e ? '<span class="stnds-dot" title="On tonight\'s ' + escAttr(CATS[activeCat].label) + ' startlist · #'+e.bib+'">'+e.bib+'</span>' : '';
+}
+
+// ---------- spotlight ----------
+const SPOT_KEY = 'gtcr2026_spotlight_v1';
+function loadSpot(){ try{ const raw = localStorage.getItem(SPOT_KEY); if(raw!==null) return new Set(JSON.parse(raw)); }catch(e){} return new Set(); }
+let spotlightIds = loadSpot();
+function saveSpot(){ try{ localStorage.setItem(SPOT_KEY, JSON.stringify([...spotlightIds])); }catch(e){} }
+function toggleSpotlight(id){
+  if(spotlightIds.has(id)) spotlightIds.delete(id); else spotlightIds.add(id);
+  saveSpot(); renderAll();
+}
+function handleRiderNameAuxClick(e, el){ if(e.button!==1) return; e.preventDefault(); toggleSpotlight(el.dataset.id); }
+function handleStandingsAuxClick(e, el){ if(e.button!==1) return; e.preventDefault(); const n = el.dataset.sname; if(n) toggleSpotlight(riderIdFromName(n)); }
+
+// ---------- category & tab switching ----------
+function catTabs(cat){ return (CATS[cat] && CATS[cat].type === 'elite') ? ELITE_TABS : SUPPORT_TABS; }
+function renderNav(){
+  document.getElementById('race-selector').innerHTML = `<select class="race-select" onchange="switchCat(this.value)">` +
+    CAT_ORDER.map(c => `<option value="${c}"${c===activeCat?' selected':''}>${escHtml(CATS[c].label)}</option>`).join('') +
+    `</select>`;
+  const tabs = catTabs(activeCat);
+  if(!tabs.some(t => t[0]===currentTab)) currentTab = 'dashboard';
+  document.getElementById('tab-btns').innerHTML = tabs.map(([id,label]) =>
+    `<button class="tab-btn${id===currentTab?' active':''}" data-tab="${id}" onclick="switchTab('${id}')">${label}</button>`).join('');
+}
+function switchTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('#tab-btns .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.toggle('active', c.id==='tab-'+tab));
+  if(tab === 'riders' && CATS[activeCat] && CATS[activeCat].type==='youth' && youthViewMode!=='combined' && typeof fitYouthGrid==='function'){
+    setTimeout(fitYouthGrid, 0);
+  }
+}
+function switchCat(cat){
+  activeCat = cat;
+  selectedRiders = new Set(); selectedTeams = new Set(); youthSelectedTeams = new Set();
+  rebuildField();
+  renderNav();
+  switchTab(currentTab);
+  renderHeader();
+  renderAll();
+}
+function renderHeader(){
+  const c = CATS[activeCat];
+  document.getElementById('header-title').textContent = RD.event.name + ' — ' + c.label;
+  document.getElementById('header-sub').textContent =
+    c.raceTitle + (c.series ? ' · ' + c.series : '') + ' · ' + RD.event.dateDisplay + ' · ' + RD.event.location + ' · ' + RD.event.edition;
+  document.getElementById('badge-start').textContent = 'Race start ' + c.start;
+  const dist = c.type==='elite' ? '50 min · ~1km circuit' :
+    (activeCat==='u8' ? '2 laps · ~600m circuit' : activeCat==='u1012' ? '15 min · ~1km circuit' : activeCat==='u1416' ? '20 min · ~1km circuit' : '30 min · ~1km circuit');
+  document.getElementById('badge-distance').textContent = dist;
+  const n = FIELD.filter(x=>!x.reserve).length, res = FIELD.filter(x=>x.reserve).length;
+  document.getElementById('badge-riders').textContent = n + ' riders' + (res ? ' (+' + res + ' reserves)' : '');
+}
+function renderAll(){
+  renderHeader();
+  renderStartlistTab();
+  renderDashboard();
+  renderRidersTab();
+  renderTeamsTab();
+  renderCourse();
+  renderHistory();
+  renderSponsors();
+  if(CATS[activeCat].type === 'elite'){ renderSeriesOverview(); renderRaphaSuperLeague(); }
+}
+function togglePanel(id, btn){
+  const panel = document.getElementById(id);
+  if(!panel) return;
+  panel.classList.toggle('collapsed');
+  if(btn) btn.classList.toggle('collapsed', panel.classList.contains('collapsed'));
+}
+
+/* ============================================================
+   ARCHIVE helpers (Guildford history, youth results)
+   ============================================================ */
+const GTCR = 'Guildford Town Centre Races';
+function guildfordRaces(year){ return ARCHIVE.filter(a => a.event === GTCR && (!year || a.year === year)); }
+function raceAgeLabel(raceName){
+  const m = /Under\s*(\d+)|U(\d+)/i.exec(raceName);
+  if(m) return 'U' + (m[1]||m[2]);
+  if(/Local Heroes/i.test(raceName)) return 'LH';
+  if(/Women/i.test(raceName)) return 'Women';
+  if(/Open Grand|Elite/i.test(raceName)) return 'Open';
+  return '';
+}
+function isYouthRace(raceName){ return /Under\s*\d+|U\d+/i.test(raceName) && !/Otley|Colne/i.test(raceName); }
+// All Guildford archive appearances for a rider name → {year: [{race, pos, ageLabel, rows}]}
+function guildfordAppearances(name){
+  const k = normName(name);
+  const out = {};
+  ARCHIVE.filter(a => a.event === GTCR).forEach(a => {
+    (a.rows||[]).forEach(row => {
+      if(normName(row.name) === k){
+        (out[a.year] = out[a.year] || []).push({ race: a.race, pos: row.pos, status: row.status||'', ageLabel: raceAgeLabel(a.race), arch: a });
+      }
+    });
+  });
+  return out;
+}
+function archTop3(arch){
+  return (arch.rows||[]).filter(r => /^\d+$/.test(r.pos) && Number(r.pos)>=1 && Number(r.pos)<=3).slice(0,3);
+}
+function medalPillHtml(pos){
+  const n = Number(pos);
+  if(n===1) return '<span class="medal-pill gold">1st</span>';
+  if(n===2) return '<span class="medal-pill silver">2nd</span>';
+  if(n===3) return '<span class="medal-pill bronze">3rd</span>';
+  return null;
+}
+function resCellHtml(app){
+  // app: appearance for a single year (may be multiple races — take first)
+  if(!app || !app.length) return '<span class="muted" style="font-size:.78rem;">—</span>';
+  return app.map(a => {
+    if(!/^\d+$/.test(a.pos) || a.pos==='0'){
+      return '<span class="muted" style="font-size:.78rem;">' + escHtml(a.status || 'DNF') + (a.ageLabel? ' '+a.ageLabel:'') + '</span>';
+    }
+    const pill = medalPillHtml(a.pos);
+    const label = a.ageLabel && a.ageLabel !== 'LH' ? ' ' + a.ageLabel : '';
+    if(pill) return pill + '<span style="font-size:.76rem;color:var(--muted);">' + label + '</span>';
+    return '<span style="font-weight:600;">' + ordinal(a.pos) + '</span><span style="font-size:.76rem;color:var(--muted);">' + label + '</span>';
+  }).join('<br>');
+}
+</script>
+<script>
+/* ============================================================
+   STARTLIST TAB — editable, autocomplete from global DB
+   ============================================================ */
+function renderStartlistTab(){
+  const host = document.getElementById('startlist-wrap');
+  const c = CATS[activeCat];
+  const sl = STARTLISTS[activeCat];
+  if(!sl){ host.innerHTML = '<div class="empty-state">No startlist for this category.</div>'; return; }
+  const isYouth = c.type === 'youth';
+  const rows = sl.entries.map((e,i) => {
+    const r = RIDER_BY_ID[e.id] || (e.name ? riderByName(e.name) : null);
+    const nm = e.name || (r ? r.name : '');
+    const tm = e.team || (r ? r.team : '') || '';
+    const tags = (e.reserve?'<span class="sl-tag reserve">Reserve</span>':'') + (e.withdrawn?'<span class="sl-tag withdrawn">Withdrawn</span>':'') + (e.added?'<span class="sl-tag added">Added</span>':'');
+    const catCol = isYouth ? `<td style="width:60px;">${escHtml(e.cat||'')}${e.gender?' · '+escHtml(e.gender):''}</td>` : '';
+    return `<tr class="data-row">
+      <td style="width:70px;"><input class="sl-bib" value="${escAttr(e.bib)}" onchange="slEdit(${i},'bib',this.value)"></td>
+      <td><input value="${escAttr(nm)}" onchange="slEdit(${i},'name',this.value)">${tags}</td>
+      <td><input value="${escAttr(tm)}" onchange="slEdit(${i},'team',this.value)"></td>
+      ${catCol}
+      <td style="width:34px;text-align:center;"><button class="sl-rm" title="Remove row" onclick="slRemove(${i})">×</button></td>
+    </tr>`;
+  }).join('');
+  const catHead = isYouth ? '<th>Cat</th>' : '';
+  const catNewCol = isYouth ? `<td><input id="sl-new-cat" placeholder="e.g. B Boy" style="width:80px;"></td>` : '';
+  host.innerHTML = `
+    <div class="sl-tools">
+      <span style="font-weight:700;color:var(--primary);font-size:.95rem;">${escHtml(c.raceTitle)} — Startlist</span>
+      <span class="muted" style="font-size:.78rem;">${sl.entries.filter(e=>!e.withdrawn&&!e.reserve).length} starters · edits & late entries are saved in this browser</span>
+      <span style="flex:1"></span>
+      <button class="btn" onclick="resetStartlist('${activeCat}')">↺ Reset to imported list</button>
+      <button class="btn" onclick="exportRaceData()" title="Download an updated race-data.js including your startlist edits">⬇ Export race-data.js</button>
+    </div>
+    <div class="sl-scroll">
+      <table class="sl">
+        <thead><tr><th>Bib</th><th>Name</th><th>Team</th>${catHead}<th></th></tr></thead>
+        <tbody>${rows}
+          <tr class="sl-newrow">
+            <td><input class="sl-bib" id="sl-new-bib" placeholder="#"></td>
+            <td><input id="sl-new-name" placeholder="Type a name or team to search the database… (late entries on the line)" autocomplete="off"></td>
+            <td><input id="sl-new-team" placeholder="Team (auto-fills from database)" autocomplete="off"></td>
+            ${catNewCol}
+            <td style="width:34px;text-align:center;"><button class="sl-rm" style="color:var(--secondary);opacity:1;font-weight:700;" title="Add rider" onclick="slAddNew()">＋</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>`;
+  attachSuggest(document.getElementById('sl-new-name'), 'name');
+  attachSuggest(document.getElementById('sl-new-team'), 'team');
+}
+function slEdit(i, field, value){
+  const e = STARTLISTS[activeCat].entries[i];
+  if(!e) return;
+  if(field==='bib'){ e.bib = Number(value)||value; }
+  else if(field==='name'){
+    e.name = value.trim();
+    const r = riderByName(value); if(r){ e.id = r.id; if(!e.team) e.team = r.team; }
+  }
+  else if(field==='team'){ e.team = value.trim() || undefined; }
+  saveStartlists(); rebuildField(); renderHeader();
+}
+function slRemove(i){
+  const e = STARTLISTS[activeCat].entries[i];
+  if(!confirm('Remove ' + (e.name || RIDER_BY_ID[e.id]?.name || 'this rider') + ' from the startlist?')) return;
+  STARTLISTS[activeCat].entries.splice(i,1);
+  saveStartlists(); rebuildField(); renderAll();
+}
+function slAddNew(){
+  const bib = document.getElementById('sl-new-bib').value.trim();
+  const name = document.getElementById('sl-new-name').value.trim();
+  const team = document.getElementById('sl-new-team').value.trim();
+  if(!name){ alert('Enter a rider name.'); return; }
+  const r = riderByName(name);
+  const entry = { bib: Number(bib)||bib||'?', name: name, team: team || (r?r.team:undefined), added: true };
+  if(r) entry.id = r.id;
+  const catEl = document.getElementById('sl-new-cat');
+  if(catEl && catEl.value.trim()){
+    const m = /([A-E])\s*(Boy|Girl)?/i.exec(catEl.value.trim());
+    if(m){ entry.cat = m[1].toUpperCase(); if(m[2]) entry.gender = m[2][0].toUpperCase()+m[2].slice(1).toLowerCase(); }
+  }
+  STARTLISTS[activeCat].entries.push(entry);
+  saveStartlists(); rebuildField(); renderAll();
+  switchTab('startlist');
+}
+// ---- autocomplete ----
+let _sugBox = null;
+function ensureSugBox(){
+  if(!_sugBox){ _sugBox = document.createElement('div'); _sugBox.className='sug-box'; document.body.appendChild(_sugBox); }
+  return _sugBox;
+}
+function attachSuggest(input, kind){
+  if(!input) return;
+  const box = ensureSugBox();
+  let items = [], hl = -1;
+  function close(){ box.style.display='none'; hl=-1; }
+  function pick(r){
+    document.getElementById('sl-new-name').value = r.name;
+    const teamEl = document.getElementById('sl-new-team');
+    if(teamEl && (!teamEl.value.trim() || kind==='team')) teamEl.value = r.team || '';
+    close();
+    document.getElementById('sl-new-bib').focus();
+  }
+  input.addEventListener('input', () => {
+    const q = normName(input.value);
+    if(q.length < 2){ close(); return; }
+    items = RIDERS.filter(r => normName(r.name).includes(q) || normName(r.team||'').includes(q)).slice(0, 14);
+    if(!items.length){ close(); return; }
+    box.innerHTML = items.map((r,i)=>`<div class="sug-item" data-i="${i}"><span>${escHtml(r.name)}</span><span class="sug-team">${escHtml(r.team||'')}${r.category?' · '+escHtml(r.category):''}</span></div>`).join('');
+    const rect = input.getBoundingClientRect();
+    box.style.left = rect.left + 'px';
+    box.style.top = (rect.bottom + 2) + 'px';
+    box.style.minWidth = Math.max(280, rect.width) + 'px';
+    box.style.display = 'block';
+    box.querySelectorAll('.sug-item').forEach(el => el.addEventListener('mousedown', ev => { ev.preventDefault(); pick(items[Number(el.dataset.i)]); }));
+  });
+  input.addEventListener('keydown', e => {
+    if(box.style.display !== 'block') return;
+    const els = box.querySelectorAll('.sug-item');
+    if(e.key === 'ArrowDown'){ hl = Math.min(hl+1, els.length-1); }
+    else if(e.key === 'ArrowUp'){ hl = Math.max(hl-1, 0); }
+    else if(e.key === 'Enter'){ if(hl>=0){ e.preventDefault(); pick(items[hl]); } return; }
+    else if(e.key === 'Escape'){ close(); return; }
+    else return;
+    e.preventDefault();
+    els.forEach((el,i)=>el.classList.toggle('hl', i===hl));
+    if(els[hl]) els[hl].scrollIntoView({block:'nearest'});
+  });
+  input.addEventListener('blur', () => setTimeout(close, 150));
+}
+function exportRaceData(){
+  const rd = JSON.parse(JSON.stringify(RD));
+  Object.keys(STARTLISTS).forEach(k => { if(rd.startlists[k]) rd.startlists[k].entries = STARTLISTS[k].entries; });
+  const content = '// Guildford Town Centre Races 2026 — event data (exported from the tool ' + new Date().toISOString().slice(0,16).replace('T',' ') + ')\nwindow.RACE_DATA = ' + JSON.stringify(rd) + ';\n';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type:'text/javascript'}));
+  a.download = 'race-data.js';
+  a.click();
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+let _spotPositionedFor = null;
+function repositionSpotlight(){
+  if(_spotPositionedFor === activeCat) return;
+  _spotPositionedFor = activeCat;
+  const c = CATS[activeCat];
+  const cols = document.querySelectorAll('.dash-cols>.dash-col');
+  const col2 = cols[1], col3 = cols[2];
+  const spotPanel = document.getElementById('panel-spotlight');
+  const spotVr = document.getElementById('vr-spotlight');
+  const heroesPanel = document.getElementById('panel-heroes-riders');
+  const heroesVr = document.getElementById('vr-heroes-riders');
+  const youthPanel = document.getElementById('panel-youth-riders');
+  const youthVr = document.getElementById('vr-youth-riders');
+  if(!col2 || !col3 || !spotPanel || !spotVr || !heroesPanel || !youthPanel) return;
+  const showHeroes = c.type === 'heroes';
+  const showYouth = c.type === 'youth';
+  heroesPanel.style.display = showHeroes ? '' : 'none';
+  if(heroesVr) heroesVr.style.display = showHeroes ? '' : 'none';
+  youthPanel.style.display = showYouth ? '' : 'none';
+  if(youthVr) youthVr.style.display = showYouth ? '' : 'none';
+  if(showHeroes || showYouth){
+    spotVr.dataset.top = 'panel-timetable';
+    col2.appendChild(spotVr);
+    col2.appendChild(spotPanel);
+    spotPanel.classList.add('collapsed');
+    const btn = spotPanel.querySelector('.panel-collapse-btn');
+    if(btn) btn.classList.add('collapsed');
+  } else {
+    spotVr.dataset.top = 'panel-standings';
+    col3.appendChild(spotVr);
+    col3.appendChild(spotPanel);
+  }
+}
+function renderDashboard(){
+  repositionSpotlight();
+  const c = CATS[activeCat];
+  const isElite = c.type === 'elite';
+  const info = isElite ? RD.raceInfo.elite : RD.raceInfo.support;
+  function infoRow(label, value){
+    if(!value) return '';
+    return `<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:.85rem;">
+      <div style="font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:2px;">${label}</div>
+      <div style="line-height:1.45;">${value}</div></div>`;
+  }
+  let rows = infoRow('Race', escHtml(c.raceTitle))
+    + infoRow('Start time', c.start + (isElite ? ' (after sight lap & gridding)' : ' (sight lap 5 min before)'))
+    + infoRow('Duration', escHtml(info.distance));
+  if(isElite){
+    rows += infoRow('Gridding', escHtml(info.gridding))
+      + infoRow('Sprint competition', escHtml(info.sprints))
+      + infoRow('Mech / pits', escHtml(info.pits))
+      + infoRow('Lapped riders', escHtml(info.lapped))
+      + infoRow('Blue flag', escHtml(info.blueFlag))
+      + infoRow('Prizes', escHtml(info.prizes))
+      + infoRow('Incidents', escHtml(info.incidents));
+  } else {
+    rows += infoRow('Lapped riders', escHtml(info.lapped))
+      + infoRow('Prizes', escHtml(info.prizes))
+      + infoRow('Sign-on', escHtml(info.signOn))
+      + infoRow('Circuit', escHtml(activeCat==='u8' ? RD.course.u8Circuit + ' (original short circuit)' : 'Extended ~1km circuit — same as the National Series races.'));
+  }
+  rows += infoRow('Special guests', RD.event.specialGuests.map(escHtml).join('<br>'))
+    + infoRow('HQ', escHtml(RD.event.hqNote));
+  document.getElementById('dashboard-raceinfo').innerHTML = rows;
+
+  // timetable — highlight active category's race
+  document.getElementById('dashboard-timetable').innerHTML = RD.timetable.map(t =>
+    `<li class="${t.cat===activeCat?'feature':''}"><span class="t">${t.time}</span><span>${escHtml(t.item)}</span></li>`).join('');
+
+  // commentator intro (persist)
+  if(!document.getElementById('intro-textarea')){
+    const saved = localStorage.getItem('gtcr_intro_text') || '';
+    const savedSize = localStorage.getItem('gtcr_intro_size') || '14';
+    document.getElementById('dashboard-intro').innerHTML = `
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+        <label for="intro-fontsize" style="font-size:.76rem;color:var(--muted);">Size:</label>
+        <select id="intro-fontsize" style="border:1px solid var(--border);border-radius:4px;padding:2px 4px;background:var(--card-bg);color:var(--text);font-size:.76rem;">
+          ${[10,12,14,16,18,20,24,28,32].map(s=>`<option value="${s}"${s==savedSize?' selected':''}>${s}px</option>`).join('')}
+        </select>
+        <button id="intro-save-btn" style="padding:2px 10px;border:1px solid var(--primary);border-radius:4px;background:var(--primary);color:#fff;cursor:pointer;font-size:.76rem;margin-left:auto;">Save</button>
+      </div>
+      <textarea id="intro-textarea" class="intro-area" spellcheck="false" placeholder="Type your commentator intro / notes here…" style="font-size:${savedSize}px;">${escHtml(saved)}</textarea>`;
+    document.getElementById('intro-fontsize').addEventListener('change', function(){ document.getElementById('intro-textarea').style.fontSize = this.value+'px'; });
+    document.getElementById('intro-save-btn').addEventListener('click', function(){
+      localStorage.setItem('gtcr_intro_text', document.getElementById('intro-textarea').value);
+      localStorage.setItem('gtcr_intro_size', document.getElementById('intro-fontsize').value);
+      this.textContent = 'Saved ✓'; setTimeout(()=>{ this.textContent='Save'; }, 1400);
+    });
+  }
+
+  // col 3: standings (elite) or field summary (youth/heroes)
+  const standingsBody = document.getElementById('dashboard-standings');
+  const headContent = document.getElementById('dash-col3-head-content');
+  if(isElite){
+    if(!window._panelMode) window._panelMode = 'standings';
+    const panelMode = window._panelMode;
+    if(headContent) headContent.innerHTML = `
+      <span class="dash-tab-toggle">
+        <button class="${panelMode==='startlist'?'active':''}" onclick="window._panelMode='startlist';renderDashboard();">Startlist</button>
+        <button class="${panelMode==='standings'?'active':''}" onclick="window._panelMode='standings';renderDashboard();">Series Standings <span class="sub">After Rd 3 · Ilkley</span></button>
+      </span>`;
+    const key = activeCat === 'women' ? 'women' : 'open';
+    if(panelMode === 'startlist'){
+      const starters = FIELD.filter(x=>!x.reserve).slice().sort((a,b)=>a.bib-b.bib);
+      const rows = starters.map(r=>{
+        const isSpot = spotlightIds.has(r.id);
+        const rowBg = isSpot ? 'background:rgba(31,122,77,0.13);' : '';
+        const apps = guildfordAppearances(r.name);
+        const yearApps = apps[2025] || [];
+        return `<tr class="data-row" style="${rowBg}">
+        <td class="yt-col-bib"><b>${r.bib}</b></td>
+        <td data-sname="${escAttr(r.name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" onauxclick="handleStandingsAuxClick(event,this)" style="cursor:default;font-weight:600;">${escHtml(r.name)}${riderMedalDotHtml(r)}</td>
+        <td class="yt-team" data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;">${escHtml(r.team||'')}</td>
+        <td>${resCellHtml(yearApps)}</td>
+      </tr>`;
+      }).join('');
+      standingsBody.innerHTML = `<div style="overflow-x:auto;"><table class="yt"><thead><tr><th class="yt-col-bib">Bib</th><th>Rider Name</th><th>Team</th><th>2025</th></tr></thead><tbody>${rows || `<tr><td colspan="4" class="muted" style="padding:10px;">No starters loaded.</td></tr>`}</tbody></table></div>`;
+    } else {
+      if(!window._standingsMode) window._standingsMode = 'riders';
+      const sm = window._standingsMode;
+      const st = RD.ncs.standings.afterR3[key];
+      const teamsSt = (st.teams && st.teams.length) ? st.teams : RD.ncs.standings.afterR1[key].teams;
+      const sprintsSt = (st.sprints && st.sprints.length) ? st.sprints : RD.ncs.standings.afterR1[key].sprints;
+      const fallbackNote = '<div style="font-size:.7rem;color:var(--muted);margin-top:6px;">' + escHtml(RD.ncs.standings.notes.womenR3Teams) + '</div>';
+      const teamNote = (st.teams && st.teams.length) ? '' : fallbackNote;
+      const sprintNote = (st.sprints && st.sprints.length) ? '' : fallbackNote;
+      const sdata = sm==='riders' ? st.individual.slice(0,20) : sm==='sprints' ? sprintsSt : teamsSt;
+      const isTeamsMode = sm === 'teams';
+      const rowsH = sdata.map((r,i)=>{
+        const isSpot = !isTeamsMode && spotlightIds.has(riderIdFromName(r.name));
+        const rowBg = isSpot ? 'background:rgba(31,122,77,0.13);' : (i%2 ? 'background:rgba(128,128,128,.06);' : '');
+        const dot = !isTeamsMode ? bibPill(r.name) : '';
+        const hover = !isTeamsMode ? ` data-sname="${escAttr(r.name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" onauxclick="handleStandingsAuxClick(event,this)"` : ` data-tname="${escAttr(r.name)}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()"`;
+        const teamCell = isTeamsMode ? '' : `<td class="yt-team" data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;">${escHtml(r.team||'')}</td>`;
+        return `<tr class="data-row" style="${rowBg}">
+        <td class="yt-col-bib">${r.pos}</td>
+        <td${hover} style="font-weight:600;">${escHtml(r.name)}${dot}</td>
+        ${teamCell}
+        <td style="text-align:right;font-weight:600;">${r.pts==null?'':r.pts}</td></tr>`;
+      }).join('');
+      standingsBody.innerHTML = `
+        <div class="stnds-tog">
+          <button class="${sm==='riders'?'active':''}" onclick="window._standingsMode='riders';renderDashboard();">Riders</button>
+          <button class="${sm==='teams'?'active':''}" onclick="window._standingsMode='teams';renderDashboard();">Teams</button>
+          <button class="${sm==='sprints'?'active':''}" onclick="window._standingsMode='sprints';renderDashboard();">Sprints</button>
+        </div>
+        <div style="overflow-x:auto;"><table class="yt"><thead><tr><th class="yt-col-bib">#</th><th>${isTeamsMode?'Team':'Rider'}</th>${isTeamsMode?'':'<th>Team</th>'}<th style="text-align:right;">Pts</th></tr></thead>
+        <tbody>${rowsH}</tbody></table></div>${sm==='teams'?teamNote:(sm==='sprints'?sprintNote:'')}`;
+    }
+  } else {
+    if(headContent) headContent.innerHTML = `<span>Field Summary</span>`;
+    const starters = FIELD.filter(x=>!x.reserve);
+    let html = '';
+    if(c.type === 'youth'){
+      const groups = {};
+      starters.forEach(x => {
+        const key = (x.slCat||'?') + '|' + (x.slGender||'?');
+        groups[key] = (groups[key]||0)+1;
+      });
+      const CAT_LABELS = {E:'Under 8 (Youth E)', D:'Under 10 (Youth D)', C:'Under 12 (Youth C)', B:'Under 14 (Youth B)', A:'Under 16 (Youth A)'};
+      html = '<table style="width:100%;border-collapse:collapse;font-size:.85rem;">' +
+        Object.keys(groups).sort().map(k=>{
+          const [cat, g] = k.split('|');
+          return `<tr><td style="padding:5px 4px;border-bottom:1px solid var(--border);">${escHtml(CAT_LABELS[cat]||cat)} ${g==='Boy'?'Boys':g==='Girl'?'Girls':''}</td><td style="text-align:right;font-weight:700;border-bottom:1px solid var(--border);">${groups[k]}</td></tr>`;
+        }).join('') + `<tr><td style="padding:6px 4px;font-weight:700;">Total starters</td><td style="text-align:right;font-weight:700;">${starters.length}</td></tr></table>`;
+    } else {
+      const withHistory = starters.filter(x => Object.keys(guildfordAppearances(x.name)).length).length;
+      html = `<div style="font-size:.86rem;line-height:1.7;">
+        <b>${starters.length}</b> starters (3rd cat riders)<br>
+        <b>${withHistory}</b> have ridden a previous Guildford edition (see Riders tab)<br>
+        <b>${[...new Set(starters.map(x=>x.team).filter(Boolean))].length}</b> different clubs/teams represented</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:8px;">Defending Local Heroes winner: ${escHtml((RD.history.pastWinners.heroes[0]||{}).winner||'')} (2025). ${escHtml(RD.history.defendingChampions.heroes||'')}</div>`;
+    }
+    standingsBody.innerHTML = html;
+  }
+
+  // spotlight
+  const otw = FIELD.filter(r=>spotlightIds.has(r.id)).sort((a,b)=>a.bib-b.bib);
+  document.getElementById('dashboard-spotlight').innerHTML = otw.length
+    ? otw.map(r=>{
+        const results = (r.results && r.results.length) ? resultsListHtml(r) : '<div class="muted" style="font-size:.76rem;margin-top:4px;">No dated results on file.</div>';
+        return `<details open style="border-bottom:1px solid var(--border);padding:2px 0;">
+          <summary style="padding:8px 0;cursor:pointer;font-size:.88rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:6px;">
+            <span><b>${r.bib} · ${escHtml(r.name)}</b> <span class="muted" data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="font-size:.8rem;cursor:default;">${escHtml(r.team||'')}</span></span>
+            <span style="font-size:.7rem;color:var(--muted);flex-shrink:0;">▲ collapse</span></summary>
+          <div style="padding-bottom:8px;">${results}</div></details>`;
+      }).join('')
+    : '<div class="muted" style="font-size:.84rem;padding:12px 0;">Middle-click a rider name (Riders tab or any standings table) to add them to the spotlight.</div>';
+
+  if(activeCat === 'heroes') renderHeroesRidersPanel();
+  if(CATS[activeCat] && CATS[activeCat].type === 'youth') renderYouthRidersPanel();
+  if(typeof restoreAllPanelSizes === 'function') restoreAllPanelSizes();
+}
+function renderHeroesRidersPanel(){
+  const body = document.getElementById('dashboard-heroes-riders');
+  if(!body) return;
+  if(!window._heroesPanelMode) window._heroesPanelMode = 'startlist';
+  const mode = window._heroesPanelMode;
+  let tableHtml;
+  if(mode === 'startlist'){
+    const starters = FIELD.filter(x=>!x.reserve).slice().sort((a,b)=>a.bib-b.bib);
+    const rows = starters.map(r=>{
+      const apps = guildfordAppearances(r.name);
+      const y2025 = apps[2025] || [];
+      const lh = y2025.filter(a=>/Local Heroes/i.test(a.race));
+      const yearApps = lh.length ? lh : y2025;
+      return `<tr class="data-row">
+        <td class="yt-col-bib"><b>${r.bib}</b></td>
+        <td><span class="yt-name" data-name="${escAttr(r.name)}" data-id="${escAttr(r.id)}" onmouseenter="showYouthTT(this,event)" onmouseleave="hideYouthTT()" onauxclick="handleRiderNameAuxClick(event,this)">${escHtml(r.name)}</span>${riderMedalDotHtml(r)}${bibPill(r.name)}</td>
+        <td class="yt-team" data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;">${escHtml(r.team||'')}</td>
+        <td>${resCellHtml(yearApps)}</td>
+      </tr>`;
+    }).join('');
+    tableHtml = `<table class="yt"><thead><tr><th class="yt-col-bib">Bib</th><th>Rider Name</th><th>Team</th><th>2025</th></tr></thead><tbody>${rows || `<tr><td colspan="4" class="muted" style="padding:10px;">No starters loaded.</td></tr>`}</tbody></table>`;
+  } else {
+    const arch = guildfordRaces(2025).find(a=>/Local Heroes/i.test(a.race));
+    const rows = arch ? (arch.rows||[]).map(r=>{
+      const posOk = /^\d+$/.test(String(r.pos)) && String(r.pos)!=='0';
+      const rid = riderIdFromName(r.name) || '';
+      return `<tr class="data-row">
+        <td class="yt-col-bib"><b>${posOk?r.pos:'—'}</b></td>
+        <td><span class="yt-name" data-name="${escAttr(r.name)}" data-id="${escAttr(rid)}" onmouseenter="showYouthTT(this,event)" onmouseleave="hideYouthTT()" onauxclick="handleRiderNameAuxClick(event,this)">${escHtml(r.name)}</span>${riderMedalDotHtml(RIDER_BY_ID[rid])}${bibPill(r.name)}${!posOk&&r.status?` <span class="muted" style="font-size:.72rem;">${escHtml(r.status)}</span>`:''}</td>
+        <td class="yt-team" data-tname="${escAttr(r.club||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;">${escHtml(r.club||'')}</td>
+      </tr>`;
+    }).join('') : '';
+    tableHtml = arch
+      ? `<table class="yt"><thead><tr><th class="yt-col-bib">Pos</th><th>Rider Name</th><th>Club</th></tr></thead><tbody>${rows}</tbody></table>`
+      : '<div class="muted" style="font-size:.84rem;padding:12px 0;">No 2025 Local Heroes results on file.</div>';
+  }
+  body.innerHTML = `
+    <div class="stnds-tog">
+      <button class="${mode==='startlist'?'active':''}" onclick="window._heroesPanelMode='startlist';renderHeroesRidersPanel();">Startlist</button>
+      <button class="${mode==='results'?'active':''}" onclick="window._heroesPanelMode='results';renderHeroesRidersPanel();">2025 Results</button>
+    </div>
+    <div style="overflow-x:auto;">${tableHtml}</div>`;
+}
+const YOUTH_AGE_NUM = {E:8, D:10, C:12, B:14, A:16};
+function youthGroupShortLabel(cat, gender){
+  return 'U' + (YOUTH_AGE_NUM[cat]||'') + (gender==='Boy'?'B':gender==='Girl'?'G':'');
+}
+function renderYouthRidersPanel(){
+  const body = document.getElementById('dashboard-youth-riders');
+  if(!body) return;
+  const groups = YOUTH_GROUPS[activeCat] || [];
+  if(!groups.length) return;
+  if(!window._youthPanelSel) window._youthPanelSel = {};
+  if(window._youthPanelSel[activeCat] == null) window._youthPanelSel[activeCat] = 0;
+  const sel = window._youthPanelSel[activeCat];
+  let entries;
+  if(sel === 'all'){
+    entries = [];
+    groups.forEach(([cat, gender])=>{
+      const tag = youthGroupShortLabel(cat, gender);
+      FIELD.filter(r=>!r.reserve && r.slCat===cat && r.slGender===gender).sort((a,b)=>a.bib-b.bib)
+        .forEach(r=>entries.push({r, tag}));
+    });
+  } else {
+    const [cat, gender] = groups[sel] || groups[0];
+    entries = FIELD.filter(r=>!r.reserve && r.slCat===cat && r.slGender===gender).sort((a,b)=>a.bib-b.bib)
+      .map(r=>({r, tag:null}));
+  }
+  const rows = entries.map(x=>{
+    const apps = guildfordAppearances(x.r.name);
+    const yearApps = apps[2025] || [];
+    const tagHtml = x.tag ? `<span class="yt-cat-tag">${escHtml(x.tag)}</span>` : '';
+    return `<tr class="data-row">
+      <td class="yt-col-bib"><b>${x.r.bib}</b></td>
+      <td><span class="yt-name" data-name="${escAttr(x.r.name)}" data-id="${escAttr(x.r.id)}" onmouseenter="showYouthTT(this,event)" onmouseleave="hideYouthTT()" onauxclick="handleRiderNameAuxClick(event,this)">${escHtml(x.r.name)}</span>${riderMedalDotHtml(x.r)}${tagHtml}${bibPill(x.r.name)}</td>
+      <td class="yt-team" data-tname="${escAttr(x.r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;">${escHtml(x.r.team||'')}</td>
+      <td>${resCellHtml(yearApps)}</td>
+    </tr>`;
+  }).join('');
+  const btns = groups.map(([cat,gender],i)=>
+    `<button class="${sel===i?'active':''}" onclick="window._youthPanelSel['${activeCat}']=${i};renderYouthRidersPanel();">${escHtml(youthGroupShortLabel(cat,gender))}</button>`
+  ).join('') + `<button class="${sel==='all'?'active':''}" onclick="window._youthPanelSel['${activeCat}']='all';renderYouthRidersPanel();">All</button>`;
+  body.innerHTML = `<div class="stnds-tog" style="margin-bottom:8px;">${btns}</div>
+    <div style="overflow-x:auto;"><table class="yt"><thead><tr><th class="yt-col-bib">Bib</th><th>Rider Name</th><th>Team</th><th>2025</th></tr></thead>
+    <tbody>${rows || `<tr><td colspan="4" class="muted" style="padding:10px;">No riders in this category.</td></tr>`}</tbody></table></div>`;
+}
+</script>
+<script>
+/* ============================================================
+   RESULT LIST helpers (rider cards)
+   ============================================================ */
+const RESULTS_OPEN_YEARS = new Set([2026, 2025, 2024]);
+function resultPlaceClass(result){
+  const m = /^(\d+)/.exec(String(result||'').trim());
+  if(!m) return '';
+  const n = parseInt(m[1],10);
+  return n===1?'medal-gold':n===2?'medal-silver':n===3?'medal-bronze':'';
+}
+function resultSortKey(result){
+  const m = /^(\d+)/.exec(String(result||'').trim());
+  return m ? parseInt(m[1],10) : Infinity;
+}
+function escHoverInfo(s){
+  return String(s).split('\n').map(line=>{
+    const esc = escHtml(line);
+    const m = /^(1st|2nd|3rd)\./.exec(line.trim());
+    if(!m) return esc;
+    const cls = m[1]==='1st'?'popup-medal-gold':(m[1]==='2nd'?'popup-medal-silver':'popup-medal-bronze');
+    return `<span class="${cls}">${esc}</span>`;
+  }).join('\n');
+}
+function resultLiHtml(res){
+  const cls = resultPlaceClass(res.result);
+  const medalDot = cls ? '<span class="medal-dot"></span>' : '';
+  const label = `${res.result ? escHtml(res.result)+' — ' : ''}${escHtml(res.race)}`;
+  if(!res.rider_specific_race_info) return `<li class="result-li ${cls}">${medalDot}${label}</li>`;
+  return `<li class="result-li ${cls} has-info" onclick="toggleResultInfo(event,this)">${medalDot}${label}<div class="result-popup">${escHoverInfo(res.rider_specific_race_info)}</div></li>`;
+}
+function resultsColsHtml(r){
+  if(!r.results || !r.results.length) return '';
+  const col1 = r.results.filter(x=>x.year>=2025);
+  const col2 = r.results.filter(x=>x.year===2024);
+  const col3 = r.results.filter(x=>x.year>=2020 && x.year<=2023);
+  function colHtml(items, heading){
+    if(!items.length) return `<div><div class="results-col-head">${heading}</div><span style="font-size:.78rem;color:var(--text-muted);">—</span></div>`;
+    const byYear = {};
+    items.forEach(x=>{ (byYear[x.year||'?']=byYear[x.year||'?']||[]).push(x); });
+    const inner = Object.keys(byYear).sort((a,b)=>Number(b)-Number(a)).map(y=>{
+      const sorted = byYear[y].slice().sort((a,b)=>resultSortKey(a.result)-resultSortKey(b.result));
+      return `<div class="results-year-label">${y}</div><ul class="results-list">${sorted.map(resultLiHtml).join('')}</ul>`;
+    }).join('');
+    return `<div><div class="results-col-head">${heading}</div>${inner}</div>`;
+  }
+  return `<div class="results-cols">${colHtml(col1,'2025–2026')}${colHtml(col2,'2024')}${colHtml(col3,'2020–2023')}</div>`;
+}
+function resultsListHtml(r){
+  if(!r.results || !r.results.length) return '';
+  const byYear = {};
+  r.results.forEach(res=>{ const y = res.year!=null ? res.year : 'Other'; (byYear[y]=byYear[y]||[]).push(res); });
+  const years = Object.keys(byYear).sort((a,b)=>{
+    const an=Number(a), bn=Number(b);
+    if(isNaN(an)&&isNaN(bn)) return 0; if(isNaN(an)) return 1; if(isNaN(bn)) return -1; return bn-an;
+  });
+  return years.map(y=>{
+    const items = byYear[y].slice().sort((a,b)=>resultSortKey(a.result)-resultSortKey(b.result));
+    const list = `<ul class="results-list">${items.map(resultLiHtml).join('')}</ul>`;
+    if(!isNaN(Number(y)) && RESULTS_OPEN_YEARS.has(Number(y))) return `<div class="results-year-block"><div class="results-year-label">${y}</div>${list}</div>`;
+    return `<details class="results-year-details"><summary>${y}</summary>${list}</details>`;
+  }).join('');
+}
+function toggleResultInfo(e, li){
+  e.stopPropagation();
+  const wasOpen = li.classList.contains('open');
+  document.querySelectorAll('.result-li.open').forEach(el=>el.classList.remove('open'));
+  if(!wasOpen) li.classList.add('open');
+}
+document.addEventListener('click', ()=>{ document.querySelectorAll('.result-li.open').forEach(el=>el.classList.remove('open')); });
+
+/* ============================================================
+   ELITE RIDERS TAB (selection panel + cards) — from Otley tool
+   ============================================================ */
+let selectedRiders = new Set();
+let selectedTeams = new Set();
+function riderPhotoHtml(r){
+  const src = riderImgSrc(r);
+  if(src) return `<img class="rider-photo" src="${src}" alt="${escAttr(r.name)}" onerror="this.remove()">`;
+  const kit = kitSrcFor(r.team);
+  if(!kit) return '';
+  return `<img class="rider-kit-thumb" src="${kit}" alt="${escAttr(r.team||'')} kit" onerror="this.style.display='none'">`;
+}
+function buildTeamPopupHtml(team){
+  const roster = FIELD.filter(r=>r.team===team).sort((a,b)=>a.bib-b.bib);
+  const rows = roster.map(r=>{
+    const res2026 = (r.results||[]).filter(x=>x.year===2026);
+    const res2025 = (r.results||[]).filter(x=>x.year===2025);
+    const bibName = `${r.bib} · ${escHtml(r.name)}`;
+    if(!(res2026.length||res2025.length)) return `<div class="ttp-row">${bibName}</div>`;
+    const yearBlock = (label, items) => items.length
+      ? `<div class="ttp-year">${label}</div><ul class="ttp-results">${items.map(x=>`<li>${x.result?escHtml(x.result)+' — ':''}${escHtml(x.race)}</li>`).join('')}</ul>` : '';
+    return `<details class="ttp-details"><summary class="ttp-row">${bibName}</summary>
+      <div class="ttp-rider-results">${yearBlock('2026',res2026)}${yearBlock('2025',res2025)}</div></details>`;
+  }).join('');
+  return `<div class="ttp-title">${escHtml(team)}</div>${rows}`;
+}
+let _popupHideTimer = null;
+function showTeamTagPopup(wrap, team){
+  clearTimeout(_popupHideTimer);
+  const popup = document.getElementById('global-team-popup');
+  popup.innerHTML = buildTeamPopupHtml(team);
+  popup.style.maxHeight = '';
+  popup.style.display = 'block';
+  const rect = wrap.getBoundingClientRect();
+  let top = rect.bottom + 4, left = rect.left;
+  popup.style.maxHeight = (window.innerHeight - top - 12) + 'px';
+  const pw = popup.offsetWidth;
+  if(left + pw > window.innerWidth - 8) left = Math.max(8, window.innerWidth - pw - 8);
+  popup.style.top = top + 'px'; popup.style.left = left + 'px';
+}
+function scheduleHideTeamPopup(){ _popupHideTimer = setTimeout(()=>{ document.getElementById('global-team-popup').style.display='none'; }, 80); }
+function cancelHideTeamPopup(){ clearTimeout(_popupHideTimer); }
+function teamTagHtml(team){
+  if(!team) return '';
+  const roster = FIELD.filter(r=>r.team===team);
+  return `<div class="team-tag-wrap" onmouseenter="showTeamTagPopup(this,'${escAttr(team)}')" onmouseleave="scheduleHideTeamPopup()">
+    <span class="team-tag" data-team="${escAttr(team)}" style="background:${teamColor(team)}" onclick="selectTeamFromTag(this)">${escHtml(team)} (${roster.length})</span></div>`;
+}
+function deselTeamCard(team){ selectedTeams.delete(team); renderSelectionPanel(); renderSelectionResults(); }
+function deselRiderCard(bib){ selectedRiders.delete(bib); renderSelectionPanel(); renderSelectionResults(); }
+function toggleEntrantsResults(btn){
+  const grid = btn.closest('.team-entrants').querySelector('.team-entrants-grid');
+  btn.textContent = (grid.classList.toggle('results-open') ? '▼' : '▶') + ' Results';
+}
+function toggleEntrantsPhotos(btn){
+  const grid = btn.closest('.team-entrants').querySelector('.team-entrants-grid');
+  btn.textContent = (grid.classList.toggle('photos-open') ? '▼' : '▶') + ' Photos';
+}
+function selectRiderFromTeamCard(bib, gotoRiders){
+  selectedRiders.add(bib);
+  if(gotoRiders) switchTab('riders');
+  renderSelectionPanel(); renderSelectionResults();
+}
+function selectTeamFromTag(el){ selectedTeams.add(el.dataset.team); renderSelectionPanel(); renderSelectionResults(); }
+
+function titlesBlockHtml(r){
+  const t = r.titles || {};
+  const parts = [];
+  [['olympic','Olympic / Paralympic'],['world','World'],['european','European'],['national','National']].forEach(([k,label])=>{
+    if((t[k]||[]).length) parts.push(`<div style="margin-top:4px;"><b>${label}:</b> ${t[k].map(escHtml).join(' · ')}</div>`);
+  });
+  return parts.length ? `<div style="margin-top:8px;font-size:.83rem;background:#fff8e6;border-radius:6px;padding:7px 10px;">${parts.join('')}</div>` : '';
+}
+function riderCardHtml(r){
+  const otwTag = spotlightIds.has(r.id) ? '<span class="tag otw">One to watch</span>' : '';
+  const reviewTag = r.needs_review ? '<span class="tag review">Needs review</span>' : '';
+  const resTag = r.reserve ? '<span style="display:inline-block;background:#8a6200;color:#fff;font-size:.65rem;font-weight:700;border-radius:8px;padding:1px 8px;vertical-align:middle;margin-left:4px;">RESERVE</span>' : '';
+  const extras = [];
+  if(r.nationality) extras.push(`<div><b>Nationality:</b> ${escHtml(r.nationality)}</div>`);
+  if(r.home_region) extras.push(`<div><b>From:</b> ${escHtml(r.home_region)}</div>`);
+  if(r.dob) extras.push(`<div><b>DOB:</b> ${escHtml(r.dob)}</div>`);
+  if(r.age) extras.push(`<div><b>Age:</b> ${escHtml(r.age)}</div>`);
+  if(r.bc_age_category) extras.push(`<div><b>BC age cat:</b> ${escHtml(r.bc_age_category)}</div>`);
+  if(r.bc_ability_category) extras.push(`<div><b>BC ability:</b> ${escHtml(r.bc_ability_category)}</div>`);
+  if(r.local_connection) extras.push(`<div><b>Local link:</b> ${escHtml(r.local_connection)}</div>`);
+  if((r.team_history||[]).length) extras.push(`<div><b>Team history:</b> ${r.team_history.map(h=>escHtml(h.team)+(h.years?' ('+escHtml(h.years)+')':'')).join(' · ')}</div>`);
+  const notes = r.notes ? `<div style="margin-top:6px;font-size:.83rem;color:var(--muted);">${escHtml(r.notes)}</div>` : '';
+  return `
+  <div class="rider-card">
+    <button class="tile-close" title="Close" onclick="deselRiderCard(${r.bib})">&times;</button>
+    <div class="rider-card-inner">
+      ${riderPhotoHtml(r)}
+      <div class="rider-info">
+        <div class="rider-head">
+          <div>
+            <div class="rider-name" ondblclick="deselRiderCard(${r.bib})">${escHtml(r.name)} <span class="rider-bib">- #${r.bib}</span>${resTag}</div>
+            ${teamTagHtml(r.team)}
+          </div>
+          <div class="rider-tags">${otwTag}${reviewTag}</div>
+        </div>
+        ${titlesBlockHtml(r)}
+        ${resultsColsHtml(r)}
+        <div class="rider-extra">${extras.join('')}</div>
+        ${notes}
+      </div>
+    </div>
+    <div class="card-resize-handle"></div>
+  </div>`;
+}
+function teamCardHtml(team){
+  const roster = FIELD.filter(r=>r.team===team).sort((a,b)=>a.bib-b.bib);
+  const td = teamRecord(team);
+  const yearBlock = (label, items) => items.length
+    ? `<div class="entrant-year-label">${label}</div><ul class="entrant-results-list">${items.map(x=>`<li>${x.result?escHtml(x.result)+' — ':''}${escHtml(x.race)}</li>`).join('')}</ul>` : '';
+  const pillsRow = roster.map(r=>`<div class="entrant-cell-name${spotlightIds.has(r.id)?' otw':''}" onclick="selectRiderFromTeamCard(${r.bib})">${escHtml(r.name)} (#${r.bib})</div>`).join('');
+  const resultsRow = roster.map(r=>{
+    const res2026 = (r.results||[]).filter(x=>x.year===2026);
+    const res2025 = (r.results||[]).filter(x=>x.year===2025);
+    const body = yearBlock('2026',res2026) + yearBlock('2025',res2025) || '<span class="entrant-no-results">No results on file</span>';
+    return `<div class="entrant-results-body" style="min-width:0;word-break:break-word;">${body}</div>`;
+  }).join('');
+  const photosRow = roster.map(r=>{
+    const src = riderImgSrc(r);
+    if(!src) return '<div class="entrant-photo-cell"></div>';
+    return `<div class="entrant-photo-cell"><img class="entrant-rider-img" src="${src}" loading="lazy" onerror="this.style.display='none'"></div>`;
+  }).join('');
+  const colTemplate = `repeat(${roster.length},minmax(min-content,1fr))`;
+  const entrantsHtml = `<div class="team-entrants" style="border-top:1px solid var(--border);margin-top:10px;padding-top:8px;">
+    <div class="team-entrants-header">
+      <span class="team-entrants-label">In this race — ${roster.length} rider${roster.length!==1?'s':''}</span>
+      <div style="display:flex;gap:4px;">
+        <button class="entrants-toggle-btn" onclick="toggleEntrantsPhotos(this)">&#9658; Photos</button>
+        <button class="entrants-toggle-btn" onclick="toggleEntrantsResults(this)">&#9658; Results</button>
+      </div>
+    </div>
+    <div class="team-entrants-grid" style="grid-template-columns:${colTemplate}">${pillsRow}${photosRow}${resultsRow}</div>
+  </div>`;
+  const kit = kitSrcFor(team);
+  const kitImgHtml = kit ? `<img src="${kit}" loading="lazy" style="max-height:90px;width:auto;border-radius:6px;object-fit:contain;flex-shrink:0;align-self:flex-start;" onerror="this.style.display='none'">` : '';
+  const metaLine = td && (td.team_status||td.location) ? `<div class="team-head-meta">${escHtml(td.team_status||'')}${td.team_status&&td.location?' · ':''}${escHtml(td.location||'')}</div>` : '';
+  const smLine = td && (td.social_media||[]).length ? `<div class="team-head-sm">${(td.social_media||[]).map(s=>`${escHtml(s.handle||'')} · ${escHtml(s.platform||'')}`).join(' &nbsp;·&nbsp; ')}</div>` : '';
+  const targetsLine = td && td.targets_2026 ? `<div class="team-head-targets"><b>Targets 2026:</b> ${escHtml(td.targets_2026)}</div>` : '';
+  const dsEntries = td ? (td.directeurs_sportifs||[]) : [];
+  const dsLineHtml = dsEntries.length ? `<div class="team-head-ds"><span class="ds-head-label">DS:</span> ${dsEntries.map((ds,i)=>{
+      const comma = i>0?' · ':'';
+      return `${comma}<b>${escHtml(ds.name||'')}</b>${ds.ex_pro?' <span class="ex-pro-tag">Ex-Pro</span>':''}${ds.bio?` <span style="font-weight:400;color:var(--muted);">${escHtml(ds.bio)}</span>`:''}`;
+    }).join('')}</div>` : '';
+  let belowHtml = '';
+  if(td){
+    const results2026 = (td.results_2026||[]).length ? `<div class="team-results-label">Recent Team Results</div><ul class="team-results-list">${td.results_2026.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul>` : '';
+    const notable = (td.notable_results||[]).length ? `<div class="team-results-label">Notable Results</div><ul class="team-results-list">${td.notable_results.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul>` : '';
+    const otherHtml = td.other ? `<div class="team-db-targets" style="margin-bottom:6px;"><b>Background:</b> ${escHtml(td.other)}</div>` : '';
+    belowHtml = `${td.club_activities?`<div class="team-db-targets" style="margin-bottom:6px;"><b>Club activities:</b> ${escHtml(td.club_activities)}</div>`:''}${otherHtml}${results2026}${notable}`;
+  }
+  return `<div class="team-card">
+    <button class="tile-close" title="Close" onclick="deselTeamCard('${escAttr(team)}')">&times;</button>
+    <div class="team-card-inner">
+      <div class="team-card-head" ondblclick="deselTeamCard('${escAttr(team)}')">
+        ${kitImgHtml}
+        <div class="team-head-info">
+          <h3>${escHtml(team)} <span style="font-weight:400;font-size:.82rem;color:var(--text-muted);">(${roster.length} rider${roster.length!==1?'s':''} in race)</span></h3>
+          ${metaLine}${smLine}${targetsLine}${dsLineHtml}
+        </div>
+      </div>
+      ${entrantsHtml}${belowHtml}
+    </div>
+    <div class="card-resize-handle"></div>
+  </div>`;
+}
+
+let teamSortMode = 'alpha';
+function changeTeamSort(v){ teamSortMode = v; renderSelectionPanel(); }
+const TEAM_ICON_PX = { small: 28, medium: 56, large: 84 };
+let teamIconSize = 'small';
+function changeTeamIconSize(v){ teamIconSize = v; renderSelectionPanel(); }
+function currentGridCols(){
+  const panel = document.querySelector('.selection-panel');
+  if(!panel) return 3;
+  const w = panel.getBoundingClientRect().width;
+  return w < 240 ? 1 : w < 390 ? 2 : 3;
+}
+function columnMajorOrder(items, cols){
+  if(items.length <= cols) return items;
+  const rows = Math.ceil(items.length / cols);
+  const out = [];
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){ const idx = c*rows + r; if(idx < items.length) out.push(items[idx]); }
+  return out;
+}
+function renderSelectionPanel(){
+  if(CATS[activeCat].type !== 'elite') return;
+  const q = (document.getElementById('sel-search').value || '').toLowerCase();
+  const cols = currentGridCols();
+  const teamsGridEl = document.getElementById('teams-grid');
+  const ridersGridEl = document.getElementById('riders-grid');
+  const iconPx = TEAM_ICON_PX[teamIconSize] || 28;
+  teamsGridEl.style.gridTemplateColumns = `repeat(auto-fill,minmax(${138+(iconPx-28)}px,1fr))`;
+  ridersGridEl.style.gridTemplateColumns = `repeat(${cols},1fr)`;
+  let filteredTeams = ALL_TEAMS.filter(t=>t.toLowerCase().includes(q));
+  filteredTeams = teamSortMode==='entrants'
+    ? filteredTeams.slice().sort((a,b)=>(FIELD.filter(r=>r.team===b).length)-(FIELD.filter(r=>r.team===a).length) || a.localeCompare(b))
+    : filteredTeams.slice().sort((a,b)=>a.localeCompare(b));
+  teamsGridEl.innerHTML = filteredTeams.map(t=>{
+    const count = FIELD.filter(r=>r.team===t).length;
+    return `<label class="checkbox-item" style="justify-content:space-between;">
+      <input type="checkbox" data-team="${escAttr(t)}" ${selectedTeams.has(t)?'checked':''} onchange="toggleTeamSel(this)">
+      <span style="flex:1;min-width:0;">${escHtml(t)} <span class="muted">(${count})</span></span>
+      ${kitImgTag(t, iconPx)}</label>`;
+  }).join('') || '<div class="muted" style="font-size:.8rem;padding:6px;grid-column:1/-1;">No teams match.</div>';
+  const filteredRiders = FIELD.filter(r=>
+    (r.name||'').toLowerCase().includes(q) || (r.team||'').toLowerCase().includes(q) || String(r.bib).includes(q)
+  ).sort((a,b)=>a.bib-b.bib);
+  ridersGridEl.innerHTML = columnMajorOrder(filteredRiders, cols).map(r=>`
+    <label class="checkbox-item${spotlightIds.has(r.id)?' otw':''}">
+      <input type="checkbox" data-bib="${r.bib}" ${selectedRiders.has(r.bib)?'checked':''} onchange="toggleRiderSel(this)">
+      <span class="rider-name-mc" data-id="${escAttr(r.id)}" onauxclick="handleRiderNameAuxClick(event, this)">${r.bib}. ${escHtml(r.name)}${r.reserve?' <span class="muted">(res)</span>':''}</span>${riderMedalDotHtml(r)}
+    </label>`).join('') || '<div class="muted" style="font-size:.8rem;padding:6px;grid-column:1/-1;">No riders match.</div>';
+}
+let resultsCols = 1;
+const ICON_VERTICAL = '<svg viewBox="0 0 16 16" width="14" height="14"><rect x="2" y="2" width="2.4" height="12" rx="1" fill="currentColor"/><rect x="6.8" y="2" width="2.4" height="12" rx="1" fill="currentColor"/><rect x="11.6" y="2" width="2.4" height="12" rx="1" fill="currentColor"/></svg>';
+const ICON_HORIZONTAL = '<svg viewBox="0 0 16 16" width="14" height="14"><rect x="2" y="2" width="12" height="2.4" rx="1" fill="currentColor"/><rect x="2" y="6.8" width="12" height="2.4" rx="1" fill="currentColor"/><rect x="2" y="11.6" width="12" height="2.4" rx="1" fill="currentColor"/></svg>';
+function setColToggleIcon(){ const btn = document.getElementById('col-toggle-btn'); if(btn) btn.innerHTML = resultsCols===1 ? ICON_VERTICAL : ICON_HORIZONTAL; }
+function toggleResultsColumns(){
+  resultsCols = resultsCols===1 ? 3 : 1;
+  const cards = document.getElementById('selection-cards');
+  if(cards) cards.classList.toggle('cols-3', resultsCols===3);
+  setColToggleIcon();
+}
+function toggleTeamSel(cb){ if(cb.checked) selectedTeams.add(cb.dataset.team); else selectedTeams.delete(cb.dataset.team); renderSelectionResults(); }
+function toggleRiderSel(cb){ const bib = Number(cb.dataset.bib); if(cb.checked) selectedRiders.add(bib); else selectedRiders.delete(bib); renderSelectionResults(); }
+function clearSelection(){ selectedTeams.clear(); selectedRiders.clear(); renderSelectionPanel(); renderSelectionResults(); }
+function renderSelectionResults(){
+  const panel = document.getElementById('selection-cards');
+  if(!panel) return;
+  if(selectedTeams.size===0 && selectedRiders.size===0){
+    panel.innerHTML = '<div class="empty-state"><div class="icon">🚴</div><div>Tick teams or riders on the left to view profiles.</div></div>';
+    return;
+  }
+  let html = '';
+  [...selectedTeams].sort().forEach(t=>{ html += teamCardHtml(t); });
+  FIELD.filter(r=>selectedRiders.has(r.bib)).sort((a,b)=>a.bib-b.bib).forEach(r=>{ html += riderCardHtml(r); });
+  panel.innerHTML = html;
+}
+
+/* ---------- selection panel show/hide (< arrow) ---------- */
+let selectionPanelHidden = false;
+function toggleSelectionPanel(){
+  selectionPanelHidden = !selectionPanelHidden;
+  const panel = document.querySelector('.selection-panel');
+  const resizer = document.getElementById('panel-resizer-h');
+  const btn = document.getElementById('sel-panel-toggle');
+  if(panel) panel.style.display = selectionPanelHidden ? 'none' : '';
+  if(resizer) resizer.style.display = selectionPanelHidden ? 'none' : '';
+  if(btn) btn.textContent = selectionPanelHidden ? '▶' : '◀';
+}
+
+/* ---------- elite startlist grid table ---------- */
+let eliteGridVisible = true;
+function toggleEliteGridTile(){
+  eliteGridVisible = !eliteGridVisible;
+  const tile = document.getElementById('elite-grid-tile');
+  if(tile) tile.style.display = eliteGridVisible ? '' : 'none';
+  const btn = document.getElementById('elite-table-toggle-btn');
+  if(btn) btn.classList.toggle('active', eliteGridVisible);
+}
+function eliteMedalPillHtml(pos){
+  const n = Number(pos);
+  if(n===1) return '<span class="medal-pill gold">1</span>';
+  if(n===2) return '<span class="medal-pill silver">2</span>';
+  if(n===3) return '<span class="medal-pill bronze">3</span>';
+  return null;
+}
+function eliteStandingPosHtml(list, name){
+  const k = normName(name);
+  const e = (list||[]).find(x=>normName(x.name)===k);
+  if(!e) return '<span class="muted" style="font-size:.78rem;">—</span>';
+  return eliteMedalPillHtml(e.pos) || String(e.pos);
+}
+const ELITE_ROUND_EVENTS = { ilkley:'Ilkley Cycle Races', otley:'LOGCO Otley Cycle Races', colne:'Fort Vale Colne Grand Prix' };
+function eliteRoundPosHtml(eventName, name){
+  const catRx = activeCat === 'women' ? /Women/i : /Open|National Series Open/i;
+  const arch = ARCHIVE.find(a => a.event===eventName && a.year===2026 && catRx.test(a.race));
+  if(!arch) return '<span class="muted" style="font-size:.78rem;">—</span>';
+  const k = normName(name);
+  const row = (arch.rows||[]).find(r=>normName(r.name)===k);
+  if(!row) return '<span class="muted" style="font-size:.78rem;">—</span>';
+  if(/^\d+$/.test(String(row.pos)) && String(row.pos)!=='0') return eliteMedalPillHtml(row.pos) || row.pos;
+  return '<span class="muted" style="font-size:.78rem;">—</span>';
+}
+function eliteCurCatLabel(){ return activeCat === 'women' ? 'Women' : 'Open'; }
+function elite2025CellHtml(app){
+  if(!app || !app.length) return '<span class="muted" style="font-size:.78rem;">—</span>';
+  const curLabel = eliteCurCatLabel();
+  const nums = app.filter(a => /^\d+$/.test(String(a.pos)) && String(a.pos) !== '0');
+  if(!nums.length) return '<span class="muted" style="font-size:.78rem;">—</span>';
+  return nums.map(a=>{
+    const label = a.ageLabel && a.ageLabel !== curLabel ? ' ' + a.ageLabel : '';
+    const pill = eliteMedalPillHtml(a.pos);
+    const labelHtml = label ? '<span style="font-size:.76rem;color:var(--muted);">'+label+'</span>' : '';
+    if(pill) return pill + labelHtml;
+    return '<span style="font-weight:600;">' + a.pos + '</span>' + labelHtml;
+  }).join('<br>');
+}
+const MEDAL_COMP_RX = /National Championship|European Championship|World Championship|Olympic/i;
+function riderMedalTier(r){
+  if(!r) return null;
+  let best = null;
+  const consider = n => { if(n>=1 && n<=3 && (best===null || n<best)) best = n; };
+  (r.results||[]).forEach(res=>{
+    if(MEDAL_COMP_RX.test(res.race||'')){
+      const m = /^(\d+)/.exec(String(res.result||''));
+      if(m) consider(Number(m[1]));
+    }
+  });
+  const t = r.titles || {};
+  if((t.olympic||[]).length || (t.world||[]).length || (t.european||[]).length || (t.national||[]).length) consider(1);
+  return best===1?'gold':best===2?'silver':best===3?'bronze':null;
+}
+function riderMedalDotHtml(r){
+  const cls = riderMedalTier(r);
+  if(!cls) return '';
+  const label = cls==='gold' ? 'Gold medal — national/international championship (current or past)'
+    : cls==='silver' ? 'Silver medal — national/international championship (current or past)'
+    : 'Bronze medal — national/international championship (current or past)';
+  return ` <span class="nat-medal-dot ${cls}" title="${escAttr(label)}"></span>`;
+}
+function eliteNationalDotHtml(r){ return riderMedalDotHtml(r); }
+function showEliteGridRider(bib){ selectedRiders.add(bib); renderSelectionResults(); }
+function showEliteGridTeam(team){ if(!team) return; selectedTeams.add(team); renderSelectionResults(); }
+function eliteGridRowHtml(r, ncIndiv, ncSprints){
+  const apps = guildfordAppearances(r.name);
+  const y2025 = apps[2025] || [];
+  return `<tr class="data-row">
+    <td class="yt-col-bib"><button class="yt-exp-btn" onclick="toggleYtDetail(this,'${escAttr(r.id)}')" title="Full rider history">▶</button><b>${r.bib}</b></td>
+    <td><span class="yt-name" data-name="${escAttr(r.name)}" data-id="${escAttr(r.id)}" onmouseenter="showYouthTT(this,event)" onmouseleave="hideYouthTT()" onauxclick="handleRiderNameAuxClick(event,this)" onclick="showEliteGridRider(${r.bib})" style="cursor:pointer;">${escHtml(r.name)}</span>${eliteNationalDotHtml(r)}${spotlightIds.has(r.id)?' <span class="tag otw" style="font-size:.6rem;">OTW</span>':''}</td>
+    <td class="yt-team" data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" onclick="showEliteGridTeam('${escAttr(r.team||'')}')" style="cursor:pointer;">${escHtml(r.team||'')}</td>
+    <td style="text-align:center;">${eliteStandingPosHtml(ncIndiv, r.name)}</td>
+    <td style="text-align:center;">${eliteStandingPosHtml(ncSprints, r.name)}</td>
+    <td style="text-align:center;">${elite2025CellHtml(y2025)}</td>
+    <td style="text-align:center;">${eliteRoundPosHtml(ELITE_ROUND_EVENTS.ilkley, r.name)}</td>
+    <td style="text-align:center;">${eliteRoundPosHtml(ELITE_ROUND_EVENTS.otley, r.name)}</td>
+    <td style="text-align:center;">${eliteRoundPosHtml(ELITE_ROUND_EVENTS.colne, r.name)}</td>
+  </tr>`;
+}
+function renderEliteGridTable(){
+  const body = document.getElementById('elite-grid-body');
+  const countEl = document.getElementById('elite-grid-count');
+  if(!body) return;
+  const key = activeCat === 'women' ? 'women' : 'open';
+  const st = RD.ncs && RD.ncs.standings && RD.ncs.standings.afterR3 ? RD.ncs.standings.afterR3[key] : null;
+  const st1 = RD.ncs && RD.ncs.standings && RD.ncs.standings.afterR1 ? RD.ncs.standings.afterR1[key] : null;
+  const ncIndiv = (st && st.individual) || [];
+  const ncSprints = (st && st.sprints && st.sprints.length) ? st.sprints : ((st1 && st1.sprints) || []);
+  const starters = FIELD.filter(x=>!x.reserve).slice().sort((a,b)=>a.bib-b.bib);
+  if(countEl) countEl.textContent = starters.length + ' rider' + (starters.length!==1?'s':'');
+  const head = `<tr><th class="yt-col-bib">Bib</th><th>Rider Name</th><th>Team</th>` +
+    `<th style="width:50px;">Nat<br>Pos</th><th style="width:50px;">Sprints</th>` +
+    `<th style="width:52px;">'25<br>Guild</th><th style="width:52px;">'26<br>Ilkley</th>` +
+    `<th style="width:52px;">'26<br>Otley</th><th style="width:52px;">'26<br>Colne</th></tr>`;
+  const mid = Math.ceil(starters.length/2);
+  const half = (list) => `<div class="yt-table-wrap" style="overflow-x:auto;"><table class="yt"><thead>${head}</thead><tbody>${
+    list.map(r=>eliteGridRowHtml(r, ncIndiv, ncSprints)).join('') || `<tr><td colspan="9" class="muted" style="padding:14px;">No starters loaded.</td></tr>`
+  }</tbody></table></div>`;
+  body.innerHTML = `<div class="yt-grid">${half(starters.slice(0,mid))}${half(starters.slice(mid))}</div>`;
+}
+
+/* ============================================================
+   YOUTH / LOCAL HEROES RIDERS TAB
+   ============================================================ */
+let youthSelectedTeams = new Set();
+let youthSideHidden = false;
+let youthViewMode = 'categories';
+function setYouthViewMode(mode){ youthViewMode = mode; renderRidersTab(); }
+function toggleYouthSide(){
+  youthSideHidden = !youthSideHidden;
+  document.getElementById('youth-team-side').classList.toggle('hidden', youthSideHidden);
+  document.getElementById('youth-side-toggle').style.display = youthSideHidden ? 'flex' : 'none';
+}
+const YOUTH_GROUPS = {
+  u8:    [['E','Boy','Under 8s (Youth E) — Boys'],['E','Girl','Under 8s (Youth E) — Girls']],
+  u1012: [['D','Boy','Under 10s (Youth D) — Boys'],['D','Girl','Under 10s (Youth D) — Girls'],['C','Boy','Under 12s (Youth C) — Boys'],['C','Girl','Under 12s (Youth C) — Girls']],
+  u1416: [['B','Boy','Under 14s (Youth B) — Boys'],['B','Girl','Under 14s (Youth B) — Girls'],['A','Boy','Under 16s (Youth A) — Boys'],['A','Girl','Under 16s (Youth A) — Girls']]
+};
+function renderRidersTab(){
+  const isElite = CATS[activeCat].type === 'elite';
+  document.getElementById('riders-elite-layout').style.display = isElite ? 'flex' : 'none';
+  document.getElementById('riders-youth-layout').style.display = isElite ? 'none' : 'flex';
+  if(isElite){ renderSelectionPanel(); renderSelectionResults(); renderEliteGridTable(); return; }
+  // team side list
+  const counts = {};
+  FIELD.forEach(r => { const t = r.team || 'Unattached'; counts[t] = (counts[t]||0)+1; });
+  const teamsSorted = Object.keys(counts).sort();
+  const viewToggleEl = document.getElementById('youth-view-toggle');
+  if(viewToggleEl){
+    viewToggleEl.innerHTML = activeCat === 'heroes' ? '' : `
+      <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:4px;">Table view</div>
+      <div class="stnds-tog" style="margin-bottom:0;">
+        <button class="${youthViewMode==='categories'?'active':''}" onclick="setYouthViewMode('categories')">By category</button>
+        <button class="${youthViewMode==='combined'?'active':''}" onclick="setYouthViewMode('combined')">Combined</button>
+      </div>`;
+    viewToggleEl.style.display = activeCat === 'heroes' ? 'none' : '';
+  }
+  document.getElementById('youth-team-list').innerHTML =
+    `<div style="margin-bottom:6px;"><button class="clear-btn" onclick="youthSelectedTeams.clear();renderRidersTab();">Show all teams</button></div>` +
+    teamsSorted.map(t=>`
+    <label class="checkbox-item" style="justify-content:space-between;">
+      <input type="checkbox" data-team="${escAttr(t)}" ${youthSelectedTeams.has(t)?'checked':''} onchange="toggleYouthTeam(this)">
+      <span style="flex:1;min-width:0;">${escHtml(t)} <span class="muted">(${counts[t]})</span></span>
+      ${kitImgTag(t, 24)}
+    </label>`).join('');
+  // main tables
+  const host = document.getElementById('youth-tables');
+  const filterFn = r => !youthSelectedTeams.size || youthSelectedTeams.has(r.team || 'Unattached');
+  if(activeCat === 'heroes'){
+    const riders = FIELD.filter(filterFn).sort((a,b)=>a.bib-b.bib);
+    host.innerHTML = youthTableCard('The Foran Construction Local Heroes Race (3rd Cats)', riders, true);
+  } else {
+    const groups = YOUTH_GROUPS[activeCat] || [];
+    if(youthViewMode === 'combined'){
+      host.innerHTML = combinedYouthTableHtml(groups, filterFn);
+    } else {
+      const capHeight = groups.length === 4;
+      const cards = groups.map(([cat, gender, label])=>{
+        const riders = FIELD.filter(r => r.slCat===cat && r.slGender===gender).filter(filterFn).sort((a,b)=>a.bib-b.bib);
+        return youthTableCard(label, riders, false, capHeight);
+      }).join('');
+      host.innerHTML = `<div class="yt-grid">${cards}</div>`;
+      if(capHeight) fitYouthGrid();
+    }
+  }
+}
+function toggleYouthTeam(cb){
+  if(cb.checked) youthSelectedTeams.add(cb.dataset.team); else youthSelectedTeams.delete(cb.dataset.team);
+  renderRidersTab();
+}
+const RES_YEARS = [2025, 2024, 2023, 2022, 2021];
+function youthRowHtml(r, opts){
+  opts = opts || {};
+  const apps = guildfordAppearances(r.name);
+  const cells = RES_YEARS.map(y=>{
+    let yearApps = apps[y] || [];
+    if(opts.isHeroes){
+      // prefer Local Heroes result, else show whatever they did that year
+      const lh = yearApps.filter(a=>/Local Heroes/i.test(a.race));
+      if(lh.length) yearApps = lh;
+    }
+    return `<td>${resCellHtml(yearApps)}</td>`;
+  }).join('');
+  const reserveTag = r.reserve ? '<span class="sl-tag reserve">Res</span>' : '';
+  const catTag = opts.tag ? `<span class="yt-cat-tag">${escHtml(opts.tag)}</span>` : '';
+  return `<tr class="data-row">
+      <td class="yt-col-bib"><button class="yt-exp-btn" onclick="toggleYtDetail(this,'${escAttr(r.id)}')" title="Full rider history">▶</button><b>${r.bib}</b></td>
+      <td><span class="yt-name" data-name="${escAttr(r.name)}" data-id="${escAttr(r.id)}"
+        onmouseenter="showYouthTT(this,event)" onmouseleave="hideYouthTT()"
+        onauxclick="handleRiderNameAuxClick(event,this)">${escHtml(r.name)}</span>${riderMedalDotHtml(r)}${catTag}${reserveTag}${spotlightIds.has(r.id)?' <span class="tag otw" style="font-size:.6rem;">OTW</span>':''}</td>
+      <td class="yt-team" data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;">${escHtml(r.team||'')}</td>
+      ${cells}
+    </tr>`;
+}
+function youthTableCard(title, riders, isHeroes, capHeight){
+  const head = `<tr><th class="yt-col-bib">Bib</th><th>Rider Name</th><th>Team</th>${RES_YEARS.map(y=>`<th style="width:86px;">Res ${y}</th>`).join('')}</tr>`;
+  const rows = riders.map(r=>youthRowHtml(r, {isHeroes})).join('');
+  const expandBtn = capHeight ? `<button class="yt-expand-btn" onclick="const c=this.closest('.yt-card');c.classList.toggle('expanded');this.textContent=c.classList.contains('expanded')?'⌃ Collapse':'⌄ Expand';fitYouthGrid();">⌄ Expand</button>` : '';
+  return `<div class="yt-card${capHeight?' yt-card-capped':''}">
+    <div class="yt-card-head"><span>${escHtml(title)}</span><span style="display:flex;align-items:center;gap:8px;"><span class="cnt">${riders.length} rider${riders.length!==1?'s':''}</span>${expandBtn}</span></div>
+    <div class="yt-table-wrap" style="overflow-x:auto;"><table class="yt"><thead>${head}</thead><tbody>${rows || `<tr><td colspan="${3+RES_YEARS.length}" class="muted" style="padding:14px;">No riders (check team filter).</td></tr>`}</tbody></table></div>
+  </div>`;
+}
+function fitYouthGrid(){
+  const host = document.getElementById('youth-tables');
+  if(!host) return;
+  const grid = host.querySelector('.yt-grid');
+  if(!grid) return;
+  const cards = Array.from(grid.querySelectorAll('.yt-card-capped'));
+  if(!cards.length) return;
+  const rowGap = parseFloat(getComputedStyle(grid).rowGap) || 16;
+  const rows = 2; // capHeight only applies to 2x2 (4-table) youth groups
+  const avail = host.clientHeight - rowGap * (rows - 1);
+  const perRow = Math.max(120, avail / rows);
+  cards.forEach(card=>{
+    const head = card.querySelector('.yt-card-head');
+    const wrap = card.querySelector('.yt-table-wrap');
+    if(!head || !wrap) return;
+    if(card.classList.contains('expanded')){
+      wrap.style.maxHeight = 'none';
+    } else {
+      wrap.style.maxHeight = Math.max(80, perRow - head.offsetHeight) + 'px';
+    }
+  });
+}
+function combinedYouthTableHtml(groups, filterFn){
+  const tagByCat = {};
+  groups.forEach(([cat, gender])=>{ tagByCat[cat+'|'+gender] = youthGroupShortLabel(cat, gender); });
+  const combined = FIELD.filter(r => groups.some(([cat,gender])=>r.slCat===cat && r.slGender===gender))
+    .filter(filterFn)
+    .sort((a,b)=>a.bib-b.bib)
+    .map(r => ({ r, tag: tagByCat[r.slCat+'|'+r.slGender] }));
+  const head = `<tr><th class="yt-col-bib">Bib</th><th>Rider Name</th><th>Team</th>${RES_YEARS.map(y=>`<th style="width:86px;">Res ${y}</th>`).join('')}</tr>`;
+  const mid = Math.ceil(combined.length/2);
+  const half = (list) => `<div class="yt-table-wrap" style="overflow-x:auto;"><table class="yt"><thead>${head}</thead><tbody>${
+    list.map(x=>youthRowHtml(x.r, {tag:x.tag})).join('') || `<tr><td colspan="${3+RES_YEARS.length}" class="muted" style="padding:14px;">No riders (check team filter).</td></tr>`
+  }</tbody></table></div>`;
+  return `<div class="yt-card">
+    <div class="yt-card-head"><span>All categories</span><span class="cnt">${combined.length} rider${combined.length!==1?'s':''}</span></div>
+    <div class="yt-grid">${half(combined.slice(0,mid))}${half(combined.slice(mid))}</div>
+  </div>`;
+}
+// expandable full-history row
+function toggleYtDetail(btn, riderId){
+  const tr = btn.closest('tr');
+  const existing = tr.nextElementSibling;
+  if(existing && existing.classList.contains('yt-detail-row')){ existing.remove(); btn.classList.remove('open'); return; }
+  btn.classList.add('open');
+  const r = RIDER_BY_ID[riderId] || FIELD.find(x=>x.id===riderId);
+  const cols = tr.children.length;
+  const detail = document.createElement('tr');
+  detail.className = 'yt-detail-row';
+  detail.innerHTML = `<td colspan="${cols}"><div class="yt-detail">${ytDetailHtml(r)}</div></td>`;
+  tr.parentNode.insertBefore(detail, tr.nextSibling);
+}
+function ytDetailHtml(r){
+  if(!r) return '<span class="muted">No database record.</span>';
+  const apps = guildfordAppearances(r.name);
+  const years = Object.keys(apps).sort((a,b)=>b-a);
+  const guildfordHist = years.length ? years.map(y=>{
+    return `<div><b>${y}:</b> ${apps[y].map(a=>{
+      const posTxt = /^\d+$/.test(a.pos) && a.pos!=='0' ? ordinal(a.pos) : (a.status || '—');
+      const pill = medalPillHtml(a.pos) || `<b>${posTxt}</b>`;
+      return `${pill} — ${escHtml(a.race)}`;
+    }).join(' · ')}</div>`;
+  }).join('') : '<span class="muted">No previous Guildford results on file.</span>';
+  const dbResults = (r.results||[]).length ? '<div class="results-grid">'+resultsListHtml(r)+'</div>' : '<span class="muted">No results in database.</span>';
+  const info = [];
+  if(r.dob) info.push('<b>DOB:</b> '+escHtml(r.dob));
+  if(r.nationality) info.push('<b>Nationality:</b> '+escHtml(r.nationality));
+  if(r.home_region) info.push('<b>Region:</b> '+escHtml(r.home_region));
+  if(r.bc_age_category) info.push('<b>BC age cat:</b> '+escHtml(r.bc_age_category));
+  if(r.bc_ability_category) info.push('<b>BC ability:</b> '+escHtml(r.bc_ability_category));
+  if((r.team_history||[]).length) info.push('<b>Team history:</b> '+r.team_history.map(h=>escHtml(h.team)+(h.years?' ('+escHtml(h.years)+')':'')).join(' · '));
+  const titles = titlesBlockHtml(r);
+  const notes = r.notes ? `<div class="lbl">Notes</div><div>${escHtml(r.notes)}</div>` : '';
+  return `<div class="lbl">Guildford TCR history</div>${guildfordHist}
+    ${titles}
+    <div class="lbl">All database results</div>${dbResults}
+    ${info.length?`<div class="lbl">Rider info</div><div>${info.join(' &nbsp;·&nbsp; ')}</div>`:''}
+    ${notes}
+    ${r.needs_review?'<div style="margin-top:6px;"><span class="tag review">Needs review — auto-imported, verify details</span></div>':''}`;
+}
+</script>
+<script>
+/* ============================================================
+   YOUTH HOVER TOOLTIP — year-by-year top 3 + rider position + teams + kit
+   ============================================================ */
+(function(){
+  const tt = document.createElement('div'); tt.id = 'youth-tt'; document.body.appendChild(tt);
+})();
+let _youthTTPinned = false;
+function showYouthTT(el, event){
+  _youthTTPinned = false;
+  const tt = document.getElementById('youth-tt');
+  const name = el.dataset.name;
+  const r = RIDER_BY_ID[el.dataset.id] || riderByName(name);
+  const apps = guildfordAppearances(name);
+  const years = Object.keys(apps).sort((a,b)=>b-a);
+  const k = normName(name);
+  let body = '';
+  const prevTeams = [];
+  years.forEach(y => {
+    apps[y].forEach(a => {
+      const top3 = archTop3(a.arch);
+      const meRow = (a.arch.rows||[]).find(x => normName(x.name)===k);
+      if(meRow && meRow.club && !prevTeams.some(p=>p.year===y && p.club===meRow.club)) prevTeams.push({year:y, club:meRow.club});
+      const posTxt = /^\d+$/.test(a.pos) && a.pos!=='0' ? ordinal(a.pos) : (a.status||'—');
+      body += `<div class="ytt-yr">${y} — ${escHtml(a.race)} <span style="color:var(--muted);font-weight:400;">(${posTxt})</span></div>`;
+      body += top3.map(t3 => {
+        const me = normName(t3.name)===k;
+        return `<div class="ytt-row${me?' me':''}"><span class="p">${ordinal(t3.pos)}</span><span>${escHtml(t3.name)}${bibPill(t3.name)}</span><span style="color:var(--muted);font-size:.72rem;">${escHtml(t3.club||'')}</span></div>`;
+      }).join('');
+      if(meRow && Number(a.pos)>3 && /^\d+$/.test(a.pos)){
+        body += `<div class="ytt-row me"><span class="p">${ordinal(a.pos)}</span><span>${escHtml(name)}</span><span style="color:var(--muted);font-size:.72rem;">${escHtml(meRow.club||'')}</span></div>`;
+      }
+    });
+  });
+  if(!body) body = '<div class="muted" style="font-style:italic;">No previous Guildford results on file for this rider.</div>';
+  const podiums = r ? getCareerPodiums(r, x=>/Guildford/i.test(x.race||'')) : [];
+  const podiumHtml = podiums.length ? `<div class="ytt-yr">Career podiums</div>` + podiums.map(x=>{
+    const n = Number(/^(\d+)/.exec(String(x.result))[1]);
+    const pill = medalPillHtml(n);
+    return `<div class="ytt-row"><span class="p">${pill||escHtml(x.result)}</span><span>${escHtml(x.race)}</span><span style="color:var(--muted);font-size:.72rem;">${x.year||''}</span></div>`;
+  }).join('') : '';
+  const nationals = r ? getAllNationalResults(r) : [];
+  const nationalsHtml = nationals.length ? `<div class="ytt-yr">National Championships (all years)</div>` + nationals.map(x=>{
+    const m = /^(\d+)/.exec(String(x.result||''));
+    const n = m ? Number(m[1]) : null;
+    const pill = (n && n>=1 && n<=3) ? medalPillHtml(n) : null;
+    return `<div class="ytt-row"><span class="p">${pill||escHtml(x.result||'')}</span><span>${escHtml(x.race)}</span><span style="color:var(--muted);font-size:.72rem;">${x.year||''}</span></div>`;
+  }).join('') : '';
+  const teamLine = prevTeams.length ? `<div class="ytt-teamline">Previous teams: ${prevTeams.map(p=>p.year+' — '+escHtml(p.club)).join(' · ')}</div>` : '';
+  const curTeam = r ? (r.team||'') : '';
+  const kit = curTeam ? kitSrcFor(curTeam) : '';
+  const kitHtml = kit ? `<img class="ytt-kit" src="${kit}" onerror="this.remove()">` : '';
+  tt.innerHTML = `<div class="ytt-name">${escHtml(name)}${bibPill(name)}</div>
+    <div class="ytt-teamline">${escHtml(curTeam||'')}</div>${teamLine}${body}${podiumHtml}${nationalsHtml}${kitHtml}`;
+  tt.style.display = 'block';
+  positionFixedTT(tt, event.clientX, event.clientY);
+}
+function hideYouthTT(){
+  if(_youthTTPinned) return;
+  const tt = document.getElementById('youth-tt');
+  if(tt) tt.style.display = 'none';
+}
+function positionFixedTT(tt, cx, cy){
+  let left = cx + 18, top = cy - 12;
+  const w = tt.offsetWidth, h = tt.offsetHeight;
+  if(left + w > window.innerWidth - 8) left = Math.max(8, cx - w - 18);
+  if(top + h > window.innerHeight - 8) top = Math.max(8, window.innerHeight - h - 8);
+  tt.style.left = left + 'px'; tt.style.top = top + 'px';
+}
+document.addEventListener('mousemove', function(e){
+  const tt = document.getElementById('youth-tt');
+  if(tt && tt.style.display === 'block' && !_youthTTPinned) positionFixedTT(tt, e.clientX, e.clientY);
+});
+
+/* ============================================================
+   TEAMS TAB (elite: DB detail · youth/heroes: roster with results)
+   ============================================================ */
+const TEAMS_STATUS_ORDER = ['UCI WorldTeam','UCI Continental','National Elite (British EDT)','National Elite','UCI Track Team','Development & Coaching','Local Club','Youth Club','Services','International Guest'];
+let teamsSelected = new Set();
+let teamsKitGridVisible = true;
+function teamsTabRaceTeams(){
+  const raceTeamNames = [...new Set(FIELD.map(r=>r.team || 'Unattached'))].sort();
+  return raceTeamNames.map(n => ({ name: n, rec: teamRecord(n) }));
+}
+function toggleTeamsKitGrid(){
+  teamsKitGridVisible = !teamsKitGridVisible;
+  const tile = document.getElementById('teams-kit-grid-tile');
+  if(tile) tile.style.display = teamsKitGridVisible ? '' : 'none';
+  const btn = document.getElementById('teams-kitgrid-toggle-btn');
+  if(btn) btn.classList.toggle('active', teamsKitGridVisible);
+}
+function toggleTeamsSelected(name){
+  if(teamsSelected.has(name)) teamsSelected.delete(name); else teamsSelected.add(name);
+  renderTeamsPanel();
+}
+function deselTeamsSelected(name){ teamsSelected.delete(name); renderTeamsPanel(); }
+function setTeamsFilter(btn){
+  btn.parentElement.querySelectorAll('.status-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTeamsPanel();
+}
+function teamsDetailCardHtml(entry){
+  const isElite = CATS[activeCat].type === 'elite';
+  const t = entry.rec;
+  const teamName = entry.name;
+  const roster = FIELD.filter(r=>(r.team||'Unattached')===teamName).sort((a,b)=>a.bib-b.bib);
+  let rosterHtml;
+  if(isElite){
+    rosterHtml = roster.length ? `<div class="team-detail-roster">${roster.map(r=>`<span class="entrant-cell-name${spotlightIds.has(r.id)?' otw':''}" onclick="selectRiderFromTeamCard(${r.bib},true)">${escHtml(r.name)} (#${r.bib})</span>${riderMedalDotHtml(r)}`).join('')}</div>` : '<span class="muted" style="font-size:.85rem;">No riders in this race</span>';
+  } else {
+    const rows = roster.map(r=>{
+      const apps = guildfordAppearances(r.name);
+      const cells = RES_YEARS.map(y=>`<td>${resCellHtml(apps[y]||[])}</td>`).join('');
+      return `<tr class="data-row"><td><b>${r.bib}</b></td><td><span class="yt-name" data-name="${escAttr(r.name)}" data-id="${escAttr(r.id)}" onmouseenter="showYouthTT(this,event)" onmouseleave="hideYouthTT()">${escHtml(r.name)}</span>${riderMedalDotHtml(r)}${r.slCat?' <span class="muted" style="font-size:.72rem;">'+escHtml(r.slCat)+(r.slGender?' '+escHtml(r.slGender):'')+'</span>':''}</td>${cells}</tr>`;
+    }).join('');
+    rosterHtml = `<div style="overflow-x:auto;"><table class="yt"><thead><tr><th style="width:50px;">Bib</th><th>Rider</th>${RES_YEARS.map(y=>`<th style="width:86px;">Res ${y}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  const dsHtml = t && (t.directeurs_sportifs||[]).length
+    ? t.directeurs_sportifs.map(ds=>`<div class="ds-entry"><div style="flex:1"><div class="ds-name">${escHtml(ds.name||'')}${ds.ex_pro?'<span class="ex-pro-tag">Ex-Pro</span>':''}</div>${ds.bio?`<div class="ds-bio">${escHtml(ds.bio)}</div>`:''}</div></div>`).join('')
+    : '<span class="muted" style="font-size:.85rem;">Not listed</span>';
+  const coachesHtml = t && (t.coaches||[]).length
+    ? t.coaches.map(ds=>`<div class="ds-entry"><div style="flex:1"><div class="ds-name">${escHtml(ds.name||'')}${ds.ex_pro?'<span class="ex-pro-tag">Ex-Pro</span>':''}</div>${ds.bio?`<div class="ds-bio">${escHtml(ds.bio)}</div>`:''}</div></div>`).join('') : '';
+  const smHtml = t && (t.social_media||[]).length
+    ? t.social_media.map(s=>`<span class="sm-entry"><b>${escHtml(s.handle||'')}</b><span class="sm-platform">&nbsp;·&nbsp;${escHtml(s.platform||'')}</span></span>`).join('')
+    : '<span class="muted" style="font-size:.85rem;">Not listed</span>';
+  const pnHtml = t && (t.previous_names||[]).length
+    ? `<div style="margin-top:4px;">${t.previous_names.map(p=>{
+        const nm = typeof p==='string' ? p : p.name;
+        const yrs = typeof p==='string' ? '' : (p.years||'');
+        return `<div class="pn-entry"><span class="pn-name">${escHtml(nm||'')}</span>${yrs?` <span class="muted" style="font-size:.82rem;">(${escHtml(yrs)})</span>`:''}</div>`;
+      }).join('')}</div>`
+    : '<span class="muted" style="font-size:.85rem;">None</span>';
+  const notableHtml = t && (t.notable_results||[]).length
+    ? `<ul class="team-results-list">${t.notable_results.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul>` : '';
+  const resultsHtml = t && (t.results_2026||[]).length
+    ? `<ul class="team-results-list">${t.results_2026.map(x=>`<li>${escHtml(x)}</li>`).join('')}</ul>`
+    : '<span class="muted" style="font-size:.85rem;">No results recorded</span>';
+  return `
+    <div class="team-detail-card">
+      <button class="tile-close" title="Close" onclick="deselTeamsSelected('${escAttr(teamName)}')">&times;</button>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:4px;">
+        ${kitImgTag(teamName, 90)}
+        <h2 style="margin:0;flex:1;">${escHtml(teamName)}${t&&t.needs_review?' <span class="tag review">needs review</span>':''}</h2>
+      </div>
+      <div class="team-meta">${escHtml(t?(t.team_status||''):'')}${t&&t.location?' · '+escHtml(t.location):''}</div>
+      <div class="team-section-label">In this race — ${roster.length} rider${roster.length!==1?'s':''}</div>
+      ${rosterHtml}
+      <div class="team-detail-cols">
+        <div><div class="team-section-label">Directeur(s) Sportif</div><div class="team-col-body">${dsHtml}${coachesHtml?`<div class="team-section-label" style="margin-top:10px;">Coaches</div>${coachesHtml}`:''}</div></div>
+        <div><div class="team-section-label">Social media</div><div class="team-col-body">${smHtml}</div></div>
+        <div><div class="team-section-label">Previous names</div><div class="team-col-body">${pnHtml}</div></div>
+        <div><div class="team-section-label">Results 2026</div><div class="team-col-body">${resultsHtml}</div></div>
+      </div>
+      ${t&&t.club_activities?`<div class="team-section-label">Club activities</div><div style="font-size:.88rem;line-height:1.55;">${escHtml(t.club_activities)}</div>`:''}
+      ${t&&t.targets_2026?`<div class="team-section-label">Targets 2026</div><div style="font-size:.88rem;">${escHtml(t.targets_2026)}</div>`:''}
+      ${notableHtml?`<div class="team-section-label">Notable results</div>${notableHtml}`:''}
+      ${t&&t.other?`<div class="team-section-label">Background</div><div style="font-size:.88rem;line-height:1.55;color:var(--muted);">${escHtml(t.other)}</div>`:''}
+      ${!t?'<div class="team-section-label">Database</div><div class="muted" style="font-size:.84rem;">No team record yet — add one in the database admin.</div>':''}
+    </div>`;
+}
+function renderTeamsPanel(){
+  const listEl = document.getElementById('teams-list');
+  const detailCardsEl = document.getElementById('teams-detail-cards');
+  const gridBody = document.getElementById('teams-kit-grid-body');
+  const gridCount = document.getElementById('teams-kit-grid-count');
+  const searchEl = document.getElementById('teams-search');
+  const filterEl = document.getElementById('teams-status-filter');
+  if(!listEl || !detailCardsEl) return;
+  const activeBtn = filterEl.querySelector('.status-filter-btn.active');
+  const activeFilter = activeBtn ? (activeBtn.dataset.status || null) : null;
+  const q = (searchEl.value||'').toLowerCase();
+  const raceTeams = teamsTabRaceTeams();
+  const filtered = raceTeams.filter(t=>{
+    if(activeFilter && (!t.rec || t.rec.team_status !== activeFilter)) return false;
+    if(q && !t.name.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  listEl.innerHTML = filtered.map(t=>{
+    const n = FIELD.filter(r=>(r.team||'Unattached')===t.name).length;
+    return `<div class="team-list-item${teamsSelected.has(t.name)?' active':''}" onclick="toggleTeamsSelected('${escAttr(t.name)}')">
+      <div class="tli-name">${escHtml(t.name)} <span style="font-weight:400;">(${n})</span></div>
+      <div class="tli-status">${escHtml(t.rec?(t.rec.team_status||''):'')}</div></div>`;
+  }).join('') || '<div class="team-empty">No teams match.</div>';
+  if(gridCount) gridCount.textContent = filtered.length + ' team' + (filtered.length!==1?'s':'');
+  if(gridBody){
+    gridBody.innerHTML = filtered.length ? filtered.map(t=>{
+      const kit = kitSrcFor(t.name);
+      return `<div class="team-kit-cell${teamsSelected.has(t.name)?' active':''}" onclick="toggleTeamsSelected('${escAttr(t.name)}')" onmouseenter="showTeamKitTT('${escAttr(t.name)}',event)" onmouseleave="hideTeamKitTT()">
+        <div class="team-kit-imgwrap">${kit?`<img src="${kit}" alt="${escAttr(t.name)} kit" loading="lazy" onerror="this.remove()">`:''}</div>
+        <div class="team-kit-title">${escHtml(t.name)}</div>
+      </div>`;
+    }).join('') : '<div class="team-empty">No teams match.</div>';
+  }
+  if(!teamsSelected.size){
+    detailCardsEl.innerHTML = '<div class="team-empty">Select a team from the list or kit grid.</div>';
+  } else {
+    detailCardsEl.innerHTML = [...teamsSelected].sort().map(name=>{
+      const entry = raceTeams.find(t=>t.name===name) || { name, rec: teamRecord(name) };
+      return teamsDetailCardHtml(entry);
+    }).join('');
+  }
+}
+function renderTeamsTab(){
+  document.getElementById('teams-title').textContent = 'Teams in the ' + CATS[activeCat].label + ' race';
+  teamsSelected = new Set();
+  const searchEl = document.getElementById('teams-search');
+  const filterEl = document.getElementById('teams-status-filter');
+  searchEl.value = '';
+  searchEl.oninput = renderTeamsPanel;
+  const raceTeams = teamsTabRaceTeams();
+  const allStatuses = [...new Set(raceTeams.map(t=>t.rec?t.rec.team_status:null).filter(Boolean))].sort((a,b)=>{
+    const ai = TEAMS_STATUS_ORDER.indexOf(a), bi = TEAMS_STATUS_ORDER.indexOf(b);
+    if(ai>=0&&bi>=0) return ai-bi; if(ai>=0) return -1; if(bi>=0) return 1; return a.localeCompare(b);
+  });
+  filterEl.innerHTML = `<button class="status-filter-btn active" data-status="" onclick="setTeamsFilter(this)">All</button>` +
+    allStatuses.map(s=>`<button class="status-filter-btn" data-status="${escAttr(s)}" onclick="setTeamsFilter(this)">${escHtml(s)}</button>`).join('');
+  const tile = document.getElementById('teams-kit-grid-tile');
+  if(tile) tile.style.display = teamsKitGridVisible ? '' : 'none';
+  const gridBtn = document.getElementById('teams-kitgrid-toggle-btn');
+  if(gridBtn) gridBtn.classList.toggle('active', teamsKitGridVisible);
+  renderTeamsPanel();
+}
+
+/* ============================================================
+   COURSE + HISTORY
+   ============================================================ */
+function renderCourse(){
+  const data = activeCat === 'u8' ? RD.course.u8 : RD.course.extended;
+  if(!data) return;
+  const img = document.getElementById('course-img');
+  if(img){ img.style.display = ''; img.src = data.image || ''; }
+  const paras = (data.paragraphs||[]).map(p=>`<p style="margin:0 0 12px;">${escHtml(p)}</p>`).join('');
+  const footer = (data.footer||[]).map(f=>`<p style="margin:0 0 4px;font-weight:700;">${escHtml(f)}</p>`).join('');
+  const extra = data.extraHeading ? `<p style="margin:18px 0 4px;font-weight:700;">${escHtml(data.extraHeading)}</p><p style="margin:0;">${escHtml(data.extraText||'')}</p>` : '';
+  document.getElementById('course-text').innerHTML =
+    `<h3 style="margin:0 0 10px;color:var(--primary);">${escHtml(data.heading||'')}</h3>${paras}${footer}${extra}`;
+}
+const HISTORY_RACE_COLORS = { open:'#0b1f3a', women:'#a4165e', u8:'#2f8f4e', u1012:'#c77c11', u1416:'#1f7a9c', heroes:'#6a4fb3' };
+function historyRaceTag(cat, entry){
+  if(cat==='open') return 'Open';
+  if(cat==='women') return 'Women';
+  if(cat==='heroes') return 'Local Heroes';
+  return youthGroupShortLabel(entry.slCat, entry.slGender) || (CATS[cat]?CATS[cat].label:cat);
+}
+function historyEntryPill(name){
+  if(!name) return '';
+  const k = normName(name);
+  for(const cat of CAT_ORDER){
+    const entry = buildFieldFor(cat).find(x=>!x.reserve && normName(x.name)===k);
+    if(entry){
+      const tag = historyRaceTag(cat, entry);
+      const color = HISTORY_RACE_COLORS[cat] || '#666';
+      return ` <span class="hist-entry-pill" style="background:${color};" title="On tonight's ${escAttr(CATS[cat]?CATS[cat].label:cat)} startlist · bib ${entry.bib}">${entry.bib} (${escHtml(tag)})</span>`;
+    }
+  }
+  return '';
+}
+function historyEntryRowHtml(name, team, year, tag, archEntry){
+  let dropdown = '';
+  if(archEntry){
+    const top = (archEntry.rows||[]).filter(r=>/^\d+$/.test(r.pos)&&r.pos!=='0').slice(0,10);
+    const trs = top.map(r=>`<tr>
+      <td style="padding:2px 4px 2px 0;color:var(--muted);width:16px;font-size:.77rem;">${r.pos}</td>
+      <td data-sname="${escAttr(r.name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" style="padding:2px 4px 2px 0;font-weight:${r.pos==='1'?600:400};font-size:.8rem;cursor:default;">${escHtml(r.name)}${historyEntryPill(r.name)}</td>
+      <td data-tname="${escAttr(r.club||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="padding:2px 4px 2px 0;color:var(--muted);font-size:.74rem;cursor:default;">${escHtml(r.club||'')}</td>
+      <td style="padding:2px 0 2px 4px;color:var(--muted);font-size:.74rem;text-align:right;white-space:nowrap;">${escHtml(r.time||'')}</td></tr>`).join('');
+    dropdown = `<details style="margin-top:5px;"><summary style="cursor:pointer;font-size:.78rem;color:var(--muted);user-select:none;">Top 10 · ${escHtml(archEntry.race)}</summary><table style="width:100%;border-collapse:collapse;margin-top:4px;">${trs}</table></details>`;
+  }
+  return `<div style="padding:7px 0;border-bottom:1px solid var(--border);">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:6px;">
+      <span style="font-size:.9rem;font-weight:600;"><span data-sname="${escAttr(name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" style="cursor:default;">${escHtml(name)}</span>${historyEntryPill(name)} <span data-tname="${escAttr(team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="font-weight:400;color:var(--muted);font-size:.8rem;cursor:default;">${escHtml(team||'')}</span></span>
+      <span style="font-size:.82rem;color:var(--muted);flex-shrink:0;">${year}${tag?' <span style="font-size:.7rem;">'+escHtml(tag)+'</span>':''}</span></div>${dropdown}</div>`;
+}
+function historyYouthGenderTag(raceName){
+  if(/girls?/i.test(raceName)) return 'Girls';
+  if(/boys?/i.test(raceName)) return 'Boys';
+  if(/open/i.test(raceName)) return 'Combined';
+  return '';
+}
+function youthHistoryColHtml(ageNum, title){
+  const races = guildfordRaces().filter(a=>{
+    const m = /Under\s*(\d+)|U(\d+)\b/i.exec(a.race||'');
+    return m && Number(m[1]||m[2]) === ageNum;
+  }).sort((a,b)=> b.year-a.year || String(a.race).localeCompare(String(b.race)));
+  const rows = races.map(a=>{
+    const top = (a.rows||[]).filter(r=>/^\d+$/.test(r.pos)&&r.pos!=='0').sort((x,y)=>Number(x.pos)-Number(y.pos));
+    const w = top[0];
+    if(!w) return '';
+    return historyEntryRowHtml(w.name, w.club||w.team||'', a.year, historyYouthGenderTag(a.race), a);
+  }).join('');
+  return `<div style="flex:1 1 0;min-width:220px;"><div class="section-title">${title}</div><div class="card" style="overflow-y:auto;max-height:60vh;padding:0 12px;">${rows||'<div class="muted" style="padding:12px;font-size:.85rem;">No results on file.</div>'}</div></div>`;
+}
+function renderHistory(){
+  const host = document.getElementById('history-host');
+  const pw = RD.history.pastWinners;
+  function winnersCol(list, title, raceMatcher){
+    const rows = list.map(w=>{
+      // find archive race that year for top-10 dropdown
+      const arch = ARCHIVE.find(a => a.event===GTCR && a.year===w.year && raceMatcher(a.race));
+      return historyEntryRowHtml(w.winner, w.team, w.year, '', arch);
+    }).join('');
+    return `<div style="flex:1 1 0;min-width:260px;"><div class="section-title">${title}</div><div class="card" style="overflow-y:auto;max-height:60vh;padding:0 12px;">${rows}</div></div>`;
+  }
+  const openCol = winnersCol(pw.open, 'Elite Open', r=>/Open Grand|Elite Race/i.test(r));
+  const womenCol = winnersCol(pw.women, "Elite Women's", r=>/Women/i.test(r));
+  const lhCol = winnersCol(pw.heroes, 'Local Heroes', r=>/Local Heroes/i.test(r));
+  const youthCols = [8,10,12,14,16].map(n=>youthHistoryColHtml(n, 'Under '+n)).join('');
+  host.innerHTML = `
+    <div class="card" style="margin-bottom:12px;">
+      <p style="margin:0 0 6px;font-size:.95rem;font-weight:600;">${escHtml(RD.event.shortName)} — ${escHtml(RD.event.edition)}</p>
+      <p style="margin:0 0 6px;font-size:.88rem;">${escHtml(RD.history.narrative)}</p>
+      <p style="margin:0;font-size:.84rem;color:var(--muted);">Defending champions — Open: <b>${escHtml(pw.open[0].winner)}</b> · Women: <b>${escHtml(pw.women[0].winner)}</b> · Local Heroes: <b>${escHtml(pw.heroes[0].winner)}</b>. ${escHtml(pw.note||'')}</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">${womenCol}${openCol}${lhCol}</div>
+    <div class="section-title" style="margin-top:16px;">Youth Categories</div>
+    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">${youthCols}</div>`;
+}
+
+/* ============================================================
+   SERIES OVERVIEW (elite)
+   ============================================================ */
+function resTableHtml(rows, opts){
+  opts = opts || {};
+  const hasTime = rows.some(r=>r.time);
+  const limit = opts.limit || rows.length;
+  const body = rows.slice(0, limit).map(r=>{
+    const posOk = /^\d+$/.test(String(r.pos)) && String(r.pos)!=='0';
+    const posTxt = posOk ? r.pos : (r.status ? '—' : r.pos);
+    const sub = r.club || r.team || '';
+    return `<tr>
+      <td class="pos">${posTxt}</td>
+      <td data-sname="${escAttr(r.name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" onauxclick="handleStandingsAuxClick(event,this)" style="cursor:default;">${escHtml(r.name)}${bibPill(r.name)}${!posOk&&r.status?` <span class="muted" style="font-size:.72rem;">${escHtml(r.status)}</span>`:''}</td>
+      <td data-tname="${escAttr(sub)}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;font-size:.78rem;color:var(--muted);">${escHtml(sub)}</td>
+      ${hasTime?`<td class="time">${escHtml(r.time||'')}</td>`:''}
+      ${r.pts!=null?`<td style="text-align:right;font-weight:600;">${r.pts}</td>`:''}
+    </tr>`;
+  }).join('');
+  return `<table class="res"><tbody>${body}</tbody></table>`
+    + (hasTime ? '<div class="gap-note">Times: s.t. = same time as the rider above · gaps show whether it was a sprint or a break.</div>' : '');
+}
+function standingsTableHtml(list, isTeams){
+  return `<table class="res"><tbody>${list.map(r=>`<tr>
+    <td class="pos">${r.pos}</td>
+    <td ${isTeams?`data-tname="${escAttr(r.name)}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()"`:`data-sname="${escAttr(r.name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" onauxclick="handleStandingsAuxClick(event,this)"`} style="cursor:default;">${escHtml(r.name)}${isTeams?'':bibPill(r.name)}</td>
+    ${isTeams?'':`<td data-tname="${escAttr(r.team||'')}" onmouseenter="showTeamTT(this.dataset.tname,event)" onmouseleave="hideTeamTT()" style="cursor:default;font-size:.78rem;color:var(--muted);">${escHtml(r.team||'')}</td>`}
+    <td style="text-align:right;font-weight:600;">${r.pts==null?'':r.pts}</td></tr>`).join('')}</tbody></table>`;
+}
+window._roundTabState = {};
+function setRoundTab(rid, tab){ window._roundTabState[rid] = tab; renderSeriesOverview(true); }
+function renderSeriesOverview(keepOpen){
+  if(CATS[activeCat].type !== 'elite') return;
+  const key = activeCat === 'women' ? 'women' : 'open';
+  const left = document.getElementById('series-left');
+  const right = document.getElementById('series-right');
+  // remember which <details> are open
+  const openSet = new Set();
+  if(keepOpen) right.querySelectorAll('details.round-details[open]').forEach(d=>openSet.add(d.dataset.rid));
+
+  // LEFT: overall standings for current category
+  if(!window._soMode) window._soMode = 'individual';
+  const sm = window._soMode;
+  const st = RD.ncs.standings.afterR3[key];
+  const teamsSt = (st.teams && st.teams.length) ? st.teams : RD.ncs.standings.afterR1[key].teams;
+  const teamNote = (st.teams && st.teams.length) ? '' : `<div style="font-size:.7rem;color:var(--muted);margin-top:6px;">${escHtml(RD.ncs.standings.notes.womenR3Teams)}</div>`;
+  left.innerHTML = `
+    <div class="card">
+      <div style="font-weight:700;font-size:.95rem;color:var(--primary);margin-bottom:2px;">🏆 ${escHtml(RD.ncs.name)} — ${key==='women'?"Women's":'Open'}</div>
+      <div style="font-size:.74rem;color:var(--muted);margin-bottom:8px;">Overall standings after Round 3 · Ilkley (3 Jul). Green pill = on tonight's startlist.</div>
+      <div class="stnds-tog">
+        <button class="${sm==='individual'?'active':''}" onclick="window._soMode='individual';renderSeriesOverview(true);">Individual</button>
+        <button class="${sm==='teams'?'active':''}" onclick="window._soMode='teams';renderSeriesOverview(true);">Team</button>
+        <button class="${sm==='sprints'?'active':''}" onclick="window._soMode='sprints';renderSeriesOverview(true);">Sprints</button>
+      </div>
+      ${sm==='individual' ? standingsTableHtml(st.individual, false)
+        : sm==='teams' ? standingsTableHtml(teamsSt, true) + teamNote
+        : (st.sprints && st.sprints.length ? standingsTableHtml(st.sprints, false) : standingsTableHtml(RD.ncs.standings.afterR1[key].sprints||[], false) + `<div style="font-size:.7rem;color:var(--muted);margin-top:6px;">Sprint standings after R1 shown — later official sprint table not in sources for this category.</div>`)}
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:.73rem;color:var(--muted);">${escHtml(RD.ncs.scoring)}</div>
+    </div>`;
+
+  // RIGHT: per-round dropdowns + Nat Champs
+  const stByRound = { 1: RD.ncs.standings.afterR1, 3: RD.ncs.standings.afterR3 };
+  const roundsHtml = RD.ncs.rounds.map(rd=>{
+    const rid = 'r' + rd.n;
+    const results = RD.ncs.results[rid];
+    const tabState = window._roundTabState[rid] || 'finish';
+    let body = '';
+    if(rd.today){
+      body = '<div class="muted" style="font-size:.85rem;padding:4px 0 8px;">Racing tonight — results to come.</div>';
+    } else if(!rd.done){
+      body = '<div class="muted" style="font-size:.85rem;padding:4px 0 8px;">Upcoming — no results yet.</div>';
+    } else {
+      const raceRows = results ? results[key] : null;
+      let inner = '';
+      if(tabState==='finish'){
+        inner = raceRows ? resTableHtml(raceRows) : '<div class="muted" style="font-size:.83rem;">Race results not in sources.</div>';
+      } else if(tabState==='series'){
+        const s = stByRound[rd.n];
+        inner = s ? standingsTableHtml(s[key].individual, false)
+                  : `<div class="muted" style="font-size:.83rem;">${escHtml(RD.ncs.standings.notes.afterR2)}</div>`;
+      } else {
+        const s = stByRound[rd.n];
+        const teamsList = s ? ((s[key].teams&&s[key].teams.length)?s[key].teams:null) : null;
+        inner = teamsList ? standingsTableHtml(teamsList, true)
+              : s ? `<div class="muted" style="font-size:.83rem;">Team standings for this round not published in sources${key==='women'?' — see R1 team standings on the left panel':''}.</div>`
+                  : `<div class="muted" style="font-size:.83rem;">${escHtml(RD.ncs.standings.notes.afterR2)}</div>`;
+      }
+      body = `<div class="rtab-btns">
+          <button class="${tabState==='finish'?'active':''}" onclick="setRoundTab('${rid}','finish')">Race Finish</button>
+          <button class="${tabState==='series'?'active':''}" onclick="setRoundTab('${rid}','series')">Series Individual</button>
+          <button class="${tabState==='teams'?'active':''}" onclick="setRoundTab('${rid}','teams')">Series Team</button>
+        </div>${inner}`;
+    }
+    const status = rd.today ? 'TONIGHT ★' : (rd.done ? '✓ done' : 'upcoming');
+    return `<details class="round-details" data-rid="${rid}" ${openSet.has(rid)?'open':''}>
+      <summary><span>Rd ${rd.n} · ${escHtml(rd.venue)} <span style="font-weight:400;color:var(--muted);font-size:.8rem;">${escHtml(rd.name)}</span></span><span class="rd-meta">${rd.date} · ${status}</span></summary>
+      <div class="round-body">${body}</div>
+    </details>`;
+  }).join('');
+  // Nat champs dropdown
+  const ncRace = ARCHIVE.find(a=>a.event==='National Circuit Championships' && /Women/i.test(a.race) === (key==='women'));
+  const ncBody = ncRace ? resTableHtml(ncRace.rows.map(r=>({pos:r.pos,name:r.name,club:r.club,status:r.status})), {limit:20}) : '<div class="muted">Not in sources.</div>';
+  const ncHtml = `<details class="round-details" data-rid="natchamps" ${openSet.has('natchamps')?'open':''}>
+    <summary><span>National Circuit Championships 2026 <span style="font-weight:400;color:var(--muted);font-size:.8rem;">${key==='women'?"Women's":'Open'} championship</span></span><span class="rd-meta">2026 · ✓ done</span></summary>
+    <div class="round-body">${ncBody}<div class="gap-note">Top 20 shown — full result in the archive. National champion wears the champion's jersey tonight.</div></div>
+  </details>`;
+  right.innerHTML = `<div class="section-title" style="margin-top:0;">Rounds — ${key==='women'?"Women's":'Open'} National Circuit Series</div>` + roundsHtml
+    + `<div class="section-title">National Championships</div>` + ncHtml;
+}
+
+/* ============================================================
+   SPONSORS
+   ============================================================ */
+function sponsorBlurbHtml(blurb){
+  return String(blurb||'').split(/\n\s*\n/).map(p=>`<p style="margin:0 0 8px;">${escHtml(p.trim())}</p>`).join('');
+}
+function renderSponsors(){
+  const host = document.getElementById('sponsors-host');
+  if(!host) return;
+  host.innerHTML = `<div class="section-title" style="margin-top:0;">Event sponsors — ${escHtml(RD.event.name)}</div>`
+    + RD.sponsors.map((s,i)=>`
+    <details class="sponsor-details"${i===0?' open':''}>
+      <summary><span>${escHtml(s.name)}</span><span class="sp-role">${escHtml(s.role)} · ${escHtml(s.races)}</span></summary>
+      <div class="sp-body">${sponsorBlurbHtml(s.blurb)}</div>
+    </details>`).join('')
+    + `<div class="card" style="margin-top:14px;padding:12px 14px;font-size:.84rem;">
+      Organised by <b>${escHtml(RD.event.organiser)}</b> — ${escHtml(RD.event.organiserPerson)} · ${escHtml(RD.event.website)}</div>`;
+}
+
+/* ============================================================
+   RAPHA SUPER LEAGUE
+   ============================================================ */
+function raphaSetMode(m){ window._raphaMode = m; renderRaphaSuperLeague(); }
+function raphaSetSrc(s){ window._raphaSrc = s; renderRaphaSuperLeague(); }
+function renderRaphaSuperLeague(){
+  const host = document.getElementById('rapha-sl');
+  if(!host || CATS[activeCat].type !== 'elite') return;
+  const mode = window._raphaMode || (activeCat==='women'?'women':'open');
+  const src = window._raphaSrc || 'provisional';
+  const data = RD.rapha[src][mode] || [];
+  const updated = RD.rapha[src].updated;
+  const rows = data.map((r,i)=>{
+    const isSpot = spotlightIds.has(riderIdFromName(r.name));
+    const bg = isSpot ? 'background:rgba(31,122,77,0.13);' : (i%2 ? 'background:rgba(128,128,128,.06);' : '');
+    const move = r.move ? `<span style="font-size:.7rem;color:var(--muted);margin-left:4px;">${escHtml(r.move)}</span>` : '';
+    const star = r.note ? ' <span title="Not in previous top 20 — earlier points may be missing" style="color:var(--danger);">*</span>' : '';
+    return `<tr style="${bg}">
+      <td style="padding:4px 4px 4px 0;font-weight:700;color:var(--primary);vertical-align:top;">${r.pos}</td>
+      <td data-sname="${escAttr(r.name)}" onmouseenter="showRiderTT(this.dataset.sname,event)" onmouseleave="hideRiderTT()" onauxclick="handleStandingsAuxClick(event,this)" style="padding:4px;cursor:default;">${escHtml(r.name)}${bibPill(r.name)}${move}${star}</td>
+      <td style="padding:4px 0;text-align:right;font-weight:600;vertical-align:top;">${r.pts==null?'':r.pts}</td></tr>`;
+  }).join('');
+  const standingsCard = `<div class="card" style="min-width:0;">
+    <div style="font-weight:700;font-size:.9rem;color:var(--primary);margin-bottom:2px;">⚡ Rapha Super League Standings</div>
+    <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">${escHtml(updated)}</div>
+    <div class="stnds-tog">
+      <button class="${mode==='open'?'active':''}" onclick="raphaSetMode('open')">Open</button>
+      <button class="${mode==='women'?'active':''}" onclick="raphaSetMode('women')">Women's</button>
+      <span style="flex:1"></span>
+      <button class="${src==='official'?'active':''}" onclick="raphaSetSrc('official')" title="As published 1 Jul (pre-Otley)">Official 1 Jul</button>
+      <button class="${src==='provisional'?'active':''}" onclick="raphaSetSrc('provisional')" title="Computed: official + Otley Rd 5 points">After Otley (calc)</button>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+      <thead><tr style="font-size:.73rem;color:var(--muted);border-bottom:1px solid var(--border);">
+        <th style="text-align:left;padding:2px 4px 5px 0;width:20px;">#</th>
+        <th style="text-align:left;padding:2px 4px 5px;">Rider</th>
+        <th style="text-align:right;padding:2px 0 5px;">Pts</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+    <div style="margin-top:8px;font-size:.7rem;color:var(--muted);">${escHtml(RD.rapha.pointsNote)}</div></div>`;
+  // Rounds
+  const roundTiles = RD.rapha.rounds.slice().reverse().map((rd,idx)=>{
+    let body = '';
+    if(!rd.done){ body = '<div class="muted" style="font-size:.83rem;padding:2px 0 6px;">Upcoming — no results yet.</div>'; }
+    else {
+      let lists = [];
+      if(rd.ncsRound && RD.ncs.results[rd.ncsRound]){
+        const rr = RD.ncs.results[rd.ncsRound];
+        if(rr.open) lists.push(['OPEN', rr.open.slice(0,10).map(x=>({pos:x.pos,name:x.name,club:x.team,time:x.time}))]);
+        if(rr.women) lists.push(["WOMEN'S", rr.women.slice(0,10).map(x=>({pos:x.pos,name:x.name,club:x.team,time:x.time}))]);
+      } else if(rd.archiveEvent){
+        ARCHIVE.filter(a=>a.event===rd.archiveEvent).forEach(a=>{
+          const label = /women/i.test(a.race) ? "WOMEN'S" : 'OPEN';
+          lists.push([label + ' — ' + a.race, a.rows.slice(0,10)]);
+        });
+      }
+      body = lists.map(([label, rows])=>`<div style="font-size:.7rem;color:var(--muted);font-weight:700;margin:6px 0 2px;letter-spacing:.04em;">${escHtml(label)}</div>${resTableHtml(rows)}`).join('')
+        || '<div class="muted" style="font-size:.83rem;">Results not in sources.</div>';
+    }
+    return `<details class="round-details"${idx===0&&rd.done?' open':''}>
+      <summary><span>Rd ${rd.n} · ${escHtml(rd.name)}</span><span class="rd-meta">${rd.date} · ${escHtml(rd.league)}${rd.done?' · ✓':''}</span></summary>
+      <div class="round-body">${body}</div></details>`;
+  }).join('');
+  host.innerHTML = `<div class="section-title" style="margin-top:0;">Rapha Super League 2026</div>
+    <div style="display:flex;gap:12px;align-items:flex-start;min-width:0;flex-wrap:wrap;">
+      <div style="flex:1 1 300px;min-width:0;">${standingsCard}</div>
+      <div style="flex:1 1 340px;min-width:0;">
+        <div style="font-weight:700;font-size:.9rem;color:var(--primary);margin-bottom:6px;">Rounds — top finishers</div>${roundTiles}</div>
+    </div>
+    <div style="margin-top:10px;font-size:.7rem;color:var(--muted);">Official standings from the 1 Jul 2026 publication. “After Otley (calc)” adds Otley Rd 5 points from the published allocation table — provisional, verify against the next official release. Hover a rider for photo &amp; results; middle-click to spotlight.</div>`;
+}
+
+/* ============================================================
+   RIDER TOOLTIP (photo + recent results) + resizers + init
+   ============================================================ */
+(function(){
+  const rt = document.createElement('div'); rt.id = 'rider-tt'; document.body.appendChild(rt);
+  const st = document.createElement('div'); st.id = 'series-tt'; document.body.appendChild(st);
+  const tmt = document.createElement('div'); tmt.id = 'team-tt'; document.body.appendChild(tmt);
+})();
+let _riderTTPinned = false;
+function getCareerPodiums(r, excludeFn){
+  return (r.results||[]).filter(x=>{
+    const m = /^(\d+)/.exec(String(x.result||''));
+    if(!m) return false;
+    const n = Number(m[1]);
+    if(n<1 || n>3) return false;
+    if(excludeFn && excludeFn(x)) return false;
+    return true;
+  }).sort((a,b)=>(b.year||0)-(a.year||0));
+}
+function riderTTResultLiHtml(x){
+  const m = /^(\d+)/.exec(String(x.result||''));
+  const n = m ? Number(m[1]) : null;
+  const pill = (n && n>=1 && n<=3) ? medalPillHtml(n) : null;
+  return '<li>'+(pill ? pill+' ' : (x.result?escHtml(x.result)+' — ':''))+escHtml(x.race)+'</li>';
+}
+function riderTTYearBlock(r, label, yr){
+  const items = (r.results||[]).filter(x=>x.year===yr).slice().sort((a,b)=>resultSortKey(a.result)-resultSortKey(b.result)).slice(0,5);
+  if(!items.length) return '';
+  return '<div class="rtt-year">'+label+' — top 5</div><ul>'+items.map(riderTTResultLiHtml).join('')+'</ul>';
+}
+function riderTTTitlesHtml(r){
+  const t = r.titles || {};
+  const parts = [];
+  [['olympic','Olympic/Paralympic'],['world','World'],['european','European'],['national','National']].forEach(([k,label])=>{
+    if((t[k]||[]).length) parts.push('<li><b>'+label+':</b> '+t[k].map(escHtml).join(' · ')+'</li>');
+  });
+  if(!parts.length) return '';
+  return '<div class="rtt-year">Titles</div><ul>'+parts.join('')+'</ul>';
+}
+function getAllNationalResults(r){
+  return (r.results||[]).filter(x=>/National Championship/i.test(x.race||'')).slice().sort((a,b)=>(b.year||0)-(a.year||0));
+}
+function riderTTNationalsHtml(r){
+  const items = getAllNationalResults(r);
+  if(!items.length) return '';
+  return '<div class="rtt-year">National Championships (all years)</div><ul>'+items.map(x=>{
+    const m = /^(\d+)/.exec(String(x.result||''));
+    const n = m ? Number(m[1]) : null;
+    const pill = (n && n>=1 && n<=3) ? medalPillHtml(n) : null;
+    return '<li>'+(pill ? pill+' ' : (x.result?escHtml(x.result)+' — ':''))+escHtml(x.race)+(x.year?' <span style="color:var(--text-muted);">('+x.year+')</span>':'')+'</li>';
+  }).join('')+'</ul>';
+}
+function riderTTResultsHtml(r){
+  const y2026 = riderTTYearBlock(r, '2026', 2026);
+  const y2025 = riderTTYearBlock(r, '2025', 2025);
+  const podiums = getCareerPodiums(r, x=>x.year===2025||x.year===2026);
+  const podiumHtml = podiums.length ? '<div class="rtt-year">Career podiums (pre-2025)</div><ul>'+podiums.map(x=>{
+    const n = Number(/^(\d+)/.exec(String(x.result))[1]);
+    const pill = medalPillHtml(n);
+    return '<li>'+(pill||'')+' '+escHtml(x.race)+(x.year?' <span style="color:var(--text-muted);">('+x.year+')</span>':'')+'</li>';
+  }).join('')+'</ul>' : '';
+  const nationals = riderTTNationalsHtml(r);
+  const titles = riderTTTitlesHtml(r);
+  const body = y2026 + y2025 + podiumHtml + nationals + titles;
+  return '<div class="rtt-results"><div class="rtt-name">'+escHtml(r.name)+'</div>'+(body||'<div class="rtt-none">No 2025/26 results on file.</div>')+'</div>';
+}
+function showRiderTT(name, event){
+  _riderTTPinned = false;
+  const tt = document.getElementById('rider-tt');
+  const r = riderByName(name);
+  if(!tt || !r) return;
+  let imgSrc = riderImgSrc(r), imgFb = '';
+  if(imgSrc){ imgFb = kitSrcFor(r.team); }
+  else { imgSrc = kitSrcFor(r.team); }
+  tt.innerHTML = riderTTResultsHtml(r);
+  if(imgSrc){
+    const img = document.createElement('img');
+    img.className = 'rtt-photo'; img.src = imgSrc; img.alt = r.name;
+    img.onerror = imgFb ? function(){ img.src = imgFb; img.onerror = function(){ img.style.display='none'; }; } : function(){ img.style.display='none'; };
+    tt.appendChild(img);
+  }
+  tt.style.display = 'flex';
+  positionFixedTT(tt, event.clientX, event.clientY);
+}
+function hideRiderTT(){
+  if(_riderTTPinned) return;
+  const tt = document.getElementById('rider-tt');
+  if(tt) tt.style.display='none';
+}
+document.addEventListener('mousemove', function(e){
+  const tt = document.getElementById('rider-tt');
+  if(tt && tt.style.display && tt.style.display !== 'none' && !_riderTTPinned) positionFixedTT(tt, e.clientX, e.clientY);
+});
+
+/* ---------- click-to-pin for rider/youth tooltips ---------- */
+document.addEventListener('click', function(e){
+  const rt = document.getElementById('rider-tt');
+  const yt = document.getElementById('youth-tt');
+  if(_riderTTPinned){
+    _riderTTPinned = false;
+    if(rt) rt.style.display = 'none';
+    return;
+  }
+  if(_youthTTPinned){
+    _youthTTPinned = false;
+    if(yt) yt.style.display = 'none';
+    return;
+  }
+  const riderTrigger = e.target.closest('[data-sname]');
+  if(riderTrigger && rt && rt.style.display && rt.style.display !== 'none'){
+    _riderTTPinned = true;
+    return;
+  }
+  const youthTrigger = e.target.closest('.yt-name[data-name]');
+  if(youthTrigger && yt && yt.style.display === 'block'){
+    _youthTTPinned = true;
+    return;
+  }
+});
+
+/* ---------- team tooltip (kit + today's riders) ---------- */
+function showTeamTT(teamName, event){
+  const tt = document.getElementById('team-tt');
+  const tm = teamRecord(teamName);
+  if(!tt || !tm) return;
+  const kit = kitSrcFor(tm.name);
+  const today = (FIELD||[]).filter(r => r.team && normName(r.team)===normName(tm.name))
+    .sort((a,b)=> (a.bib||0)-(b.bib||0));
+  const rowsHtml = today.length
+    ? today.map(r=>'<div class="tmtt-row"><span class="b">'+(r.bib!=null?r.bib:'')+'</span><span>'+escHtml(r.name)+'</span></div>').join('')
+    : '<div class="tmtt-none">No riders entered today.</div>';
+  tt.innerHTML = '<div class="tmtt-name">'+escHtml(tm.name)+'</div>'
+    + (kit ? '<img class="tmtt-kit" src="'+kit+'" alt="'+escAttr(tm.name)+' kit" onerror="this.remove()">' : '')
+    + '<div class="tmtt-lbl">'+escHtml(CATS[activeCat]?CATS[activeCat].label:'Today')+' Entries ('+today.length+')</div>'
+    + rowsHtml;
+  tt.style.display = 'block';
+  positionFixedTT(tt, event.clientX, event.clientY);
+}
+function hideTeamTT(){ const tt = document.getElementById('team-tt'); if(tt) tt.style.display='none'; }
+document.addEventListener('mousemove', function(e){
+  const tt = document.getElementById('team-tt');
+  if(tt && tt.style.display && tt.style.display !== 'none') positionFixedTT(tt, e.clientX, e.clientY);
+});
+function showTeamKitTT(teamName, event){
+  const tt = document.getElementById('team-tt');
+  if(!tt || !teamName) return;
+  const kit = kitSrcFor(teamName);
+  const k = normName(teamName);
+  const groups = CAT_ORDER.map(cat=>{
+    const riders = buildFieldFor(cat).filter(x=>!x.reserve && x.team && normName(x.team)===k).sort((a,b)=>a.bib-b.bib);
+    return { label: CATS[cat] ? CATS[cat].label : cat, riders };
+  }).filter(g=>g.riders.length);
+  const body = groups.length
+    ? groups.map(g=>'<div class="tmtt-lbl">'+escHtml(g.label)+' Entries ('+g.riders.length+')</div>'+g.riders.map(r=>'<div class="tmtt-row"><span class="b">'+(r.bib!=null?r.bib:'')+'</span><span>'+escHtml(r.name)+'</span></div>').join('')).join('')
+    : '<div class="tmtt-none">No riders entered across any race.</div>';
+  tt.innerHTML = '<div class="tmtt-name">'+escHtml(teamName)+'</div>'
+    + (kit ? '<img class="tmtt-kit" src="'+kit+'" alt="'+escAttr(teamName)+' kit" onerror="this.remove()">' : '')
+    + body;
+  tt.style.display = 'block';
+  positionFixedTT(tt, event.clientX, event.clientY);
+}
+function hideTeamKitTT(){ hideTeamTT(); }
+
+function initResizer(){
+  const resizer = document.getElementById('selection-resizer');
+  const top = document.getElementById('teams-half');
+  const bottom = document.getElementById('riders-half');
+  if(!resizer || !top || !bottom) return;
+  let startY=0, startTopH=0, startBottomH=0;
+  function onMove(e){
+    const dy = e.clientY - startY;
+    top.style.flex = `1 1 ${Math.max(60, startTopH+dy)}px`;
+    bottom.style.flex = `1 1 ${Math.max(60, startBottomH-dy)}px`;
+  }
+  function onUp(){ document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+  resizer.addEventListener('mousedown', e=>{
+    e.preventDefault(); startY = e.clientY;
+    startTopH = top.getBoundingClientRect().height;
+    startBottomH = bottom.getBoundingClientRect().height;
+    document.addEventListener('mousemove', onMove); document.addEventListener('mouseup', onUp);
+  });
+}
+function initPanelResizer(){
+  const handle = document.getElementById('panel-resizer-h');
+  const panel = document.querySelector('.selection-panel');
+  if(!handle || !panel) return;
+  let startX, startW;
+  function onMove(e){
+    panel.style.width = Math.max(160, Math.min(560, startW + e.clientX - startX)) + 'px';
+    renderSelectionPanel();
+  }
+  function onUp(){ handle.classList.remove('dragging'); document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+  handle.addEventListener('mousedown', e=>{
+    e.preventDefault(); startX = e.clientX; startW = panel.getBoundingClientRect().width;
+    handle.classList.add('dragging');
+    document.addEventListener('mousemove', onMove); document.addEventListener('mouseup', onUp);
+  });
+}
+function panelSizeKey(handleId){ return 'gtcr_panelsize_' + activeCat + '_' + handleId; }
+function restoreAllPanelSizes(){
+  document.querySelectorAll('.dash-vresize[id]').forEach(handle=>{
+    const topEl = document.getElementById(handle.dataset.top);
+    const botEl = document.getElementById(handle.dataset.bot);
+    if(!topEl || !botEl) return;
+    let saved = null;
+    try{ saved = JSON.parse(localStorage.getItem(panelSizeKey(handle.id)) || 'null'); }catch(e){}
+    if(saved && saved.top && saved.bot){
+      topEl.style.flex = saved.top;
+      botEl.style.flex = saved.bot;
+    } else {
+      topEl.style.flex = '';
+      botEl.style.flex = '';
+    }
+  });
+}
+(function(){ // dash vertical resize
+  let dragging=false, topEl, botEl, startY, startTopH, startBotH, activeHandle;
+  document.addEventListener('mousedown', function(e){
+    const handle = e.target.closest('.dash-vresize');
+    if(!handle) return;
+    topEl = document.getElementById(handle.dataset.top);
+    botEl = document.getElementById(handle.dataset.bot);
+    if(!topEl || !botEl) return;
+    activeHandle = handle;
+    startY = e.clientY; startTopH = topEl.offsetHeight; startBotH = botEl.offsetHeight;
+    dragging = true; handle.classList.add('dragging');
+    document.body.style.userSelect = 'none'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!dragging || !topEl || !botEl) return;
+    const dy = e.clientY - startY;
+    topEl.style.flex = '0 0 ' + Math.max(36, startTopH+dy) + 'px';
+    botEl.style.flex = '0 0 ' + Math.max(36, startBotH-dy) + 'px';
+  });
+  document.addEventListener('mouseup', function(){
+    if(dragging){
+      dragging=false; document.querySelectorAll('.dash-vresize.dragging').forEach(h=>h.classList.remove('dragging'));
+      document.body.style.userSelect='';
+      if(activeHandle && activeHandle.id && topEl && botEl){
+        try{ localStorage.setItem(panelSizeKey(activeHandle.id), JSON.stringify({top:topEl.style.flex, bot:botEl.style.flex})); }catch(e){}
+      }
+      topEl=botEl=activeHandle=null;
+    }
+  });
+})();
+(function(){ // card resize
+  let dragging=false, card, startY, startH;
+  document.addEventListener('mousedown', function(e){
+    const h = e.target.closest('.card-resize-handle');
+    if(!h) return;
+    card = h.closest('.rider-card') || h.closest('.team-card');
+    if(!card) return;
+    startY = e.clientY; startH = card.getBoundingClientRect().height;
+    dragging = true; h.classList.add('dragging');
+    document.body.style.userSelect = 'none'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!dragging || !card) return;
+    card.style.maxHeight = Math.max(80, startH + (e.clientY - startY)) + 'px';
+  });
+  document.addEventListener('mouseup', function(){
+    if(dragging){ dragging=false; document.querySelectorAll('.card-resize-handle.dragging').forEach(h=>h.classList.remove('dragging')); document.body.style.userSelect=''; card=null; }
+  });
+  document.addEventListener('dblclick', function(e){
+    const h = e.target.closest('.card-resize-handle');
+    if(!h) return;
+    const c = h.closest('.rider-card') || h.closest('.team-card');
+    if(c) c.style.maxHeight = '';
+  });
+})();
+(function(){ // middle-click drag-to-scroll for the elite riders results panel
+  let active=false, container=null, startY=0, startScroll=0;
+  document.addEventListener('mousedown', function(e){
+    if(e.button !== 1) return;
+    const panel = e.target.closest('#selection-results');
+    if(!panel) return;
+    active = true; container = panel;
+    startY = e.clientY; startScroll = panel.scrollTop;
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!active || !container) return;
+    container.scrollTop = startScroll - (e.clientY - startY);
+  });
+  function stop(){ if(active){ active=false; container=null; document.body.style.userSelect=''; } }
+  document.addEventListener('mouseup', function(e){ if(e.button===1) stop(); });
+  document.addEventListener('mouseleave', stop);
+})();
+(function(){ // middle-click drag-to-scroll for rider hover tooltips (kept separate from the Riders page rule above)
+  let active=false, container=null, startY=0, startScroll=0;
+  document.addEventListener('mousedown', function(e){
+    if(e.button !== 1) return;
+    const target = e.target.closest('#rider-tt .rtt-results') || e.target.closest('#youth-tt');
+    if(!target) return;
+    active = true; container = target;
+    startY = e.clientY; startScroll = target.scrollTop;
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!active || !container) return;
+    container.scrollTop = startScroll - (e.clientY - startY);
+  });
+  function stop(){ if(active){ active=false; container=null; document.body.style.userSelect=''; } }
+  document.addEventListener('mouseup', function(e){ if(e.button===1) stop(); });
+  document.addEventListener('mouseleave', stop);
+})();
+let _resizeTimer;
+window.addEventListener('resize', ()=>{ clearTimeout(_resizeTimer); _resizeTimer = setTimeout(()=>{
+  if(CATS[activeCat] && CATS[activeCat].type==='elite') renderSelectionPanel();
+  if(CATS[activeCat] && CATS[activeCat].type==='youth' && youthViewMode!=='combined') fitYouthGrid();
+}, 150); });
+
+// ---------- init ----------
+if(RD && RIDERS.length){
+  rebuildField();
+  renderNav();
+  renderHeader();
+  renderAll();
+  setColToggleIcon();
+  initResizer();
+  initPanelResizer();
+}
+</script>
+</body>
+</html>
