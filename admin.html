@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Riders / Teams Database — Admin</title>
+<style>
+:root{
+  --primary:#0b1f3a; --primary-light:#16315c; --secondary:#1f7a4d;
+  --highlight:#e8b13c; --danger:#c0392b; --bg:#f4f6f9; --card-bg:#fff;
+  --border:#d9dee5; --text:#1b232f; --muted:#5b6675; --radius:10px;
+  --shadow:0 1px 3px rgba(11,31,58,.08),0 1px 2px rgba(11,31,58,.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+header{flex:0 0 auto;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:12px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+header h1{margin:0;font-size:1.15rem;}
+header .sub{font-size:.8rem;opacity:.85;}
+.hdr-btns{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.btn{padding:7px 14px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:.84rem;font-weight:600;}
+.btn.primary{background:var(--highlight);border-color:var(--highlight);color:#3a2c06;}
+.btn.green{background:var(--secondary);border-color:var(--secondary);color:#fff;}
+.btn.danger{background:#fff;color:var(--danger);border-color:var(--danger);}
+.btn:disabled{opacity:.5;cursor:default;}
+#mode-pill{font-size:.72rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:3px 10px;border-radius:12px;}
+#status-banner{display:none;flex:0 0 auto;padding:8px 22px;font-size:.84rem;background:#fff8e6;border-bottom:1px solid var(--border);}
+#status-banner.show{display:block;}
+#status-banner.ok{background:#e8f6ee;color:#155a38;}
+#status-banner.err{background:#fdecea;color:var(--danger);}
+main{flex:1 1 auto;min-height:0;display:flex;overflow:hidden;}
+.sidebar{flex:0 0 320px;display:flex;flex-direction:column;border-right:1px solid var(--border);background:var(--card-bg);min-height:0;}
+.subnav{display:flex;gap:4px;padding:10px 12px 0;flex-wrap:wrap;}
+.subnav-btn{flex:1;padding:8px 6px;border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0;background:#eef1f5;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);}
+.subnav-btn.active{background:#fff;color:var(--primary);border-color:var(--primary);}
+.side-tools{padding:10px 12px;display:flex;gap:6px;border-bottom:1px solid var(--border);}
+.side-tools input{flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.86rem;}
+.side-tools select{padding:5px;border:1px solid var(--border);border-radius:6px;font-size:.78rem;}
+#list{flex:1 1 auto;overflow-y:auto;padding:6px 8px;}
+.list-item{padding:7px 10px;border-radius:7px;cursor:pointer;font-size:.85rem;border:1px solid transparent;}
+.list-item:hover{background:#f0f3f7;}
+.list-item.active{background:var(--primary);color:#fff;}
+.list-item .li-sub{font-size:.72rem;color:var(--muted);}
+.list-item.active .li-sub{color:rgba(255,255,255,.7);}
+.list-item .flag{display:inline-block;font-size:.62rem;background:#fdecea;color:var(--danger);border-radius:8px;padding:0 6px;font-weight:700;margin-left:5px;vertical-align:middle;}
+.list-item.active .flag{background:rgba(255,255,255,.25);color:#fff;}
+#editor{flex:1 1 auto;overflow-y:auto;padding:18px 24px;min-width:0;}
+.editor-empty{color:var(--muted);text-align:center;padding:80px 20px;font-size:.95rem;}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;margin-bottom:14px;}
+.card h2{margin:0 0 12px;font-size:1rem;color:var(--primary);}
+.frow{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.fld{display:flex;flex-direction:column;gap:3px;flex:1 1 180px;min-width:140px;}
+.fld.wide{flex:1 1 100%;}
+.fld label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+.fld input,.fld select,.fld textarea{padding:7px 9px;border:1px solid var(--border);border-radius:6px;font-size:.87rem;font-family:inherit;}
+.fld textarea{resize:vertical;min-height:56px;}
+table.sub{width:100%;border-collapse:collapse;}
+table.sub th{text-align:left;font-size:.7rem;color:var(--muted);text-transform:uppercase;padding:3px 6px;}
+table.sub td{padding:3px 4px;}
+table.sub input,table.sub select{width:100%;padding:5px 7px;border:1px solid var(--border);border-radius:5px;font-size:.83rem;}
+table.sub .rm{width:26px;text-align:center;}
+.rm-btn{border:none;background:none;color:var(--danger);cursor:pointer;font-size:1rem;line-height:1;}
+.add-row-btn{margin-top:6px;font-size:.78rem;padding:4px 10px;border:1px dashed var(--border);border-radius:6px;background:#f7f9fb;cursor:pointer;color:var(--muted);}
+.paste-zone{border:2px dashed var(--border);border-radius:8px;padding:14px;text-align:center;color:var(--muted);font-size:.82rem;cursor:text;background:#fafbfc;}
+.paste-zone:focus{outline:2px solid var(--secondary);border-color:var(--secondary);}
+.paste-zone img.paste-preview{max-width:220px;max-height:160px;display:block;margin:0 auto 8px;border-radius:6px;object-fit:contain;}
+.paste-hint{font-weight:600;}
+.paste-status{font-size:.76rem;margin-top:5px;}
+.editor-actions{position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 25%);padding:14px 0 4px;display:flex;gap:8px;flex-wrap:wrap;}
+.review-toggle{display:flex;align-items:center;gap:6px;font-size:.84rem;}
+footer{flex:0 0 auto;text-align:center;font-size:.7rem;color:var(--muted);padding:5px;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Global Riders / Teams Database</h1>
+    <div class="sub">Add &amp; edit riders and teams · paste photos &amp; kit images · saves riders/teams .json + .js in this folder</div>
+  </div>
+  <div class="hdr-btns">
+    <span id="mode-pill">No folder open</span>
+    <button class="btn primary" id="btn-open">📂 Open Database Folder</button>
+    <button class="btn green" id="btn-save" disabled>💾 Save All</button>
+    <button class="btn" id="btn-download" title="Download riders/teams files instead of saving in place">⬇ Download files</button>
+  </div>
+</header>
+<div id="status-banner"></div>
+<main>
+  <div class="sidebar">
+    <div class="subnav">
+      <button class="subnav-btn active" id="tab-riders">Riders</button>
+      <button class="subnav-btn" id="tab-teams">Teams</button>
+    </div>
+    <div class="side-tools">
+      <input type="text" id="search" placeholder="Search…">
+      <select id="filter">
+        <option value="">All</option>
+        <option value="review">Needs review</option>
+        <option value="Elite Open">Elite Open</option>
+        <option value="Elite Women">Elite Women</option>
+        <option value="Youth">Youth</option>
+        <option value="Local Heroes">Local Heroes</option>
+      </select>
+      <button class="btn" id="btn-add" title="Add new">＋</button>
+    </div>
+    <div id="list"></div>
+  </div>
+  <div id="editor"><div class="editor-empty">Open the database folder (top right), then select a rider or team.<br><br>In Chrome/Edge you can save everything in place, including pasted images.<br>In other browsers use ⬇ Download files.</div></div>
+</main>
+<footer>Global database admin · riders.json/.js · teams.json/.js · images/riders/ · images/kits/ · Keep a backup before large edits.</footer>
+
+<script>
+let riders = [], teams = [];
+let dirHandle = null;
+let mode = 'riders';           // riders | teams
+let activeId = null;
+let dirty = false;
+
+const $ = id => document.getElementById(id);
+const statusBanner = $('status-banner');
+function showStatus(msg, kind){ statusBanner.textContent = msg; statusBanner.className = 'show ' + (kind||''); statusBanner.id='status-banner'; statusBanner.classList.add('show'); if(kind) statusBanner.classList.add(kind); }
+function hideStatus(){ statusBanner.className=''; }
+function slugify(s){ return (s||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function escHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+// ---------- Load / save ----------
+const HAS_FS = 'showDirectoryPicker' in window;
+if(!HAS_FS) $('mode-pill').textContent = 'Download mode (browser can\'t save in place)';
+
+$('btn-open').addEventListener('click', async () => {
+  try{
+    dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+    const rf = await (await dirHandle.getFileHandle('riders.json')).getFile();
+    riders = JSON.parse(await rf.text());
+    const tf = await (await dirHandle.getFileHandle('teams.json')).getFile();
+    teams = JSON.parse(await tf.text());
+    $('mode-pill').textContent = '📂 ' + dirHandle.name + ' — ' + riders.length + ' riders, ' + teams.length + ' teams';
+    $('btn-save').disabled = false;
+    renderList();
+    showStatus('Database loaded — ' + riders.length + ' riders, ' + teams.length + ' teams.', 'ok');
+  }catch(e){
+    if(e.name !== 'AbortError') showStatus('Could not open folder: ' + e.message, 'err');
+  }
+});
+
+async function writeFile(name, content){
+  const fh = await dirHandle.getFileHandle(name, { create: true });
+  const w = await fh.createWritable();
+  await w.write(content);
+  await w.close();
+}
+function ridersJs(){ return '// Global rider database — AUTO-GENERATED, keep in sync with riders.json\nwindow.GLOBAL_RIDERS = ' + JSON.stringify(riders) + ';\n'; }
+function teamsJs(){ return '// Global team database — AUTO-GENERATED, keep in sync with teams.json\nwindow.GLOBAL_TEAMS = ' + JSON.stringify(teams) + ';\n'; }
+
+$('btn-save').addEventListener('click', async () => {
+  if(!dirHandle){ showStatus('Open the database folder first.', 'err'); return; }
+  try{
+    commitActiveEditor();
+    await writeFile('riders.json', JSON.stringify(riders, null, 1));
+    await writeFile('teams.json', JSON.stringify(teams, null, 1));
+    await writeFile('riders.js', ridersJs());
+    await writeFile('teams.js', teamsJs());
+    dirty = false;
+    showStatus('Saved — riders.json/.js and teams.json/.js updated (' + riders.length + ' riders, ' + teams.length + ' teams). Refresh any open tool to pick up changes.', 'ok');
+  }catch(e){ showStatus('Save failed: ' + e.message, 'err'); }
+});
+
+$('btn-download').addEventListener('click', () => {
+  commitActiveEditor();
+  [['riders.json', JSON.stringify(riders,null,1)], ['teams.json', JSON.stringify(teams,null,1)],
+   ['riders.js', ridersJs()], ['teams.js', teamsJs()]].forEach(([name, content])=>{
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([content], {type:'text/plain'}));
+    a.download = name; a.click();
+  });
+  showStatus('Files downloaded — move them into the Riders/Teams Database folder to replace the old ones.', 'ok');
+});
+
+window.addEventListener('beforeunload', e => { if(dirty){ e.preventDefault(); e.returnValue=''; } });
+
+// ---------- Images ----------
+async function saveImageToFolder(blob, subfolder, filename){
+  if(!dirHandle) throw new Error('No folder open — use Open Database Folder first');
+  const imagesDir = await dirHandle.getDirectoryHandle('images', { create: true });
+  const subDir = await imagesDir.getDirectoryHandle(subfolder, { create: true });
+  const fh = await subDir.getFileHandle(filename, { create: true });
+  const w = await fh.createWritable();
+  await w.write(blob); await w.close();
+  return 'images/' + subfolder + '/' + filename;
+}
+async function handleImagePaste(e, subfolder, slug, zoneEl, statusEl, onSaved){
+  const items = Array.from(e.clipboardData?.items || []);
+  const item = items.find(i => i.type.startsWith('image/'));
+  if(!item){ statusEl.textContent = 'No image found in clipboard.'; return; }
+  e.preventDefault();
+  const blob = item.getAsFile();
+  const ext = blob.type === 'image/jpeg' ? 'jpg' : 'png';
+  const filename = slug + '.' + ext;
+  statusEl.textContent = 'Saving…'; statusEl.style.color = 'inherit';
+  try{
+    const path = await saveImageToFolder(blob, subfolder, filename);
+    let img = zoneEl.querySelector('img.paste-preview');
+    if(!img){ img = document.createElement('img'); img.className='paste-preview'; zoneEl.insertBefore(img, zoneEl.firstChild); }
+    img.src = URL.createObjectURL(blob);
+    zoneEl.querySelector('.paste-hint').textContent = 'Paste to replace (⌘V)';
+    statusEl.textContent = '✓ Saved → ' + path;
+    statusEl.style.color = 'var(--secondary)';
+    onSaved(path);
+    dirty = true;
+  }catch(err){ statusEl.textContent = 'Error: ' + err.message; statusEl.style.color = 'var(--danger)'; }
+}
+function pasteZoneHtml(id, existingPath, hint){
+  const img = existingPath ? '<img class="paste-preview" src="'+escAttr(existingPath)+'" onerror="this.remove()">' : '';
+  return '<div class="paste-zone" id="'+id+'" tabindex="0">'+img+'<div class="paste-hint">'+hint+'</div><div class="paste-status" id="'+id+'-status">Click here, then paste (⌘V / Ctrl+V). Saves automatically into /images.</div></div>';
+}
+
+// ---------- Tabs / list ----------
+$('tab-riders').addEventListener('click', ()=>setMode('riders'));
+$('tab-teams').addEventListener('click', ()=>setMode('teams'));
+function setMode(m){
+  commitActiveEditor();
+  mode = m; activeId = null;
+  $('tab-riders').classList.toggle('active', m==='riders');
+  $('tab-teams').classList.toggle('active', m==='teams');
+  $('filter').style.display = m==='riders' ? '' : 'none';
+  $('editor').innerHTML = '<div class="editor-empty">Select a '+(m==='riders'?'rider':'team')+' from the list, or add a new one with ＋.</div>';
+  renderList();
+}
+$('search').addEventListener('input', renderList);
+$('filter').addEventListener('change', renderList);
+
+function renderList(){
+  const q = ($('search').value||'').toLowerCase();
+  const f = $('filter').value;
+  const el = $('list');
+  if(mode === 'riders'){
+    let items = riders.filter(r =>
+      (!q || (r.name||'').toLowerCase().includes(q) || (r.team||'').toLowerCase().includes(q)) &&
+      (!f || (f==='review' ? r.needs_review : (r.category===f))));
+    items = items.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+    el.innerHTML = items.map(r => '<div class="list-item'+(r.id===activeId?' active':'')+'" data-id="'+escAttr(r.id)+'">'
+      + escHtml(r.name) + (r.needs_review?'<span class="flag">review</span>':'')
+      + '<div class="li-sub">'+escHtml(r.team||'')+(r.category?' · '+escHtml(r.category):'')+'</div></div>').join('')
+      || '<div class="editor-empty" style="padding:30px 10px;">No matches.</div>';
+  } else {
+    let items = teams.filter(t => !q || (t.name||'').toLowerCase().includes(q));
+    items = items.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+    el.innerHTML = items.map(t => '<div class="list-item'+(t.id===activeId?' active':'')+'" data-id="'+escAttr(t.id)+'">'
+      + escHtml(t.name) + (t.needs_review?'<span class="flag">review</span>':'')
+      + '<div class="li-sub">'+escHtml(t.team_status||'')+'</div></div>').join('')
+      || '<div class="editor-empty" style="padding:30px 10px;">No matches.</div>';
+  }
+  el.querySelectorAll('.list-item').forEach(item => item.addEventListener('click', ()=>{
+    commitActiveEditor();
+    activeId = item.dataset.id;
+    renderList();
+    if(mode==='riders') renderRiderEditor(riders.find(r=>r.id===activeId));
+    else renderTeamEditor(teams.find(t=>t.id===activeId));
+  }));
+}
+
+$('btn-add').addEventListener('click', ()=>{
+  commitActiveEditor();
+  if(mode==='riders'){
+    const r = { id:'new-rider-'+Date.now(), name:'', team:null, team_history:[], category:null, gender:null,
+      dob:null, age:null, bc_age_category:null, bc_ability_category:null, nationality:'British', home_region:null,
+      local_connection:null, titles:{olympic:[],world:[],european:[],national:[]}, image_rider:null, results:[],
+      needs_review:true, notes:null };
+    riders.push(r); activeId = r.id; renderList(); renderRiderEditor(r);
+  } else {
+    const t = { id:'new-team-'+Date.now(), name:'', team_status:null, location:null, previous_names:[],
+      directeurs_sportifs:[], coaches:[], social_media:[], notable_results:[], results_2026:[],
+      club_activities:null, targets_2026:null, other:null, kit_image:null, needs_review:true };
+    teams.push(t); activeId = t.id; renderList(); renderTeamEditor(t);
+  }
+  dirty = true;
+});
+
+// ---------- Field helpers ----------
+function fld(label, id, value, opts){
+  opts = opts||{};
+  const wide = opts.wide ? ' wide' : '';
+  if(opts.textarea) return '<div class="fld'+wide+'"><label>'+label+'</label><textarea id="'+id+'" '+(opts.rows?'rows="'+opts.rows+'"':'')+'>'+escHtml(value||'')+'</textarea></div>';
+  if(opts.select) return '<div class="fld'+wide+'"><label>'+label+'</label><select id="'+id+'">'+opts.select.map(o=>'<option value="'+escAttr(o)+'"'+((value||'')===o?' selected':'')+'>'+(o||'—')+'</option>').join('')+'</select></div>';
+  return '<div class="fld'+wide+'"><label>'+label+'</label><input id="'+id+'" value="'+escAttr(value||'')+'" '+(opts.list?'list="'+opts.list+'"':'')+' '+(opts.type?'type="'+opts.type+'"':'')+'></div>';
+}
+function val(id){ const el=$(id); if(!el) return null; const v=el.value.trim(); return v===''?null:v; }
+function lines(id){ const v=val(id); return v? v.split('\n').map(s=>s.trim()).filter(Boolean) : []; }
+
+function subTable(id, cols, rows, colHtml){
+  return '<table class="sub" id="'+id+'"><thead><tr>'+cols.map(c=>'<th>'+c+'</th>').join('')+'<th class="rm"></th></tr></thead><tbody>'
+    + rows.map((row,i)=>'<tr>'+colHtml(row,i)+'<td class="rm"><button class="rm-btn" onclick="this.closest(\'tr\').remove();dirty=true;">×</button></td></tr>').join('')
+    + '</tbody></table><button class="add-row-btn" onclick="addSubRow(\''+id+'\')">＋ add row</button>';
+}
+const SUB_TEMPLATES = {};
+function addSubRow(tableId){
+  const tbody = $(tableId).querySelector('tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = SUB_TEMPLATES[tableId] + '<td class="rm"><button class="rm-btn" onclick="this.closest(\'tr\').remove();dirty=true;">×</button></td>';
+  tbody.appendChild(tr);
+  dirty = true;
+}
+
+// ---------- Rider editor ----------
+function renderRiderEditor(r){
+  if(!r) return;
+  const teamNames = teams.map(t=>t.name).sort();
+  const resRows = (r.results||[]).slice().sort((a,b)=>(b.year||0)-(a.year||0));
+  SUB_TEMPLATES['tbl-results'] = '<td><input class="c-year" style="width:70px" value=""></td><td><input class="c-result" style="width:80px" value=""></td><td><input class="c-race" value=""></td><td><input class="c-info" value=""></td>';
+  SUB_TEMPLATES['tbl-teamhist'] = '<td><input class="c-team" value=""></td><td><input class="c-years" style="width:110px" value=""></td>';
+  $('editor').innerHTML = `
+  <div class="card"><h2>${r.name ? escHtml(r.name) : 'New rider'} <span style="font-weight:400;font-size:.78rem;color:var(--muted);">id: ${escHtml(r.id)}</span></h2>
+    <div class="frow">
+      ${fld('Name','f-name',r.name)}
+      ${fld('Current team','f-team',r.team,{list:'dl-teams'})}
+      ${fld('Category','f-category',r.category,{select:['','Elite Open','Elite Women','Youth','Local Heroes','Junior','Other']})}
+      ${fld('Gender (youth tables)','f-gender',r.gender,{select:['','M','F']})}
+    </div>
+    <div class="frow">
+      ${fld('Date of birth (YYYY-MM-DD)','f-dob',r.dob)}
+      ${fld('Age','f-age',r.age!=null?String(r.age):'')}
+      ${fld('BC age category','f-agecat',r.bc_age_category,{select:['','Youth E','Youth D','Youth C','Youth B','Youth A','Junior','Under-23','Senior','Veteran']})}
+      ${fld('BC ability category','f-abcat',r.bc_ability_category,{select:['','Elite','1st','2nd','3rd','4th']})}
+    </div>
+    <div class="frow">
+      ${fld('Nationality','f-nat',r.nationality)}
+      ${fld('Home region','f-region',r.home_region)}
+      ${fld('Local connection','f-local',r.local_connection,{wide:false})}
+    </div>
+    <div class="frow">${fld('Notes / general info','f-notes',r.notes,{textarea:true,wide:true})}</div>
+    <div class="review-toggle"><input type="checkbox" id="f-review" ${r.needs_review?'checked':''}><label for="f-review">Needs review (auto-imported — details unverified)</label></div>
+    <datalist id="dl-teams">${teamNames.map(n=>'<option value="'+escAttr(n)+'">').join('')}</datalist>
+  </div>
+  <div class="card"><h2>Rider photo</h2>
+    ${pasteZoneHtml('paste-rider', r.image_rider, r.image_rider ? 'Paste to replace (⌘V)' : 'Paste a rider photo here')}
+  </div>
+  <div class="card"><h2>Titles &amp; major honours <span style="font-weight:400;font-size:.75rem;color:var(--muted);">one per line, e.g. "2024 — Olympic Games, Team Pursuit, Gold"</span></h2>
+    <div class="frow">
+      ${fld('Olympic / Paralympic','f-t-oly',(r.titles?.olympic||[]).join('\n'),{textarea:true})}
+      ${fld('World (titles & appearances)','f-t-world',(r.titles?.world||[]).join('\n'),{textarea:true})}
+    </div>
+    <div class="frow">
+      ${fld('European','f-t-euro',(r.titles?.european||[]).join('\n'),{textarea:true})}
+      ${fld('National','f-t-nat',(r.titles?.national||[]).join('\n'),{textarea:true})}
+    </div>
+  </div>
+  <div class="card"><h2>Team history</h2>
+    ${subTable('tbl-teamhist',['Team','Years'],r.team_history||[],(row)=>'<td><input class="c-team" value="'+escAttr(row.team||'')+'"></td><td><input class="c-years" style="width:110px" value="'+escAttr(row.years||'')+'"></td>')}
+  </div>
+  <div class="card"><h2>Results <span style="font-weight:400;font-size:.75rem;color:var(--muted);">National Circuit Series / Championships results are detected automatically from the race name</span></h2>
+    ${subTable('tbl-results',['Year','Result','Race','Extra info (hover text)'],resRows,(row)=>
+      '<td><input class="c-year" style="width:70px" value="'+escAttr(row.year!=null?row.year:'')+'"></td>'
+      +'<td><input class="c-result" style="width:80px" value="'+escAttr(row.result||'')+'"></td>'
+      +'<td><input class="c-race" value="'+escAttr(row.race||'')+'"></td>'
+      +'<td><input class="c-info" value="'+escAttr(row.rider_specific_race_info||'')+'"></td>')}
+  </div>
+  <div class="editor-actions">
+    <button class="btn green" onclick="commitActiveEditor(true)">✓ Apply changes</button>
+    <button class="btn danger" onclick="deleteActive()">🗑 Delete rider</button>
+    <span style="font-size:.76rem;color:var(--muted);align-self:center;">Then hit 💾 Save All (top right) to write to disk.</span>
+  </div>`;
+  const zone = $('paste-rider');
+  zone.addEventListener('paste', e => handleImagePaste(e, 'riders', slugify(val('f-name')||r.id), zone, $('paste-rider-status'), p => { r.image_rider = p; }));
+}
+
+function commitRider(r){
+  const name = val('f-name');
+  if(name) {
+    if(r.id.startsWith('new-rider-')) {
+      let base = slugify(name)||'rider', cand = base, n = 2;
+      while(riders.some(x=>x.id===cand && x!==r)) { cand = base+'-'+n; n++; }
+      r.id = cand; activeId = cand;
+    }
+    r.name = name;
+  }
+  r.team = val('f-team'); r.category = val('f-category'); r.gender = val('f-gender');
+  r.dob = val('f-dob'); r.age = val('f-age') ? Number(val('f-age')) : null;
+  r.bc_age_category = val('f-agecat'); r.bc_ability_category = val('f-abcat');
+  r.nationality = val('f-nat'); r.home_region = val('f-region'); r.local_connection = val('f-local');
+  r.notes = val('f-notes'); r.needs_review = $('f-review').checked;
+  r.titles = { olympic: lines('f-t-oly'), world: lines('f-t-world'), european: lines('f-t-euro'), national: lines('f-t-nat') };
+  r.team_history = [...$('tbl-teamhist').querySelectorAll('tbody tr')].map(tr=>({
+    team: tr.querySelector('.c-team').value.trim(), years: tr.querySelector('.c-years').value.trim()
+  })).filter(x=>x.team);
+  r.results = [...$('tbl-results').querySelectorAll('tbody tr')].map(tr=>{
+    const y = tr.querySelector('.c-year').value.trim();
+    return { race: tr.querySelector('.c-race').value.trim(), result: tr.querySelector('.c-result').value.trim()||null,
+      year: y?Number(y):null, rider_specific_race_info: tr.querySelector('.c-info').value.trim()||null };
+  }).filter(x=>x.race);
+}
+
+// ---------- Team editor ----------
+function renderTeamEditor(t){
+  if(!t) return;
+  SUB_TEMPLATES['tbl-prevnames'] = '<td><input class="c-name" value=""></td><td><input class="c-years" style="width:110px" value=""></td>';
+  SUB_TEMPLATES['tbl-ds'] = '<td><input class="c-name" value=""></td><td style="width:60px;text-align:center;"><input type="checkbox" class="c-expro" style="width:auto"></td><td><input class="c-bio" value=""></td>';
+  SUB_TEMPLATES['tbl-coaches'] = SUB_TEMPLATES['tbl-ds'];
+  SUB_TEMPLATES['tbl-social'] = '<td><input class="c-handle" value=""></td><td><input class="c-platform" value=""></td>';
+  $('editor').innerHTML = `
+  <div class="card"><h2>${t.name ? escHtml(t.name) : 'New team'} <span style="font-weight:400;font-size:.78rem;color:var(--muted);">id: ${escHtml(t.id)}</span></h2>
+    <div class="frow">
+      ${fld('Team name','f-name',t.name)}
+      ${fld('Team status','f-status',t.team_status,{select:['','UCI WorldTeam','UCI Continental','National Elite (British EDT)','National Elite','UCI Track Team','Development & Coaching','Local Club','Youth Club','Services','International Guest','Other']})}
+      ${fld('Location','f-location',t.location)}
+    </div>
+    <div class="frow">
+      ${fld('Club activities','f-activities',t.club_activities,{textarea:true})}
+      ${fld('Targets 2026','f-targets',t.targets_2026,{textarea:true})}
+    </div>
+    <div class="frow">${fld('Other / background','f-other',t.other,{textarea:true,wide:true})}</div>
+    <div class="review-toggle"><input type="checkbox" id="f-review" ${t.needs_review?'checked':''}><label for="f-review">Needs review</label></div>
+  </div>
+  <div class="card"><h2>Team kit image</h2>
+    ${pasteZoneHtml('paste-kit', t.kit_image, t.kit_image ? 'Paste to replace (⌘V)' : 'Paste a team kit image here')}
+  </div>
+  <div class="card"><h2>Previous names</h2>
+    ${subTable('tbl-prevnames',['Name','Years'],(t.previous_names||[]).map(p=>typeof p==='string'?{name:p}:p),(row)=>'<td><input class="c-name" value="'+escAttr(row.name||'')+'"></td><td><input class="c-years" style="width:110px" value="'+escAttr(row.years||'')+'"></td>')}
+  </div>
+  <div class="card"><h2>Directeurs Sportifs</h2>
+    ${subTable('tbl-ds',['Name','Ex-pro','Bio'],t.directeurs_sportifs||[],(row)=>'<td><input class="c-name" value="'+escAttr(row.name||'')+'"></td><td style="width:60px;text-align:center;"><input type="checkbox" class="c-expro" style="width:auto" '+(row.ex_pro?'checked':'')+'></td><td><input class="c-bio" value="'+escAttr(row.bio||'')+'"></td>')}
+  </div>
+  <div class="card"><h2>Coaches</h2>
+    ${subTable('tbl-coaches',['Name','Ex-pro','Bio'],t.coaches||[],(row)=>'<td><input class="c-name" value="'+escAttr(row.name||'')+'"></td><td style="width:60px;text-align:center;"><input type="checkbox" class="c-expro" style="width:auto" '+(row.ex_pro?'checked':'')+'></td><td><input class="c-bio" value="'+escAttr(row.bio||'')+'"></td>')}
+  </div>
+  <div class="card"><h2>Social media</h2>
+    ${subTable('tbl-social',['Handle','Platform'],t.social_media||[],(row)=>'<td><input class="c-handle" value="'+escAttr(row.handle||'')+'"></td><td><input class="c-platform" value="'+escAttr(row.platform||'')+'"></td>')}
+  </div>
+  <div class="card"><h2>Notable results <span style="font-weight:400;font-size:.75rem;color:var(--muted);">one per line (career highlights)</span></h2>
+    <div class="frow">${fld('','f-notable',(t.notable_results||[]).join('\n'),{textarea:true,wide:true,rows:4})}</div>
+    <h2 style="margin-top:10px;">Results 2026 <span style="font-weight:400;font-size:.75rem;color:var(--muted);">one per line (this season)</span></h2>
+    <div class="frow">${fld('','f-res2026',(t.results_2026||[]).join('\n'),{textarea:true,wide:true,rows:4})}</div>
+  </div>
+  <div class="editor-actions">
+    <button class="btn green" onclick="commitActiveEditor(true)">✓ Apply changes</button>
+    <button class="btn danger" onclick="deleteActive()">🗑 Delete team</button>
+    <span style="font-size:.76rem;color:var(--muted);align-self:center;">Then hit 💾 Save All (top right) to write to disk.</span>
+  </div>`;
+  const zone = $('paste-kit');
+  zone.addEventListener('paste', e => handleImagePaste(e, 'kits', slugify(val('f-name')||t.id), zone, $('paste-kit-status'), p => { t.kit_image = p; }));
+}
+
+function commitTeam(t){
+  const name = val('f-name');
+  if(name){
+    if(t.id.startsWith('new-team-')) {
+      let base = slugify(name)||'team', cand = base, n = 2;
+      while(teams.some(x=>x.id===cand && x!==t)) { cand = base+'-'+n; n++; }
+      t.id = cand; activeId = cand;
+    }
+    t.name = name;
+  }
+  t.team_status = val('f-status'); t.location = val('f-location');
+  t.club_activities = val('f-activities'); t.targets_2026 = val('f-targets'); t.other = val('f-other');
+  t.needs_review = $('f-review').checked;
+  t.previous_names = [...$('tbl-prevnames').querySelectorAll('tbody tr')].map(tr=>({
+    name: tr.querySelector('.c-name').value.trim(), years: tr.querySelector('.c-years').value.trim()||null
+  })).filter(x=>x.name);
+  const dsMap = tr => ({ name: tr.querySelector('.c-name').value.trim(), ex_pro: tr.querySelector('.c-expro').checked, bio: tr.querySelector('.c-bio').value.trim()||null });
+  t.directeurs_sportifs = [...$('tbl-ds').querySelectorAll('tbody tr')].map(dsMap).filter(x=>x.name);
+  t.coaches = [...$('tbl-coaches').querySelectorAll('tbody tr')].map(dsMap).filter(x=>x.name);
+  t.social_media = [...$('tbl-social').querySelectorAll('tbody tr')].map(tr=>({
+    handle: tr.querySelector('.c-handle').value.trim(), platform: tr.querySelector('.c-platform').value.trim()||null
+  })).filter(x=>x.handle);
+  t.notable_results = lines('f-notable');
+  t.results_2026 = lines('f-res2026');
+}
+
+function commitActiveEditor(showMsg){
+  if(!activeId || !$('f-name')) return;
+  if(mode==='riders'){
+    const r = riders.find(x=>x.id===activeId);
+    if(r){ commitRider(r); dirty = true; }
+  } else {
+    const t = teams.find(x=>x.id===activeId);
+    if(t){ commitTeam(t); dirty = true; }
+  }
+  renderList();
+  if(showMsg) showStatus('Changes applied in memory — hit 💾 Save All to write to disk.', 'ok');
+}
+function deleteActive(){
+  if(!activeId) return;
+  if(!confirm('Delete this ' + (mode==='riders'?'rider':'team') + ' from the database?')) return;
+  if(mode==='riders') riders = riders.filter(r=>r.id!==activeId);
+  else teams = teams.filter(t=>t.id!==activeId);
+  activeId = null; dirty = true;
+  $('editor').innerHTML = '<div class="editor-empty">Deleted. Hit 💾 Save All to write to disk.</div>';
+  renderList();
+}
+</script>
+</body>
+</html>

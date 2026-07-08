@@ -1,0 +1,3524 @@
+[
+ {
+  "id": "360cycling",
+  "name": "360cycling / 360 Junior Race Team",
+  "team_status": "Development & Coaching",
+  "location": "North West England",
+  "directeurs_sportifs": [
+   {
+    "name": "Joe Cadwallader",
+    "ex_pro": false,
+    "bio": null
+   },
+   {
+    "name": "Tristan Pilling",
+    "ex_pro": false,
+    "bio": null
+   },
+   {
+    "name": "Josh Whitehead",
+    "ex_pro": false,
+    "bio": null
+   },
+   {
+    "name": "Charlie Paige",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@360cycling_",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "1-on-1 personalised adult remote coaching. Operates '360 Kids' programme hosting group skills and coaching sessions every Wednesday evening.",
+  "targets_2026": "Youth and Junior National Circuit events",
+  "results_2026": [
+   "Featured — Nicola Quaye, National Circuit Championships (2026)",
+   "Featured — Henry Hunter, Peak 2 Day Stage Race (2026)"
+  ],
+  "other": "Established 2021. Strong youth development focus alongside elite junior racing.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/360cycling-360-junior-race-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "54-11-coaching",
+  "name": "54/11 Coaching",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Performance coaching programme structure.",
+  "targets_2026": "Regional Road Race Championships",
+  "results_2026": [
+   "2nd — Adam Quixall, Northern Regional Road Race Championships (2026)",
+   "9th — Reuben Trotter, Northern Regional Road Race Championships (2026)",
+   "16th - Noah Inman, Ronde van Wymeswold Stage 1 (June 2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/54-11-coaching.png",
+  "needs_review": false
+ },
+ {
+  "name": "ALPECIN-PREMIER TECH DEVELOPMENT TEAM",
+  "category": "UCI Continental",
+  "country": "BE",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "UCI World & DEVO Team | CX - MTB - Gravel - Track - Zwift Racing | UCI Women’s WorldTeam @fenix.premiertech | Official account #AlpecinPremierTech",
+  "kit_image": "images/kits/alpecin-premier-tech-development-team.png",
+  "id": "alpecin-premier-tech-development-team",
+  "needs_review": false
+ },
+ {
+  "id": "atom6-cycleur-de-luxe",
+  "name": "Atom 6 - Cycleur de Luxe - Auto Stroo Continental Team",
+  "team_status": "UCI Continental",
+  "location": "Belgium",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "atom6_cycleurdeluxe_autostroo",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "UCI European Continental fixtures, UK National Road Series guest slots",
+  "results_2026": [
+   "Roster presence — James McKay, Matthew King, George Radcliffe (2026)"
+  ],
+  "other": "Formed 2025. Registered UCI Continental team (Belgium). Competes across Europe and selected UK National Road Series events.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/atom-6-cycleur-de-luxe-auto-stroo-continental-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "beeston-cycling-club",
+  "name": "Beeston Cycling Club / BCC Race Team",
+  "team_status": "National Elite (British EDT)",
+  "location": "Nottinghamshire, East Midlands",
+  "directeurs_sportifs": [
+   {
+    "name": "Bryan Steel",
+    "ex_pro": true,
+    "bio": "British track cycling legend. Competed at four Olympic Games (1992–2004), 14 World Championships and three Commonwealth Games. Won multiple medals including Olympic bronze (1992 team pursuit) and multiple World Championship medals. One of GB's most decorated track cyclists of the 1990s–2000s."
+   },
+   {
+    "name": "John McCay",
+    "ex_pro": false,
+    "bio": "Chairman and Race Director."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@bcc_race_team",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Weekly training rides for all members. Beeston CC Academy provides formal coaching, race craft and performance mentoring for junior/under-23 riders — run in partnership with the University of Derby.",
+  "targets_2026": "Development of regional youth pathways, British Cycling National Road Series selection",
+  "results_2026": [
+   "24th — Lewis Tinsley, National Road Championships Road Race (2026)"
+  ],
+  "other": "British Cycling confirmed Elite Development Team for 2026. Bryan Steel's involvement makes this one of the most decorated coaching set-ups in British domestic cycling.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/beeston-cycling-club-bcc-race-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "brother-uk-on-form",
+  "name": "Brother UK - On Form",
+  "team_status": "National Elite (British EDT)",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [
+   {
+    "name": "Mark Botteley",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@onformcycling",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Team OnForm",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Rayner Foundation Gateway European projects, National Circuit Series podiums",
+  "results_2026": [
+   "Featured — Sian Botteley, Lucy Neatham, and Francesca Ryde at National Road Championships 2026",
+   "Roster Presence — Amelia Staunton, Lotty Dawson, and Ellen Bennett at National Series rounds 2026"
+  ],
+  "other": "Officially selected as Elite Development Team for 2026. Backed by the Rayner Foundation Gateway Project, providing targeted funding to subsidize their 2026 European junior racing block. Active 9+ years.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/brother-uk-on-form.png",
+  "needs_review": false
+ },
+ {
+  "id": "camsmajaco",
+  "name": "camsmajaco",
+  "team_status": "Development & Coaching",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "@camsmajaco",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Junior team structure. Supported by the Rayner Foundation Gateway Project to access mainland European racing.",
+  "targets_2026": "Rayner Foundation Gateway Project European junior campaign programme",
+  "results_2026": [
+   "1st — Emer Heverin, Irish Elite National Criterium Championships 2026",
+   "1st — Emer Heverin, Irish Junior National Time Trial Championships 2026",
+   "1st — Emer Heverin, Irish Junior National Road Race Championships 2026",
+   "4th — Zoe Roche, ANEXO/CAMS Women's CiCLE Classic 2026"
+  ],
+  "other": "Standout junior Emer Heverin dominated the junior Irish nationals and won the Senior Elite Criterium title outright.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/camsmajaco.png",
+  "needs_review": false
+ },
+ {
+  "id": "ccb-kenetik-levine-law-group",
+  "name": "CCB Kenetik p/b Levine Law Group",
+  "team_status": "International Guest",
+  "location": "New England, United States",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "CCB p/b Levine Law Group Women's Cycling",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Expanded international racing calendar and US domestic criteriums",
+  "results_2026": [
+   "1st — Katherine Sarkisov, USA Cycling U23 Pro Road National Championships 2026"
+  ],
+  "other": "An elite American force heavily focused on criterium racing. Katherine Sarkisov won the US U23 National Title solo following a massive tactical pull from teammates.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/ccb-kenetik-p-b-levine-law-group.png",
+  "needs_review": false
+ },
+ {
+  "id": "colina-x-ciovita-racing",
+  "name": "Colina x Ciovita Racing",
+  "team_status": "International Guest",
+  "location": "South Africa / United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Formed from assets previously racing under Reflex Nopinz banner",
+    "years": "2024–2025"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "International team block representations",
+  "results_2026": [
+   "No top-30 elite results recorded for 2026"
+  ],
+  "other": "South Africa / UK aligned team.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/colina-x-ciovita-racing.png",
+  "needs_review": false
+ },
+ {
+  "id": "cycling-sheffield",
+  "name": "Cycling Sheffield",
+  "team_status": "National Elite (British EDT)",
+  "location": "Sheffield, South Yorkshire",
+  "directeurs_sportifs": [
+   {
+    "name": "Dave Coulson",
+    "ex_pro": false,
+    "bio": "Founder and manager. Former elite-level racer who spent close to 20 years competing on the continent and in the UK, operating at semi-professional level. Pioneered a unique Sheffield-based geographical sponsorship model. Connor Swift (Ineos Grenadiers) is a notable graduate of his programme."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@cyclingsheffield",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Envelopemaster – Giant",
+    "years": "2014–2016"
+   }
+  ],
+  "club_activities": "None — elite development project. Team races at regional, national and international level across Europe.",
+  "targets_2026": "National Circuit Series under-23 and senior podium entries",
+  "results_2026": [
+   "3rd — Denholm Edwards, Northern Regional Road Race Championships (2026)",
+   "6th — Alexander Foster, Northern Regional Road Race Championships (2026)",
+   "11th — Alexander Foster, Fort Vale Colne Grand Prix (2026)",
+   "12th — Denholm Edwards, Fort Vale Colne Grand Prix (2026)"
+  ],
+  "other": "Founded 2014. Exclusively funded by Sheffield-based organisations and companies — run like a local football club with a strong city identity. British Cycling confirmed Elite Development Team for 2026.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/cycling-sheffield.png",
+  "needs_review": false
+ },
+ {
+  "id": "das-richardsons",
+  "name": "DAS Richardsons",
+  "team_status": "National Elite (British EDT)",
+  "location": "South East / National",
+  "directeurs_sportifs": [
+   {
+    "name": "Andy Lyons",
+    "ex_pro": false,
+    "bio": "DS for the Open squad."
+   },
+   {
+    "name": "Simon Howes",
+    "ex_pro": false,
+    "bio": "DS for the Women's squad."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@das_hutchinson_ctw",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Team OnForm / Torelli-Brother",
+    "years": "2017–2018"
+   },
+   {
+    "name": "Brother UK-Tifosi p/b OnForm",
+    "years": "2019"
+   },
+   {
+    "name": "CAMS-Tifosi",
+    "years": "2020–2021"
+   },
+   {
+    "name": "CAMS-Basso Bikes",
+    "years": "2021–2022"
+   },
+   {
+    "name": "DAS-Handsling",
+    "years": "2023"
+   },
+   {
+    "name": "DAS-Hutchinson-Brother-UK",
+    "years": "2024"
+   }
+  ],
+  "club_activities": "None — strictly elite racing team structure operating across both Open and Women's disciplines.",
+  "targets_2026": "National Circuit Series, National Road Series",
+  "results_2026": [
+   "1st — Morven Yeoman, Rapha Lincoln Grand Prix (2026)",
+   "1st — Noémie Thomson, ANEXO/CAMS Women's CiCLE Classic (2026)",
+   "2nd — Josie Knight, National Road Championships Road Race (2026)",
+   "2nd — Noémie Thomson, Rapha Lincoln Grand Prix (2026)",
+   "3rd — Frank Longstaff, Fort Vale Colne Grand Prix (2026)",
+   "3rd — Sophie Lewis, Fort Vale Colne Grand Prix (2026)",
+   "3rd — Morven Yeoman, City of London Nocturne (2026)",
+   "6th — Frank Longstaff, National Circuit Championships (2026)",
+   "1st — Morven Yeoman, Rapha Lincoln Grand Prix 2026",
+   "1st — Noémie Thomson, ANEXO/CAMS Women's CiCLE Classic 2026",
+   "2nd — Josie Knight, National Road Championships Road Race 2026",
+   "2nd — Noémie Thomson, Rapha Lincoln Grand Prix 2026",
+   "3rd — Sophie Lewis, Fort Vale Colne Grand Prix 2026",
+   "3rd — Morven Yeoman, City of London Nocturne 2026"
+  ],
+  "other": "Established 2017. Team has operated under many sponsor names but maintained continuous elite presence. British Cycling confirmed Elite Development Team for 2026. Women's race (DAS-Hutchinson): Morven Yeoman holds commanding lead in Rapha Super League and National Circuit Series standings. Josie Knight animated the 2026 National Road Championships with a solo breakaway of up to 9 minutes before being caught late by Zoë Bäckstedt.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/das-richardsons.png",
+  "needs_review": false
+ },
+ {
+  "id": "das-hutchinson",
+  "name": "DAS-Hutchinson",
+  "team_status": "National Elite (British EDT)",
+  "location": "Great Britain",
+  "directeurs_sportifs": [
+   {
+    "name": "Simon Howes",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@das_hutchinson_ctw",
+    "platform": "X (Twitter)"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "DAS Richardsons (Men's race counterpart)",
+    "years": "sister team"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series individual and team titles, Rapha Super League classification",
+  "results_2026": [
+   "1st — Morven Yeoman, Rapha Lincoln Grand Prix 2026",
+   "1st — Noémie Thomson, ANEXO/CAMS Women's CiCLE Classic 2026",
+   "2nd — Josie Knight, National Road Championships Road Race 2026",
+   "2nd — Noémie Thomson, Rapha Lincoln Grand Prix 2026",
+   "3rd — Sophie Lewis, Fort Vale Colne Grand Prix 2026",
+   "3rd — Morven Yeoman, City of London Nocturne 2026"
+  ],
+  "other": "Morven Yeoman holds the commanding lead in Rapha Super League and National Circuit Series standings. Josie Knight animated the 2026 National Road Championships with a solo breakaway of up to 9 minutes before being caught late by Zoë Bäckstedt.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/das-hutchinson.png",
+  "needs_review": false
+ },
+ {
+  "id": "dovy-keukens-fcc",
+  "name": "Dovy Keukens FCC",
+  "team_status": "International Guest",
+  "location": "Belgium",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "Belgian Elite Amateur Calendar",
+  "results_2026": [
+   "18th — Matthew Kent, National Circuit Championships (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/dovy-keukens-fcc.png",
+  "needs_review": false
+ },
+ {
+  "id": "draft",
+  "name": "DRAFT",
+  "team_status": "Development & Coaching",
+  "location": "National / Domestic",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series",
+  "results_2026": [
+   "DNF — Ollie Cadin, National Circuit Championships (2026)",
+   "DNF — William Jewitt, National Circuit Championships (2026)",
+   "DNF — Alexander Montero, National Circuit Championships (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/draft.png",
+  "needs_review": false
+ },
+ {
+  "id": "edinburgh-bike-fitting-rt",
+  "name": "Edinburgh Bike Fitting RT",
+  "team_status": "National Elite",
+  "location": "Scotland",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series",
+  "results_2026": [
+   "5th — Sam Chisholm, Fort Vale Colne Grand Prix (2026)",
+   "8th — Matti Dobbins, Fort Vale Colne Grand Prix (2026)"
+  ],
+  "other": "Scotland-based elite team backed by Edinburgh Bike Fitting.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/edinburgh-bike-fitting-rt.png",
+  "needs_review": false
+ },
+ {
+  "id": "essec-cycling-team",
+  "name": "Essec Cycling Team",
+  "team_status": "International Guest",
+  "location": "Belgium",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Essec Cycling Team CX",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Belgian National CX Series, European Kermesse classifications",
+  "results_2026": [
+   "Podiums — Alexe De Raedemaeker and Lies'l Schevenels at Grand Prix COMAT 2026"
+  ],
+  "other": "A formidable Belgian-registered development team specialising in cyclo-cross and high-tempo kermesse racing. Features hard-charging riders like Mirne Clynen and Laure Huybrechts, bringing mud-and-cobble handling skills to fast criterium surfaces.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/essec-cycling-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "eurocyclingtrips-ccn",
+  "name": "EuroCyclingTrips - CCN",
+  "team_status": "UCI Continental",
+  "location": "Guam",
+  "directeurs_sportifs": [
+   {
+    "name": "Lara Ferrin",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "UCI Continental tours, Oceania Championships",
+  "results_2026": [
+   "1st — Blayde Blas, GCF Leo Palace Road Race (2026)",
+   "1st — Blayde Blas, GCF Leo Palace Resort Guam Circuit Road Race (2026)",
+   "12th — Blayde Blas, Oceania Continental Championships ITT (2026)"
+  ],
+  "other": "Registered UCI Continental team (Guam license). Competes across Oceania and continental circuits.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/eurocyclingtrips-ccn.png",
+  "needs_review": false
+ },
+ {
+  "id": "freds-racing",
+  "name": "Fred's Racing",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/fred-s-racing.png",
+  "needs_review": false
+ },
+ {
+  "id": "ftp-fulfil-the-potential-racing",
+  "name": "FTP-Fulfil The Potential-Racing",
+  "team_status": "National Elite (British EDT)",
+  "location": "South West England / National",
+  "directeurs_sportifs": [
+   {
+    "name": "Billy Oliver",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@ftp_racing",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series podiums, National Time Trial and Hill Climb titles",
+  "results_2026": [
+   "1st — Rachel Galler, National Hill Climb Championships (Course Record, Matlock) 2026",
+   "1st — Emily Martin, RTTC National 25-Mile Time Trial Championships 2026",
+   "Featured — Ruby Oakes, Kayla Dinnin, and Phoebe Roche at National Road Championships 2026"
+  ],
+  "other": "Elite Development Team status for 2025/2026 cycles. Won the 2024 British Team Cup. A rapidly growing multi-discipline team fielding an expanded 14-rider elite national road roster. Active 6+ years.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/ftp-fulfil-the-potential-racing.png",
+  "needs_review": false
+ },
+ {
+  "id": "gms-cycling-team-glabbeek",
+  "name": "GMS Cycling Team Glabbeek",
+  "team_status": "International Guest",
+  "location": "Glabbeek, Belgium",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Maes CT Glabbeek",
+    "years": "2018–2023"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Belgian regional and club events",
+  "results_2026": [
+   "No top-30 elite results recorded for 2026"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/gms-cycling-team-glabbeek.png",
+  "needs_review": false
+ },
+ {
+  "name": "Grouwels-Watersley R&D Cycling Team",
+  "category": "Local Club",
+  "country": "BE",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "id": "grouwels-watersley-r-d-cycling-team",
+  "needs_review": false
+ },
+ {
+  "id": "handsling-alba-development-road-team",
+  "name": "Handsling Alba Development Road Team",
+  "team_status": "National Elite (British EDT)",
+  "location": "Aberdeenshire, Scotland",
+  "directeurs_sportifs": [
+   {
+    "name": "Bob Lyons",
+    "ex_pro": false,
+    "bio": "Team Manager. Oversees local council partnership running since 2022."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Alba Development Road Team",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Otley Women's Grand Prix defence, Commonwealth Games race selections",
+  "results_2026": [
+   "1st — Kate Richardson, Tour of the Reservoir 2026",
+   "2nd — Kate Richardson, City of London Nocturne 2026",
+   "5th — Izzy Sharp, National Time Trial Championships 2026"
+  ],
+  "other": "Kate Richardson enters as defending Otley Women's Grand Prix champion, winning from a three-rider move. Runner-up Izzy Sharp joins her as teammate for 2026. Sharp was the highest-placed British domestic team rider at the National Time Trial Championships.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/handsling-alba-development-road-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "harrogate-nova",
+  "name": "Harrogate Nova Race Team / Harrogate Nova CC",
+  "team_status": "Local Club",
+  "location": "Harrogate, North Yorkshire",
+  "directeurs_sportifs": [
+   {
+    "name": "Club Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@harrogatenovaraceteam",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Fusion of Harrogate CC and Harrogate St. Christophers CC",
+    "years": "Founded 1971"
+   }
+  ],
+  "club_activities": "Regular Saturday morning group club runs (~100km). Dedicated Junior Coaching section for youth bike handling skills. Weekly summer evening Time Trial (TT) league.",
+  "targets_2026": "Regional road races, Junior development",
+  "results_2026": [
+   "71st (24th in youth category) — Archie Whittemore, UCI Gipuzkoa Klasikoa, Spain (2026)"
+  ],
+  "other": "Founded 1971. Traditional North Yorkshire cycling club with strong junior pathway.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/harrogate-nova-race-team-harrogate-nova-cc.png",
+  "needs_review": false
+ },
+ {
+  "id": "hitec-products-fluid-control",
+  "name": "Hitec Products - Fluid Control",
+  "team_status": "UCI Continental",
+  "location": "Norway",
+  "directeurs_sportifs": [
+   {
+    "name": "Karl Lima",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@hitechracing",
+    "platform": "Instagram"
+   },
+   {
+    "handle": "@teamcooprepsol",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Team Coop - Hitec Products",
+    "years": null
+   },
+   {
+    "name": "Team Coop - Repsol",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "UCI Women's Continental tours, European classification titles",
+  "results_2026": [
+   "1st — Alma Walther Møller Rasmussen, BIWASE Cup 2026",
+   "2nd — Nora Tveit, GP Immo Zone Smetryns, Belgium 2026"
+  ],
+  "other": "Historic Scandinavian development powerhouse active since 2008 with an elite track record of graduating talent to the WorldTour. Key riders: Kaja Rysz, Julia Borgström, Mari Hole Mohr.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/hitec-products-fluid-control.png",
+  "needs_review": false
+ },
+ {
+  "id": "hope-factory-racing",
+  "name": "Hope Factory Racing",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [
+   {
+    "name": "Paul Oldham",
+    "ex_pro": true,
+    "bio": "British cyclo-cross legend and Team Manager. Former elite national CX champion, now manages Hope Factory Racing across cross, mountain bike and road disciplines."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@hopetech",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, Cyclocross campaigns",
+  "results_2026": [
+   "14th — Thomas Mein, Fort Vale Colne Grand Prix (2026)"
+  ],
+  "other": "Backed by Hope Technology, the Lancashire-based cycling components manufacturer.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/hope-factory-racing.png",
+  "needs_review": false
+ },
+ {
+  "id": "hubo-scott-cycling-team",
+  "name": "Hubo-Scott Cycling Team",
+  "team_status": "International Guest",
+  "location": "Belgium",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Hubo-Remotive Cycling Team",
+    "years": "2023–2024"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "European U23 Development pathway",
+  "results_2026": [
+   "Roster pathway development for UK riders Finn Mason and Seth Jackson (2026)"
+  ],
+  "other": "Belgian development team. Vehicle for UK riders to gain European racing experience.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/hubo-scott-cycling-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "jadan-glasdon-pb-vive-le-velo",
+  "name": "Jadan Glasdon pb Vive le Velo",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "@vivelevelo",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Vive le Vélo",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, British Team Cup",
+  "results_2026": [
+   "Featured — Kirstie Drakeford, Ruth Dunstan, Rebecca Newark, Freya Taylor, and Abbie Taylor at National Series rounds 2026"
+  ],
+  "other": "A well-established domestic development team linked to the popular Belgian cycling television programme Vive le Vélo. Jadan Glasdon title sponsorship brings international profile to a strong Northern England–rooted racing setup.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/jadan-glasdon-pb-vive-le-velo.png",
+  "needs_review": false
+ },
+ {
+  "id": "jakroo-handsling-racing",
+  "name": "JAKROO Handsling Racing",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Raptor Factory Racing",
+    "years": "2025"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, National Road Series",
+  "results_2026": [
+   "19th — Dylan Belton Owen, Fort Vale Colne Grand Prix (2026)",
+   "29th — Harrison Dainty, National Road Championships Road Race (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/jakroo-handsling-racing.png",
+  "needs_review": false
+ },
+ {
+  "id": "l39ion-of-los-angeles",
+  "name": "L39ION of Los Angeles",
+  "team_status": null,
+  "location": "Los Angeles, USA",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/l39ion-of-los-angeles.png",
+  "needs_review": false
+ },
+ {
+  "id": "la-vetta-cc",
+  "name": "La Vetta CC",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/la-vetta-cc.png",
+  "needs_review": false
+ },
+ {
+  "name": "Lidl - Trek Future Racing",
+  "category": "UCI Continental",
+  "country": "INT",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/lidl-trek-future-racing.png",
+  "id": "lidl-trek-future-racing",
+  "needs_review": false
+ },
+ {
+  "id": "london-academy",
+  "name": "London Academy",
+  "team_status": "Development & Coaching",
+  "location": "London, United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Open to all women, trans, and non-binary racers. Veteran-to-novice mentoring programme matching dozens of riders. Outfitted by Alé Cycling. Website: londoncyclingacademy.com",
+  "targets_2026": "British Team Cup, National Circuit Series, regional-to-national rider transition pathways",
+  "results_2026": [
+   "Featured — Grace Sargeant, Sasha Dyke, and Iona Mitchell with top-10 team finishes at British Team Cup 2026"
+  ],
+  "other": "Operating under the philosophy \"Happy Head, Happy Legs.\" Entering 4th year of their mentoring programme.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/london-academy.png",
+  "needs_review": false
+ },
+ {
+  "name": "London Dynamo",
+  "category": "Local Club",
+  "country": "GB",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/london-dynamo.png",
+  "id": "london-dynamo",
+  "needs_review": false
+ },
+ {
+  "name": "Lotto - Intermarché",
+  "category": "UCI WorldTeam",
+  "country": "BE",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "id": "lotto-intermarche",
+  "needs_review": false
+ },
+ {
+  "id": "loughborough-lightning",
+  "name": "Loughborough Lightning",
+  "team_status": "National Elite (British EDT)",
+  "location": "Loughborough University, Leicestershire",
+  "directeurs_sportifs": [
+   {
+    "name": "David Nichols",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@lborolightning",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Launched 2021. Elite academic-linked sports franchise integrating higher education with top-tier bike racing. Roster combines current university student-athletes with elite non-student domestic riders.",
+  "targets_2026": "National Circuit Series team classification, BUCS Championship titles",
+  "results_2026": [
+   "8th — Lily Martin, ANEXO/CAMS Women's CiCLE Classic 2026",
+   "15th — Lily Martin, Rapha Lincoln Grand Prix 2026"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/loughborough-lightning.png",
+  "needs_review": false
+ },
+ {
+  "id": "macclesfield-wheelers",
+  "name": "Macclesfield Wheelers",
+  "team_status": "Local Club",
+  "location": "Macclesfield, Cheshire",
+  "directeurs_sportifs": [
+   {
+    "name": "Club Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@macclesfieldwheelers",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "One of the largest cycling clubs in Cheshire with over 200 members. Runs up to 10 distinct club runs per week across multiple disciplines.",
+  "targets_2026": "Regional Time Trials, North West Road Race Championships, TLI circuit series",
+  "results_2026": [
+   "Consistent field placements across North West regional criteriums and time trials 2026"
+  ],
+  "other": "Established club infrastructure running for over 70 years.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/macclesfield-wheelers.png",
+  "needs_review": false
+ },
+ {
+  "id": "moda-rt",
+  "name": "Moda RT",
+  "team_status": "Development & Coaching",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "Masters and Elite Circuit Racing",
+  "results_2026": [
+   "2nd — Paul Stewart, BMCR Stallard Finale (2026)",
+   "DNF — Jack Crook, National Circuit Championships (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null,
+  "needs_review": false
+ },
+ {
+  "id": "moonglu-spatzwear",
+  "name": "Moonglu SpatzWear",
+  "team_status": "National Elite",
+  "location": "Ripon, North Yorkshire",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "Northern Regional Road Races, National Circuit Series",
+  "results_2026": [
+   "1st — Jack Hartley, Northern Regional Road Race Championships (2026)",
+   "20th — Joel Hurt, Fort Vale Colne Grand Prix (2026)"
+  ],
+  "other": "Yorkshire-based elite team backed by SpatzWear clothing brand.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/moonglu-spatzwear.png",
+  "needs_review": false
+ },
+ {
+  "id": "nopinz-rt",
+  "name": "Nopinz RT",
+  "team_status": "Development & Coaching",
+  "location": "South West England / National",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "@nopinz_route_media",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Reflex Nopinz RT",
+    "years": "2021–2025"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Time Trials and Circuit Series",
+  "results_2026": [
+   "14th — Callum Core, Les Archer Memorial Road Race (2026)",
+   "16th — Josh Hall, GT Ellingworth & GA Bennett Road Race (2026)"
+  ],
+  "other": "Racing kit and skinsuit brand-backed team.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/nopinz-rt.png",
+  "needs_review": false
+ },
+ {
+  "id": "oneills-spirit-racing-team",
+  "name": "O'Neills Spirit Racing Team",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/o-neills-spirit-racing-team.png",
+  "needs_review": false
+ },
+ {
+  "id": "ogt-pb-use",
+  "name": "OGT pb USE",
+  "team_status": "Development & Coaching",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "@weareogt",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Spectra Racing",
+    "years": "historical rider links"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Cyclo-cross Championships, UCI Gravel World Series, British National Trophy",
+  "results_2026": [
+   "2nd — Xan Crees, British National Cyclo-cross Championships 2026"
+  ],
+  "other": "Backed by USE-Components and custom performance nutrition firm OGT. An elite off-road force spearheading the campaign of multi-discipline star and former National Cyclo-cross Champion Xan Crees.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/ogt-pb-use.png",
+  "needs_review": false
+ },
+ {
+  "id": "ornata-factory-racing",
+  "name": "Ornata Factory Racing",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series",
+  "results_2026": [
+   "7th — Callum Laborde, National Circuit Championships (2026)",
+   "10th — Callum Laborde, Fort Vale Colne Grand Prix (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/ornata-factory-racing.png",
+  "needs_review": false
+ },
+ {
+  "id": "oshea-development-team",
+  "name": "OShea - Development Team",
+  "team_status": "Development & Coaching",
+  "location": "Great Britain",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Doltcini - Cycle Division",
+    "years": "2024"
+   },
+   {
+    "name": "AWOL O'Shea",
+    "years": "historical"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "British Team Cup, National Road Series exposure",
+  "results_2026": [
+   "Featured — Hannah Graveney and Jacqueline Kinsey at high-status British Team Cup rounds 2026"
+  ],
+  "other": "Core developmental platform in British domestic racing. Operates a multi-tiered pipeline alongside the Red Chilli sister squad to transition Under-23 and senior riders from regional ranks into National Series events.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null,
+  "needs_review": false
+ },
+ {
+  "id": "oshea-red-chilli-bikes",
+  "name": "OShea Red Chilli Bikes",
+  "team_status": "Development & Coaching",
+  "location": "Great Britain",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Red Chilli Bikes",
+    "years": null
+   },
+   {
+    "name": "AWOL O'Shea sister squad",
+    "years": null
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, British Team Cup, rider transition to National Series",
+  "results_2026": [
+   "Featured — Connie Hayes, Isabel Mayes, Matilda McKibben, Evie Smith, Grace Ward, and Sannah Zaman at National Series and Team Cup rounds 2026"
+  ],
+  "other": "The elite sister squad to OShea Development Team, operating a twin-tier pipeline. Red Chilli Bikes focuses on accelerating the best development riders into full National Series competition. Features a strong six-rider block at Otley.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/oshea-red-chilli-bikes.png",
+  "needs_review": false
+ },
+ {
+  "id": "otley-cycle-club",
+  "name": "Otley Cycle Club",
+  "team_status": "Local Club",
+  "location": "Otley, West Yorkshire",
+  "directeurs_sportifs": [
+   {
+    "name": "Club Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@otleycycleclub",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Established 1927 (99 years active). Local club hosting this event. Active road racing, criterium, and cycling community across West Yorkshire.",
+  "targets_2026": "Local Criterium Series and regional championship podiums",
+  "results_2026": [
+   "Emily Middlebrooke competing at premium domestic criteriums 2026"
+  ],
+  "other": "The hometown club for the Otley Grand Prix. Local rider Emily Middlebrooke is guaranteed a massive partisan reception on the barriers.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/otley-cycle-club.png",
+  "needs_review": false
+ },
+ {
+  "id": "paceline-cycles-north",
+  "name": "Paceline Cycles North",
+  "team_status": "Local Club",
+  "location": "Northern England",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "Northern Regional Road Race Championships, Elite Circuit Series rounds",
+  "results_2026": [
+   "Consistent field finishes and regional point hauls at Yorkshire and North West circuit events 2026"
+  ],
+  "other": "A tightly-knit, fiercely competitive Northern racing collective built around tactical synergy.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null,
+  "needs_review": false
+ },
+ {
+  "id": "paralloy-rt",
+  "name": "Paralloy RT",
+  "team_status": "National Elite (British EDT)",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Team Boompods",
+    "years": "2020–2025"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Elite Development Team ranking points",
+  "results_2026": [
+   "Featured — Amy Henchoz and Rebecca Woodvine at National Road Championships 2026"
+  ],
+  "other": "Rebranded ahead of the 2026 campaign from the long-standing UK domestic Elite Development Team (EDT) Team Boompods, active 6+ years under that name.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/paralloy-rt.png"
+ },
+ {
+  "id": "performance-development-team",
+  "name": "Performance Development Team",
+  "team_status": "National Elite (British EDT)",
+  "location": "Great Britain",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "British Team Cup podium positions, Elite Development Team ranking points",
+  "results_2026": [
+   "3rd — Jennifer Powell, Banbury Star Women's Road Race / British Team Cup Round 2 2026"
+  ],
+  "other": "Jennifer Powell forced her way into the elite 6-rider breakaway over the slopes of The Knowle at Edge Hill, putting the team directly on a national podium.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/performance-development-team.png"
+ },
+ {
+  "id": "primo-rt",
+  "name": "Primo RT",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "private-member",
+  "name": "Private Member",
+  "team_status": null,
+  "location": null,
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "prologue-racing-team",
+  "name": "Prologue Racing Team",
+  "team_status": "Development & Coaching",
+  "location": "Harrogate, North Yorkshire",
+  "directeurs_sportifs": [
+   {
+    "name": "Prologue Performance Cycling (supported by)",
+    "ex_pro": false,
+    "bio": "Linked to a bike shop hub providing elite and junior racing structure."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@prologuecycling",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Linked to bike shop hub; elite/junior racing structure.",
+  "targets_2026": "Yorkshire road races and National Junior Classics",
+  "results_2026": [
+   "1st — Mark Ketteringham, Clayton Spring Classic Handicap (2026)",
+   "4th — Harrison Evans, GT Ellingworth & GA Bennett Road Race (2026)",
+   "4th — Harrison Evans, ANEXO/CAMS Junior CiCLE Classic (2026)",
+   "5th — Harrison Evans, Witham Hall Junior Open GC (2026)",
+   "18th — Oliver Sergeant, GT Ellingworth & GA Bennett Road Race (2026)"
+  ],
+  "other": "Harrogate-based junior and elite development team.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/prologue-racing-team.png"
+ },
+ {
+  "id": "pronto-bikes",
+  "name": "Pronto Bikes",
+  "team_status": "Local Club",
+  "location": "Frome, Somerset",
+  "directeurs_sportifs": [
+   {
+    "name": "Justin and Kate (Shop Owners)",
+    "ex_pro": false,
+    "bio": "Owner-operators of the Pronto Bikes shop and café in Frome."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@prontobikes",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Regular 'Sunday Out Riding' group shop rides departing from the retail premises and café.",
+  "targets_2026": "Regional South West criteriums",
+  "results_2026": [
+   "Featured entries — Will Duffy, David Roper, Luke Barfoot (2026)"
+  ],
+  "other": "Bike shop and café-based club in Frome, Somerset.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/pronto-bikes.png"
+ },
+ {
+  "id": "rapha-cycling-club",
+  "name": "Rapha Cycling Club",
+  "team_status": "National Elite",
+  "location": "London / Global",
+  "directeurs_sportifs": [
+   {
+    "name": "Barney Stinton",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@rapharacing",
+    "platform": "Instagram"
+   },
+   {
+    "handle": "@rapha_uk",
+    "platform": "Instagram (UK)"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, Elite Criteriums",
+  "results_2026": [
+   "1st — Matthew Bostock, Fort Vale Colne Grand Prix (2026)",
+   "1st — Matthew Bostock, National Circuit Championships (2026)",
+   "1st — Megan Barker, National Circuit Championships (2026)",
+   "2nd — Megan Barker, Fort Vale Colne Grand Prix (2026)",
+   "4th — Oliver Wood, Fort Vale Colne Grand Prix (2026)",
+   "6th — Oliver Wood, National Road Championships Road Race (2026)",
+   "1st — Megan Barker, National Circuit Championships 2026",
+   "2nd — Megan Barker, Fort Vale Colne Grand Prix 2026",
+   "4th — Megan Barker, City of London Nocturne 2026"
+  ],
+  "other": "Women's race: Features team-pursuit world champion and national circuit champion Megan Barker, who enters in peak form after capturing the 2026 Elite National Circuit title.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/rapha-cycling-club.png"
+ },
+ {
+  "id": "ribble-hunt-racing",
+  "name": "Ribble Hunt Racing",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "ride-revolution-coaching",
+  "name": "Ride Revolution Coaching",
+  "team_status": "Development & Coaching",
+  "location": "East Midlands / National",
+  "directeurs_sportifs": [
+   {
+    "name": "Jake Hales",
+    "ex_pro": false,
+    "bio": "Active rider-coach; competed at the 2026 Fort Vale Colne Grand Prix (13th)."
+   },
+   {
+    "name": "Richard Wood",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@riderevolutioncoaching",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Commercial performance coaching business. No open local club runs.",
+  "targets_2026": "National Circuit Series",
+  "results_2026": [
+   "1st — Caleb Pain, Tour Szlakiem Mazurskich Twierdz GC (2026)",
+   "6th — Gabriel Dellar, Dornan Rás Mumhan GC (2026)",
+   "13th — Jake Hales, Fort Vale Colne Grand Prix (2026)",
+   "13th — Harry Macfarlane, National Circuit Championships (2026)"
+  ],
+  "other": "4 years active. Dual coaching and elite racing structure.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/ride-revolution-coaching.png"
+ },
+ {
+  "id": "royal-air-force-ca",
+  "name": "Royal Air Force CA",
+  "team_status": "Services",
+  "location": "National / Service-Based",
+  "directeurs_sportifs": [
+   {
+    "name": "Association Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@rafcycling",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Restricted military personnel representative squad.",
+  "targets_2026": "Inter-Services Championships, National Elite Criteriums",
+  "results_2026": [
+   "3rd — Ben Southgate, Les Archer Memorial Road Race (2026)",
+   "32nd — Daniel Watts, Les Archer Memorial Road Race (2026)",
+   "DNF — Euan Campbell, National Circuit Championships (2026)"
+  ],
+  "other": "RAF Cycling Association — open only to serving RAF personnel.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "schils-doltcini-racing-team",
+  "name": "Schils - Doltcini Racing Team",
+  "team_status": "International Guest",
+  "location": "Essex, UK / International alignment",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "UK National Elite Stage Races",
+  "results_2026": [
+   "1st — Patrick Clarke, Marches 3-Day Stage 2 ITT (2026)",
+   "1st — Matthew Warhurst, Marches 3-Day Stage 4 Road Race (2026)",
+   "2nd — Patrick Clarke, Marches 3-Day Stage 4 Road Race (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/schils-doltcini-racing-team.png"
+ },
+ {
+  "id": "shibden-apex-rt",
+  "name": "Shibden Apex RT",
+  "team_status": "Development & Coaching",
+  "location": "Yorkshire / National",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "@shibdenapexrt",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Shibden Apex Racing Team",
+    "years": ""
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Junior Road Series, European Kermesse campaigns",
+  "results_2026": [
+   "Featured entries — Ayesha Vose, Maia Howell, and Phoebe Taylor at elite circuit fixtures 2026"
+  ],
+  "other": "A highly decorated junior development pipeline. 4 years active. Alongside camsmajaco and Brother UK, backed by the 2026 Rayner Foundation Gateway Project for cross-Channel junior racing.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/shibden-apex-rt.png"
+ },
+ {
+  "id": "simpson-nouvelles",
+  "name": "Simpson Nouvelles",
+  "team_status": "Development & Coaching",
+  "location": "Great Britain",
+  "directeurs_sportifs": [
+   {
+    "name": "David Walters",
+    "ex_pro": false,
+    "bio": "Team Owner and Manager."
+   },
+   {
+    "name": "Chris Sidwells",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@nouvellescycling",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Bianchi title sponsorship roots",
+    "years": ""
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Under-23 development exposure across the UK and Belgian kermesse scene",
+  "results_2026": [
+   "1st — Freya Whiteside, Irish National Cyclocross Championships 2025/2026",
+   "13th — Ella Tandy, Rapha Lincoln Grand Prix 2026",
+   "25th — Freya Whiteside, Sinaai Kermesse, Belgium 2026",
+   "27th — Ella Tandy, CAMS Women's CiCLE Classic 2026"
+  ],
+  "other": "Named in honour of Tom Simpson, Britain's first road race World Champion, working directly with his daughter Joanne. Outfitted by Luca Kuhn apparel for 2026. Exeter University roots. A dedicated stepping stone for Under-23 riders with a heavy Belgian racing block.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/simpson-nouvelles.png"
+ },
+ {
+  "id": "smurfit-westrock-cycling-team",
+  "name": "Smurfit Westrock Cycling Team",
+  "team_status": "National Elite (British EDT)",
+  "location": "Lincoln, Great Britain",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series podium positions",
+  "results_2026": [
+   "Featured — Jo Tindley at City of London Nocturne chase group 2026",
+   "Featured — Amelia Cebak at National Road Championships 2026"
+  ],
+  "other": "Backed by global sustainable packaging giant Smurfit Westrock. New 3-year title sponsorship began January 2025. Features highly experienced fast-finisher Jo Tindley, National Circuit Championship title winner in 2021.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/smurfit-westrock-cycling-team.png"
+ },
+ {
+  "id": "solas-cycling",
+  "name": "Solas Cycling",
+  "team_status": "Development & Coaching",
+  "location": "Scotland",
+  "directeurs_sportifs": [],
+  "social_media": [
+   {
+    "handle": "@solascycling",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Dedicated Scottish junior and under-23 developmental pathway set up exclusively for young female riders. 3 years active.",
+  "targets_2026": "Scottish National Road Race & Criterium Championships, National Youth Series",
+  "results_2026": [
+   "Featured — Millie Thomson, Lydia Louw, and Lowri Richards at National Road Championships 2026"
+  ],
+  "other": "Builds elite race opportunities and peer support for young female riders.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/solas-cycling.png"
+ },
+ {
+  "id": "spectrum-racing",
+  "name": "Spectrum Racing",
+  "team_status": "Local Club",
+  "location": "North West England",
+  "directeurs_sportifs": [
+   {
+    "name": "Club Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Event hosting and regional racing club.",
+  "targets_2026": "Event promotion and regional championships",
+  "results_2026": [
+   "Organisational Milestone — Official host promoter of the 2026 North West, Yorkshire & North East Regional Road Race Championships"
+  ],
+  "other": "North West-based club with a strong event promotion role.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "spokes-racing-team",
+  "name": "Spokes Racing Team",
+  "team_status": "Local Club",
+  "location": "Fife, Scotland",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Regional youth/junior race team development.",
+  "targets_2026": "Scottish National Events, National Circuit Series",
+  "results_2026": [
+   "24th — Zach Barbour, National Circuit Championships (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/spokes-racing-team.png"
+ },
+ {
+  "id": "stark-peter-ellegaard-track-team",
+  "name": "STARK - Peter Ellegaard Track Team p/b SANA",
+  "team_status": "UCI Track Team",
+  "location": "Denmark",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "UCI Track Champions League, Track World Cup events",
+  "results_2026": [
+   "Track roster — Lasse Norman Leth, Frederik Rodenberg, Laura Auerbach-Lind (2026)"
+  ],
+  "other": "Registered UCI Track Team (Denmark). Elite international track racing programme.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/stark-peter-ellegaard-track-team-p-b-sana.png"
+ },
+ {
+  "id": "taap-kalas",
+  "name": "TAAP Kalas",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/taap-kalas.png"
+ },
+ {
+  "name": "Tactic Development Team",
+  "category": "Development & Coaching",
+  "country": "GB",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "id": "tactic-development-team"
+ },
+ {
+  "id": "tactic-sport-uk",
+  "name": "Tactic Sport UK Race Team",
+  "team_status": "Development & Coaching",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Team Tactic U23",
+    "years": "2024–2025"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "Under-23 National Road and Circuit Series",
+  "results_2026": [
+   "4th — David Price, Blaze Hill Climb (2026)",
+   "DNS — Ryan Oldfield, National Circuit Championships (2026)"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/tactic-sport-uk-race-team.png"
+ },
+ {
+  "id": "team-bricquebec-cotentin",
+  "name": "Team Bricquebec Cotentin",
+  "team_status": "International Guest",
+  "location": "Bricquebec-en-Cotentin, Normandy, France",
+  "directeurs_sportifs": [
+   {
+    "name": "Jean-Marie Pezet",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "French Division Nationale 1 (N1) amateur fixtures",
+  "results_2026": [
+   "No top-30 elite results recorded for 2026"
+  ],
+  "other": "Normandy-based French amateur club.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/team-bricquebec-cotentin.png"
+ },
+ {
+  "id": "team-empella",
+  "name": "Team Empella",
+  "team_status": "Development & Coaching",
+  "location": "Derby, East Midlands",
+  "directeurs_sportifs": [
+   {
+    "name": "John Holmes",
+    "ex_pro": false,
+    "bio": "Cyclo-cross importer and team founder. Long-standing steward of Midlands cycling talent across off-road and circuit disciplines."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "Team Empella Cyclo-Cross.Com",
+    "years": ""
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "National Trophy Cyclo-cross Series, British Criterium fixtures",
+  "results_2026": [
+   "Featured — Amy Kolbert with mid-peloton finishes at the Banbury Star Road Race 2026"
+  ],
+  "other": "A highly respected, multi-generation hub for off-road and tight-circuit racing craft. Active for over a decade. Website: empella.co.uk",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/team-empella.png"
+ },
+ {
+  "id": "team-farto-btc",
+  "name": "Team Farto - BTC",
+  "team_status": "UCI Continental",
+  "location": "Pontevedra, Spain",
+  "directeurs_sportifs": [
+   {
+    "name": "Brais Dacal",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@teamfartobtc",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Farto-Aleata",
+    "years": "2019"
+   },
+   {
+    "name": "Farto-Aguas do Paraño",
+    "years": "2020"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "UCI Women's Continental Tours, international criteriums",
+  "results_2026": [
+   "Impactful field presence and aggressive tactical displays across selective European calendar 2026"
+  ],
+  "other": "UCI Registered Continental Team since 2021 (founded 2018). A long-standing Spanish outfit offering an expansive international race programme, bringing a sharp continental tactical edge to UK crits.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/team-farto-btc.png"
+ },
+ {
+  "id": "team-ohten",
+  "name": "Team Ohten",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "team-pb-performance",
+  "name": "Team PB Performance",
+  "team_status": "National Elite (British EDT)",
+  "location": "East Midlands",
+  "directeurs_sportifs": [
+   {
+    "name": "Paul Bennett",
+    "ex_pro": false,
+    "bio": "Principal and head coach."
+   },
+   {
+    "name": "Matt Bray",
+    "ex_pro": false,
+    "bio": "DS."
+   },
+   {
+    "name": "Darren Cole",
+    "ex_pro": false,
+    "bio": "DS."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@teampbperf",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Elite racing project and coaching consultancy structure.",
+  "targets_2026": "National Circuit Series, National Road Series, Rás Tailteann",
+  "results_2026": [
+   "8th — Adam Millington, Blaze Hill Climb (2026)"
+  ],
+  "other": "British Cycling accredited Elite Development Team since 2021.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/team-pb-performance.png"
+ },
+ {
+  "id": "team-tor-2000-kalas",
+  "name": "Team Tor 2000 Kalas",
+  "team_status": "Local Club",
+  "location": "Somerset Levels / South West England",
+  "directeurs_sportifs": [
+   {
+    "name": "Club Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@teamtor2000",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Volunteer-led club with official British Cycling Go-Ride accreditation. Runs youth development sessions focused on handling, race preparation and cycle skills.",
+  "targets_2026": "Regional South West road races",
+  "results_2026": [
+   "No top-30 elite results recorded for 2026 campaigns"
+  ],
+  "other": "British Cycling Go-Ride accredited club. Strong grassroots youth focus.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/team-tor-2000-kalas.png"
+ },
+ {
+  "id": "tekkerz-cc",
+  "name": "TEKKERZ CC",
+  "team_status": "Development & Coaching",
+  "location": "South London",
+  "directeurs_sportifs": [
+   {
+    "name": "Alec Briggs",
+    "ex_pro": false,
+    "bio": "Founder and manager; active racer (38th at 2026 National Circuit Championships)."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@tekkerzcc",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Localised around Herne Hill Velodrome infrastructure. No wider open club activities.",
+  "targets_2026": "National Circuit Series, Fixed Gear and Criterium events",
+  "results_2026": [
+   "38th — Alec Briggs, National Circuit Championships (2026)",
+   "DNF — Paddy Chapman, National Circuit Championships (2026)",
+   "DNF — Benjamin Tuchner, National Circuit Championships (2026)"
+  ],
+  "other": "South London criterium and fixed gear-oriented team based at Herne Hill.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/tekkerz-cc.png"
+ },
+ {
+  "id": "the-hera-project",
+  "name": "The Hera Project",
+  "team_status": "Development & Coaching",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [
+   {
+    "name": "Christine White",
+    "ex_pro": false,
+    "bio": "Founder and Team Principal. Pioneer of women-in-roles initiative bridging the gender gap behind the scenes."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Pioneering female-led initiative intentionally developing and mentoring women in technical and leadership roles: Directeur Sportif, coaches, soigneurs, and mechanics.",
+  "targets_2026": "Holistic career pathway mapping; tracking toward UCI Continental status within 36 months",
+  "results_2026": [
+   "Featured — Sophie Holmes and Daisy Taylor at National Road Championships 2026"
+  ],
+  "other": "Launched ahead of the 2026 season.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/the-hera-project.png"
+ },
+ {
+  "id": "the-lead-out-cycling-academy",
+  "name": "The Lead Out Cycling Academy",
+  "team_status": "Development & Coaching",
+  "location": "Belgium (Flanders region)",
+  "directeurs_sportifs": [
+   {
+    "name": "Pollet Group (supported by)",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "Belgian domestic and European intermediate fixtures",
+  "results_2026": [
+   "Roster presence — Morgane De Halleux, Ilke Beddeleem, Joyce De Loof (2026)"
+  ],
+  "other": "Flanders-based cycling academy with Pollet Group backing.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/the-lead-out-cycling-academy.png"
+ },
+ {
+  "name": "TRASH MILE",
+  "category": "Local Club",
+  "country": "GB",
+  "status": "active",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "id": "trash-mile"
+ },
+ {
+  "id": "ts-racing",
+  "name": "TS Racing",
+  "team_status": "National Elite",
+  "location": "United Kingdom",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "uae-development-team",
+  "name": "UAE Development Team",
+  "team_status": "UCI Continental",
+  "location": "International / UAE",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "UCI Women's Continental tours and select prestige domestic events",
+  "results_2026": [
+   "3rd — Abigail Miller, Under-23 National Time Trial Championships 2026"
+  ],
+  "other": "Features Eilidh Shaw, a highly decorated tactical rider who became the first woman to win the National Circuit Series overall title as a junior.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/uae-development-team.png"
+ },
+ {
+  "id": "utc-butcherbox-cycling",
+  "name": "UTC BUTCHERBOX Cycling",
+  "team_status": "International Guest",
+  "location": "USA / Domestic alignment",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, Criterium campaigns",
+  "results_2026": [
+   "19th — Tom Scott, National Circuit Championships (2026)"
+  ],
+  "other": "US-backed team with domestic UK racing alignment.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/utc-butcherbox-cycling.png"
+ },
+ {
+  "id": "uv-aube",
+  "name": "UV Aube",
+  "team_status": "National Elite",
+  "location": "France",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "results_2026": [],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": null
+ },
+ {
+  "id": "valley-striders-cc",
+  "name": "Valley Striders CC",
+  "team_status": "Local Club",
+  "location": "Leeds, West Yorkshire",
+  "directeurs_sportifs": [
+   {
+    "name": "Nikolas Hanson",
+    "ex_pro": false,
+    "bio": "Race Captain."
+   },
+   {
+    "name": "Kat Handy",
+    "ex_pro": false,
+    "bio": "Race Captain."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Racing since 2014, sponsorship infrastructure since 2016. Internal Warrior & Grimpeur club leagues. Backed by corporate sponsors Walker Morris and Succession Wealth. Website: vscc.org.uk",
+  "targets_2026": "Yorkshire Regional Criteriums, British Cycling Yorkshire leagues",
+  "results_2026": [
+   "Prominent multi-rider entries at Yorkshire regional circuit series and local elite scratch fields 2026"
+  ],
+  "other": "Based in North Leeds with a British Cycling-approved racing division. Famous for intense internal competitive leagues that fuel a massive, vocal roadside support network on Yorkshire barriers.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/valley-striders-cc.png"
+ },
+ {
+  "id": "vc-londres",
+  "name": "VC Londres",
+  "team_status": "Local Club",
+  "location": "South London (Herne Hill Velodrome hub)",
+  "directeurs_sportifs": [
+   {
+    "name": "Club Committee",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@vclondres",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": "Structured coaching at Herne Hill Velodrome: Youth A, B and Junior Development Centre; youth criterium skills classes; holiday camps; adult criterium race-craft courses.",
+  "targets_2026": "Youth and Track disciplines",
+  "results_2026": [
+   "Featured — Grace Bell, Theo Sandell, Milo Clarke at domestic youth/junior events (2026)"
+  ],
+  "other": "Historic South London club closely tied to Herne Hill Velodrome. Strong track and criterium heritage.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/vc-londres.png"
+ },
+ {
+  "id": "velo-club-villefranche-beaujolais",
+  "name": "Velo Club Villefranche Beaujolais",
+  "team_status": "International Guest",
+  "location": "Villefranche-sur-Saône, France",
+  "directeurs_sportifs": [
+   {
+    "name": "Anthony Barle",
+    "ex_pro": false,
+    "bio": null
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@vcvb_lesloups",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "French National amateur cups, French elite events",
+  "results_2026": [
+   "Withdrew/DNF — William Tidball, National Circuit Championships (2026)"
+  ],
+  "other": "French Beaujolais-region cycling club.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/velo-club-villefranche-beaujolais.png"
+ },
+ {
+  "id": "wheelbase-cabtech-castelli",
+  "name": "Wheelbase Cabtech Castelli",
+  "team_status": "National Elite (British EDT)",
+  "location": "Staveley, Cumbria",
+  "directeurs_sportifs": [
+   {
+    "name": "Toby Dalton",
+    "ex_pro": false,
+    "bio": "Team owner and co-founder of Wheelbase retail business (est. 2005). Keen mountain biker but no professional road racing career."
+   },
+   {
+    "name": "Stuart Reid",
+    "ex_pro": false,
+    "bio": "Directeur Sportif overseeing day-to-day race operations. Club-level racer with double World Fire Fighter Mountain Bike Champion title."
+   }
+  ],
+  "social_media": [
+   {
+    "handle": "@wheelbase_cabtech_castelli",
+    "platform": "Instagram"
+   }
+  ],
+  "previous_names": [
+   {
+    "name": "Wheelbase Altura MGD",
+    "years": "2008–2014"
+   }
+  ],
+  "club_activities": "None — strictly elite racing team structure. Linked to Wheelbase cycle retail stores in Cumbria and Yorkshire.",
+  "targets_2026": "National Circuit Series Team Title, Otley Open GP victory",
+  "results_2026": [
+   "1st — Tim Shoreman, Rás Tailteann Stage 2 (2026)",
+   "1st — Tom Martin, Rás Tailteann Stage 4 (2026)",
+   "2nd — Aaron King, Fort Vale Colne Grand Prix (2026)",
+   "2nd — Tom Armstrong, Rutland International CiCLE Classic (2026)",
+   "2nd — Tom Martin, Rás Tailteann General Classification (2026)",
+   "3rd — Tom Armstrong, Rapha Lincoln Grand Prix (2026)",
+   "6th — Tim Shoreman, Fort Vale Colne Grand Prix (2026)"
+  ],
+  "other": "One of Britain's longest-running elite domestic teams, with 14+ years at the top of national circuit racing. British Cycling confirmed Elite Development Team for 2026.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/wheelbase-cabtech-castelli.png"
+ },
+ {
+  "id": "willebrord-wil-vooruit",
+  "name": "Willebrord Wil Vooruit",
+  "team_status": "International Guest",
+  "location": "Netherlands",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "Elite junior development club infrastructure.",
+  "targets_2026": "Dutch and European Junior Development Cups",
+  "results_2026": [
+   "No top-30 elite results recorded for 2026"
+  ],
+  "other": "Dutch elite junior development club.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/willebrord-wil-vooruit.png"
+ },
+ {
+  "id": "wold-top-pactimo",
+  "name": "Wold Top Pactimo",
+  "team_status": "National Elite",
+  "location": "Yorkshire",
+  "directeurs_sportifs": [
+   {
+    "name": "David Hought",
+    "ex_pro": false,
+    "bio": "Co-founder. Cycling enthusiast owner of Wold Top Brewery."
+   },
+   {
+    "name": "Richard Baldwin",
+    "ex_pro": false,
+    "bio": "Co-founder."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series",
+  "results_2026": [
+   "17th — Daniel Barnes, Fort Vale Colne Grand Prix (2026)",
+   "23rd — Philip Large, National Circuit Championships (2026)"
+  ],
+  "other": "Yorkshire-based elite team co-sponsored by Wold Top Brewery.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/wold-top-pactimo.png"
+ },
+ {
+  "id": "wolf-cycles",
+  "name": "Wolf Cycles",
+  "team_status": "Local Club",
+  "location": "Longtown, Cumbria",
+  "directeurs_sportifs": [
+   {
+    "name": "Oliver",
+    "ex_pro": false,
+    "bio": "Team and Shop Lead."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": "High-end specialist shop at Borders Business Park near Carlisle. Renowned for real-world technical expertise: TPU tubes, performance tire inserts, custom gravel wheels.",
+  "targets_2026": "National Gravel Series, Northern Criterium Championships, Scottish / Border regional crowns",
+  "results_2026": [
+   "Top elite field representation at major Northern off-road, ultra-endurance and circuit races 2026"
+  ],
+  "other": null,
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/wolf-cycles.png"
+ },
+ {
+  "id": "xds-china-women-team",
+  "name": "XDS CHINA Women Team",
+  "team_status": "UCI Continental",
+  "location": "Beijing, China",
+  "directeurs_sportifs": [],
+  "social_media": [],
+  "previous_names": [
+   {
+    "name": "China Glory",
+    "years": "institutional links"
+   }
+  ],
+  "club_activities": null,
+  "targets_2026": "UCI Women's Continental Tours, high-status international criteriums",
+  "results_2026": [
+   "Featured roster appearances across Asian and European invitationals 2026"
+  ],
+  "other": "A fully registered Chinese UCI Women's Continental team based in Beijing. Features a blend of developmental Chinese track and road specialists alongside proven international engines including British professional Henrietta Colborne.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/xds-china-women-team.png"
+ },
+ {
+  "id": "zappi-racing-team",
+  "name": "Zappi Racing Team",
+  "team_status": "National Elite",
+  "location": "United Kingdom / Italy alignment",
+  "directeurs_sportifs": [
+   {
+    "name": "Flavio Zappi",
+    "ex_pro": true,
+    "bio": "Former Italian professional road cyclist (1981–1985). Raced against Francesco Moser, Sean Kelly and Laurent Fignon. Held the Giro d'Italia King of the Mountains jersey for two weeks in 1984. Won a stage at Giro del Trentino (1981). Founded the development team in 2009 — notable graduate James Knox (Deceuninck–QuickStep)."
+   }
+  ],
+  "social_media": [],
+  "previous_names": [],
+  "club_activities": null,
+  "targets_2026": "National Circuit Series, Italian U23 Calendar",
+  "results_2026": [
+   "5th — Jake Edwards, National Circuit Championships (2026)"
+  ],
+  "other": "Founded 2009 by Flavio Zappi. Focused on developing young riders towards the professional peloton.",
+  "coaches": [],
+  "notable_results": [],
+  "kit_image": "images/kits/zappi-racing-team.png"
+ },
+ {
+  "id": "foran-ct",
+  "name": "Foran CT",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/foran-ct.png",
+  "needs_review": true
+ },
+ {
+  "id": "stolen-goat-4endurance",
+  "name": "Stolen Goat 4Endurance",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "aero-clctv-race-team",
+  "name": "Aero CLCTV Race Team",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Elliot Colyer National Cycling Esports Champ UK 6.02W/kg",
+  "kit_image": "images/kits/aero-clctv-race-team.png",
+  "needs_review": true
+ },
+ {
+  "id": "cranks-racing",
+  "name": "CRANKS Racing",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/cranks-racing.png",
+  "needs_review": true
+ },
+ {
+  "id": "decathlon-cma-cgm-juniors-team",
+  "name": "Decathlon CMA CGM Juniors Team",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/decathlon-cma-cgm-juniors-team.png",
+  "needs_review": true
+ },
+ {
+  "id": "gftl",
+  "name": "GFTL",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/gftl.png",
+  "needs_review": true
+ },
+ {
+  "id": "lcrt",
+  "name": "LCRT",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/lcrt.png",
+  "needs_review": true
+ },
+ {
+  "id": "stark-peter-ellegaard-track-team-p-b",
+  "name": "STARK - Peter Ellegaard Track Team p/b",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "vc-st-raphael",
+  "name": "VC St Raphael",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "verulam-megan-s-rt",
+  "name": "Verulam Megan's RT",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "wolfox-cams-le-col-rt",
+  "name": "Wolfox CAMS Le Col RT",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "festival-rc",
+  "name": "Festival RC",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/festival-rc.png",
+  "needs_review": true
+ },
+ {
+  "id": "didcot-phoenix-cc",
+  "name": "Didcot Phoenix CC",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/didcot-phoenix-cc.png",
+  "needs_review": true
+ },
+ {
+  "id": "abingdon-race-team",
+  "name": "Abingdon Race Team",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Organise the ART races at Dalton",
+  "kit_image": "images/kits/abingdon-race-team.png",
+  "needs_review": true
+ },
+ {
+  "id": "enhance-d-club-uk",
+  "name": "Enhance-d Club UK",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Nonprofit organization\nShifting the Perception of Type One Diabetes CIC operating as Enhance-d Club UK\nDiabetes & Sport 💉🚲\nEducation 📖\nEnvironment 🧛‍♂️\n#type1diabetes",
+  "kit_image": "images/kits/enhance-d-club-uk.png",
+  "needs_review": true
+ },
+ {
+  "id": "raptor-london",
+  "name": "Raptor London",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "team-ftp-fusion",
+  "name": "Team FTP Fusion",
+  "team_status": null,
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "kingston-junior-cycle-club",
+  "name": "Kingston Junior Cycle Club",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/kingston-junior-cycle-club.png",
+  "needs_review": true
+ },
+ {
+  "id": "lee-valley-youth-cycling-club",
+  "name": "Lee Valley Youth Cycling Club",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Lee Valley Youth Cycling Club is based at Redbridge Cycling Centre in East London. The club was founded in 2000 and has grown to become one of the largest youth cycling clubs in the UK.  We are part of the British Cycling Organisation as an Accredited Go-Ride club and is run entirely by volunteers and parents.\n\nLVYCC offers coaching sessions and social ride opportunities for 6 to 18 year old riders to enjoy cycling, socialise and enjoy the sport in a fun and friendly environment. As a Go-Ride Accredited club, our coaching activities are run by British Cycling qualified coaches, all of whom have undergone a DBS check and have been cleared to work with children.\n\nThe Lee Valley Junior Team caters for 16 to 18 year olds, enabling riders to progress from Youth through to U23.\n\nWe welcome riders of all abilities and many of our members joined with little previous cycling experience. If your child needs one, we have bikes available for hire at low cost, so there’s no reason not to get riding! We regularly have up to 100 riders of various abilities attending our coaching sessions on Saturday mornings.\n\nWe encourage young riders who want to train for racing and develop and support those who have the ability through to the British Cycling Talent Pathway. The club is represented in most National Youth Competitions across multiple cycling disciplines. We also participate in European races in both Youth and Junior categories.",
+  "kit_image": "images/kits/lee-valley-youth-cycling-club.png",
+  "needs_review": true
+ },
+ {
+  "id": "limited-edition-cycling",
+  "name": "Limited Edition Cycling",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Junior, Adult and All Inclusive cycling club\nUnique is our all ability cycling project, for all riders, families and carers, regardless of their ability or need. We have a range of adapted bikes and equipment on site, which includes handcycles, tandems, trikes and wheelchair cycles, making the sessions accessible for all. We offer a traffic-free environment for everyone to enjoy the thrills of cycling.",
+  "kit_image": "images/kits/limited-edition-cycling.png",
+  "needs_review": true
+ },
+ {
+  "id": "charlotteville-cc",
+  "name": "Charlotteville CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/charlotteville-cc.png",
+  "needs_review": true
+ },
+ {
+  "id": "unattached",
+  "name": "Unattached",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "solent-pirates",
+  "name": "Solent Pirates",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "wightlink-crt",
+  "name": "Wightlink CRT",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "welwyn-wheelers-cc",
+  "name": "Welwyn Wheelers CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "vcgh",
+  "name": "VCGH",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "hillingdon-slipstreamers",
+  "name": "Hillingdon Slipstreamers",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/hillingdon-slipstreamers.png",
+  "needs_review": true
+ },
+ {
+  "id": "velo-club-venta",
+  "name": "Velo Club Venta",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "pedal-heaven-kids",
+  "name": "Pedal Heaven Kids",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "vicious-velo",
+  "name": "ViCiOUS VELO",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "barking-dagenham-cc",
+  "name": "Barking & Dagenham CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "B&DCC is a friendly club for children of all abilities where we develop their love of cycling with an interest to race #barkinganddagenhamcyclingclub",
+  "kit_image": "images/kits/barking-dagenham-cc.png",
+  "needs_review": true
+ },
+ {
+  "id": "palmer-park-velo-rt",
+  "name": "Palmer Park Velo RT",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "AW Cycles Cycling club for children aged 8 to 18, based in Reading. Specialising in track cycling but also road racing, cyclocross and mountain biking",
+  "kit_image": "images/kits/palmer-park-velo-rt.png",
+  "needs_review": true
+ },
+ {
+  "id": "4t-cyclopark",
+  "name": "4T+ Cyclopark",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "We are a cycling team based at @cyclopark in Kent and coached by Nick Dibble #4tvelocyclopark Racing club for all athletes\n4T+  is a cycle racing club based at the Cyclopark in Kent, established in 2012 and open to cyclists who wish to race. The team participates in events throughout the South East and is open to men, women and youths. \n\nThe club is a member of British Cycling and is affiliated to the South East Road Race League SERRL, Kent Cycling and the London X League.\n4T+  is a cycle racing club based at the Cyclopark in Kent, established in 2012 and open to cyclists who wish to race. The team participates in events throughout the South East and is open to men, women and youths. \nThe club is a member of British Cycling and is affiliated to the South East Road Race League SERRL, Kent Cycling and the London X League.",
+  "kit_image": "images/kits/4t-cyclopark.png",
+  "needs_review": true
+ },
+ {
+  "id": "sotonia-cc",
+  "name": "Sotonia CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "preston-park-youth-cc-ppycc",
+  "name": "Preston Park Youth CC (PPYCC)",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "chelmer-cc",
+  "name": "Chelmer CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Go-Ride registered\nWe are a British Cycling Go-Ride registered club which supports children to develop and progress their cycling journey.\n\nOur Level 2 qualified coaches support riders in fun and engaging activities to develop confidence and competence in the foundations of bike-handling and riding skills, plus gear selection, braking, cornering, climbing and descending and some group riding skills.\n\nVenue\nOur Go-Ride activities are delivered in a safe traffic free environment. From March to November (excluding school holiday periods) we hold our coaching sessions on most Saturday mornings at Teledyne E2V employee car park, 106 Waterhouse Lane, Chelmsford CM1 2QU from 9:00 to 10:30.\n\nAccess to and from the venue is by cycle or car only. There is strictly no pedestrian access as there is no pavement on the access road.",
+  "kit_image": "images/kits/chelmer-cc.png",
+  "needs_review": true
+ },
+ {
+  "id": "southborough-district-whls",
+  "name": "Southborough & District Whls",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "halesowen-a-cc-academy",
+  "name": "Halesowen A & CC Academy",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/halesowen-a-cc-academy.png",
+  "needs_review": true
+ },
+ {
+  "id": "sutton-cycling-club",
+  "name": "Sutton Cycling Club",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "poole-wheelers-cc",
+  "name": "Poole Wheelers CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "velouse-flyers",
+  "name": "Velouse Flyers",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "rotor-race-team",
+  "name": "ROTOR Race Team",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "penge-cycle-club",
+  "name": "Penge Cycle Club",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "sprockets-cycle-club",
+  "name": "Sprockets Cycle Club",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "avid-sport",
+  "name": "Avid Sport",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Women's, Junior and Youth Teams, Our core session is weekly on a Wednesday evening from 1830-2000. This will range from circuit coaching at Odd Down (Bath), through cyclocross coaching to online workshops and turbo sessions. \n\nWe also organise regular residential training camps, road rides and social activities.",
+  "kit_image": "images/kits/avid-sport.png",
+  "needs_review": true
+ },
+ {
+  "id": "stratford-cc",
+  "name": "Stratford CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "cycle-stars",
+  "name": "Cycle Stars",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/cycle-stars.png",
+  "needs_review": true
+ },
+ {
+  "id": "inspire-racing-henrys-ark",
+  "name": "Inspire Racing Henrys Ark",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Inspire Racing is a cycling development team based in Yorkshire supporting youth and junior riders.",
+  "kit_image": "images/kits/inspire-racing-henrys-ark.png",
+  "needs_review": true
+ },
+ {
+  "id": "cc-luton",
+  "name": "CC Luton",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Cycle Club Luton was formed in 1972 and since then has been amongst the most successful in the area with many riders progressing to success at national and international level.",
+  "kit_image": "images/kits/cc-luton.png",
+  "needs_review": true
+ },
+ {
+  "id": "gkr-racing",
+  "name": "GKR Racing",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/gkr-racing.png",
+  "needs_review": true
+ },
+ {
+  "id": "colchester-rovers-cc",
+  "name": "Colchester Rovers CC",
+  "team_status": "Youth Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/colchester-rovers-cc.png",
+  "needs_review": true
+ },
+ {
+  "id": "watford-velo-sport",
+  "name": "Watford Velo Sport",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "out-of-thin-air",
+  "name": "Out Of Thin Air",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/out-of-thin-air.png",
+  "needs_review": true
+ },
+ {
+  "id": "speed-pursuit-cycling",
+  "name": "Speed Pursuit Cycling",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "racing-club-ravenna",
+  "name": "Racing Club Ravenna",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "kingston-wheelers-cc",
+  "name": "Kingston Wheelers CC",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/kingston-wheelers-cc.png",
+  "needs_review": true
+ },
+ {
+  "id": "gapped",
+  "name": "Gapped",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/gapped.png",
+  "needs_review": true
+ },
+ {
+  "id": "chichester-city-riders-ccr",
+  "name": "Chichester City Riders (CCR)",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Possibly Grey kit from previous seasons",
+  "kit_image": "images/kits/chichester-city-riders-ccr.png",
+  "needs_review": true
+ },
+ {
+  "id": "vc-meudon",
+  "name": "VC Meudon",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "oxted-cycling-club",
+  "name": "Oxted Cycling Club",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/oxted-cycling-club.png",
+  "needs_review": true
+ },
+ {
+  "id": "bootleggers-cycle-club",
+  "name": "Bootleggers Cycle Club",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "🏴‍☠️ Alternative cycle collective\n🏠 Deep North, Lime Street\n📍Newcastle upon Tyne, UK\nHillgate Quay, Gateshead NE8 2BH",
+  "kit_image": "images/kits/bootleggers-cycle-club.png",
+  "needs_review": true
+ },
+ {
+  "id": "army-cycling-union",
+  "name": "Army Cycling Union",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Open to serving soldiers and veterans",
+  "kit_image": "images/kits/army-cycling-union.png",
+  "needs_review": true
+ },
+ {
+  "id": "abc-centreville",
+  "name": "ABC Centreville",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "With members from around the Manchester and South Pennines area and beyond!",
+  "kit_image": "images/kits/abc-centreville.png",
+  "needs_review": true
+ },
+ {
+  "id": "reading-cc",
+  "name": "Reading CC",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "ignite-race-team",
+  "name": "IGNITE Race Team",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": "Junior & U23 Cycling Team",
+  "kit_image": "images/kits/ignite-race-team.png",
+  "needs_review": true
+ },
+ {
+  "id": "jane-racing-boathouse-12",
+  "name": "Jane Racing @ Boathouse 12",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/jane-racing-boathouse-12.png",
+  "needs_review": true
+ },
+ {
+  "id": "team-redline-velo",
+  "name": "Team Redline Velo",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ },
+ {
+  "id": "dorking-cycling-club",
+  "name": "Dorking Cycling Club",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": "images/kits/dorking-cycling-club.png",
+  "needs_review": true
+ },
+ {
+  "id": "woking-cycling-club",
+  "name": "Woking Cycling Club",
+  "team_status": "Local Club",
+  "location": null,
+  "previous_names": [],
+  "directeurs_sportifs": [],
+  "coaches": [],
+  "social_media": [],
+  "notable_results": [],
+  "results_2026": [],
+  "club_activities": null,
+  "targets_2026": null,
+  "other": null,
+  "kit_image": null,
+  "needs_review": true
+ }
+]
